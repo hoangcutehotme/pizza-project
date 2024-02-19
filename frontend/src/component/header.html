@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../assets/styles/SmartProductCollections.css" />
+    <link rel="stylesheet" href="../assets/styles/SmartProductCollectionsCustom.css" />
+    <link rel="stylesheet" href="../assets/styles/styles.css" />
+    <link rel="stylesheet" href="../assets/styles/core.min.css" />
+    <link rel="stylesheet" href="./Header/header.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+    <link
+      rel="stylesheet"
+      href="./assets/fonts/fontawesome-free-6.2.0-web/css/all.min.css"
+    />
+  </head>
+
+  <body>
+    <header id="_main-header" class="" style="padding-bottom: 8px">
+      <div class="container">
+        <div class="top-wrap">
+          <div class="left-wrap">
+            <div class="logo">
+              <a href="/" class="logo">
+                <img
+                  alt="The Pizza Company"
+                  title="The Pizza Company"
+                  src="http://thepizzacompany.vn/images/thumbs/000/0003940_logo den.png"
+                />
+                <img
+                  class="logo-mobile"
+                  src="/Themes/Emporium/Content/img/LogoTPC_Delivery_(VN).png"
+                />
+              </a>
+            </div>
+          </div>
+          <div class="mid-wrap">
+            <div class="form-group list-radio">
+              <div class="form-radio">
+                <input
+                  type="radio"
+                  id="order-delivery"
+                  name="order"
+                  checked="checked"
+                  onclick="slideButtonClick(2); SaveAddress(null);"
+                />
+                <label for="order-delivery">
+                  <em class="ri-takeaway-line"></em
+                  ><span>Đặt giao hàng</span></label
+                >
+              </div>
+              <div class="form-radio">
+                <input
+                  type="radio"
+                  id="put-to-get"
+                  name="order"
+                  onclick="slideButtonClick(1); SaveAddress(null);"
+                />
+                <label for="put-to-get">
+                  <em class="ri-store-3-line"></em
+                  ><span>Đặt đến lấy</span></label
+                >
+              </div>
+              <input hidden="" id="topnav-mode-delivery" />
+            </div>
+            <div class="form-group">
+              <div class="form-select div-autocomplete" id="select-address">
+                <label>
+                  <em class="ri-map-pin-line icon-order-delivery active"></em
+                ></label>
+                <span
+                  tabindex="-1"
+                  role="presentation"
+                  class="k-widget k-autocomplete input-autocomplete k-autocomplete-clearable k-state-default"
+                  style=""
+                  ><input
+                    id="autocomplete-address"
+                    class="input-autocomplete k-input"
+                    placeholder="Nhập địa chỉ của bạn"
+                    autocomplete="off"
+                    onblur="addressOnblur(this.value, false )"
+                    onfocusout="inputAutoComplete_OutFocus('select-address')"
+                    onfocus="inputAutoComplete_OnFocus('select-address')"
+                    data-role="autocomplete"
+                    type="text"
+                    role="textbox"
+                    aria-haspopup="true"
+                    aria-disabled="false"
+                    aria-readonly="false"
+                    aria-owns="autocomplete-address_listbox"
+                    aria-autocomplete="list"
+                    aria-busy="false" /><span
+                    unselectable="on"
+                    class="k-icon k-clear-value k-i-close"
+                    title="clear"
+                    role="button"
+                    tabindex="-1"
+                  ></span
+                  ><span class="k-icon k-i-loading" style="display: none"></span
+                ></span>
+              </div>
+
+              <div
+                class="form-select d-none div-autocomplete"
+                id="select-store"
+              >
+                <label> <em class="ri-home-3-line"></em></label>
+                <span
+                  tabindex="-1"
+                  role="presentation"
+                  class="k-widget k-autocomplete input-autocomplete k-autocomplete-clearable k-state-default"
+                  style=""
+                  ><input
+                    id="autocomplete-store"
+                    class="input-autocomplete k-input"
+                    autocomplete="off"
+                    placeholder="Nhập cửa hàng"
+                    onblur="addressOnblur(this.value, true)"
+                    onfocusout="inputAutoComplete_OutFocus('select-store')"
+                    onfocus="inputAutoComplete_OnFocus('select-store')"
+                    data-role="autocomplete"
+                    type="text"
+                    role="textbox"
+                    aria-haspopup="true"
+                    aria-disabled="false"
+                    aria-readonly="false"
+                    aria-owns="autocomplete-store_listbox"
+                    aria-autocomplete="list"
+                    aria-busy="false" /><span
+                    unselectable="on"
+                    class="k-icon k-clear-value k-i-close"
+                    title="clear"
+                    role="button"
+                    tabindex="-1"
+                  ></span
+                  ><span class="k-icon k-i-loading" style="display: none"></span
+                ></span>
+              </div>
+            </div>
+          </div>
+          <div class="right-wrap">
+            <div class="account">
+              <div href="/customer/info" class="icon">
+                <em class="ri-account-circle-line"></em>
+              </div>
+              <div class="login-and-register">
+                <a href="/login?returnUrl=%2F" class="register">Đăng nhập</a>
+                <span>/</span>
+                <a href="/register?returnUrl=%2F" class="login"
+                  >Tạo tài khoản</a
+                >
+              </div>
+            </div>
+            <div class="language">
+              <a href="/changelanguage/1?returnUrl=%2F" title="English">
+                <img
+                  title="English"
+                  alt="English"
+                  src="/images/flags/us.png "
+                />
+              </a>
+            </div>
+          </div>
+
+          <style>
+            .k-icon.k-clear-value.k-i-close {
+              display: none;
+            }
+
+            .input-autocomplete {
+              border: none !important;
+              width: 100% !important;
+              padding: 0px !important;
+              padding-left: 18px !important;
+            }
+
+            .input-autocomplete:focus {
+              outline: none !important;
+              outline-width: 0 !important;
+            }
+
+            li.k-item:first-child {
+              /*   z-index: -1;
+            color:red;
+            margin-top: -5px !important;
+            position:absolute;*/
+            }
+
+            ul#autocomplete-address_listbox li.k-item,
+            ul#autocomplete-store_listbox li.k-item {
+              border-bottom: 1px solid #e1e1e1;
+              border-top: 0 !important;
+              background: #fff !important;
+              padding: 10px 15px !important;
+            }
+
+            ul#autocomplete-address_listbox,
+            ul#autocomplete-store_listbox {
+              background-color: #e1e1e1;
+            }
+
+            ul#autocomplete-address_listbox li.k-item:hover,
+            ul#autocomplete-store_listbox li.k-item:hover {
+              color: black !important;
+              background: rgba(0, 106, 49, 0.1) !important;
+            }
+
+            .div-autocomplete:active {
+              border-color: green;
+            }
+
+            .div-autocomplete {
+              position: relative !important;
+              width: 100% !important;
+              padding: 0px !important;
+            }
+
+            .div-autocomplete label {
+              position: absolute !important;
+              left: 10px !important;
+            }
+
+            .k-nodata {
+              /*  border: 1px solid #e1e1e1 !important;
+            border-top: 0 !important;
+            background: #fff !important;*/
+              display: none !important;
+            }
+
+            @media (max-width: 1200px) {
+              .close-side-menu {
+                display: none;
+              }
+
+              .profile-menu-box > a,
+              .header-form-holder > a {
+                display: block !important;
+                padding: 10px 17px !important;
+                color: #444444 !important;
+              }
+
+              .profile-menu-box.open {
+                left: 50% !important;
+              }
+            }
+
+            @media (max-width: 780px) {
+              .ico-inbox,
+              .ico-account,
+              .ico-logout {
+                font-size: 12px !important;
+              }
+            }
+
+            #autocomplete-store_listbox,
+            #autocomplete-address_listbox {
+              max-height: 400px;
+              overflow-y: scroll;
+              overflow-x: hidden;
+            }
+          </style>
+
+          <div class="button-hambuger">
+            <div class="burger-bt-inner">
+              <span></span>
+            </div>
+          </div>
+        </div>
+        <div class="bottom-wrap">
+          <div class="left-wrap">
+            <ul class="mega-menu-responsive">
+              <li class="all-categories">
+                <span class="labelfornextplusbutton">Danh mục sản phẩm</span>
+                <div class="plus-button"></div>
+                <div class="sublist-wrap">
+                  <ul class="sublist">
+                    <li class="back-button">
+                      <span>Back</span>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+
+              <li class=" ">
+                <a href="/promotion-4" class="" title="Khuyến mãi"
+                  ><span> Khuyến mãi</span></a
+                >
+              </li>
+
+              <li class=" ">
+                <a
+                  href="https://thepizzacompany.vn/combo-unbox"
+                  class=""
+                  title="#unBOX"
+                  ><span> #unBOX</span></a
+                >
+              </li>
+
+              <li class="has-sublist">
+                <a href="/pizza" class="with-subcategories" title="Pizza"
+                  ><span> Pizza</span></a
+                >
+
+                <div class="plus-button"></div>
+                <div class="sublist-wrap">
+                  <ul class="sublist">
+                    <li class="back-button">
+                      <span>Back</span>
+                    </li>
+
+                    <li class=" ">
+                      <a
+                        href="/hai-san-pesto"
+                        class=""
+                        title="Công Thức Đặc Biệt"
+                        ><span> Công Thức Đặc Biệt</span></a
+                      >
+                    </li>
+
+                    <li class=" ">
+                      <a
+                        href="/hai-san-cao-cap"
+                        class=""
+                        title="Hải Sản Cao Cấp "
+                        ><span> Hải Sản Cao Cấp </span></a
+                      >
+                    </li>
+
+                    <li class=" ">
+                      <a
+                        href="/thap-cam-cao-cap"
+                        class=""
+                        title="Thập Cẩm Cao Cấp "
+                        ><span> Thập Cẩm Cao Cấp </span></a
+                      >
+                    </li>
+
+                    <li class=" ">
+                      <a href="/truyen-thong" class="" title="Truyền Thống"
+                        ><span> Truyền Thống</span></a
+                      >
+                    </li>
+
+                    <li class=" ">
+                      <a href="/pizza-chay" class="" title="Pizza Chay"
+                        ><span> Pizza Chay</span></a
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </li>
+
+              <li class=" ">
+                <a href="/khai-vi" class="" title="Khai vị"
+                  ><span> Khai vị</span></a
+                >
+              </li>
+
+              <li class=" ">
+                <a href="/my-y" class="" title="Mỳ Ý"><span> Mỳ Ý</span></a>
+              </li>
+
+              <li class=" ">
+                <a href="/salad" class="" title="Salad"><span> Salad</span></a>
+              </li>
+
+              <li class=" ">
+                <a href="/thuc-uong" class="" title="Thức uống"
+                  ><span> Thức uống</span></a
+                >
+              </li>
+
+              <li class=" ">
+                <a
+                  href="https://thepizzacompany.vn/menu-the-moi-chat"
+                  class=""
+                  title="Thế Mới Chất!!"
+                  ><span> Thế Mới Chất!!</span></a
+                >
+              </li>
+            </ul>
+
+            <ul
+              class="main-menu mega-menu"
+              data-isrtlenabled="false"
+              data-enableclickfordropdown="false"
+            >
+              <li class=" ">
+                <a href="/promotion-4" class="" title="Khuyến mãi"
+                  ><span> Khuyến mãi</span></a
+                >
+              </li>
+
+              <li class=" ">
+                <a
+                  href="https://thepizzacompany.vn/combo-unbox"
+                  class=""
+                  title="#unBOX"
+                  ><span> #unBOX</span></a
+                >
+              </li>
+
+              <li class="has-sublist">
+                <a href="/pizza" class="with-subcategories" title="Pizza"
+                  ><span> Pizza</span></a
+                >
+
+                <div class="plus-button"></div>
+                <div class="sublist-wrap">
+                  <ul class="sublist">
+                    <li class="back-button">
+                      <span>Back</span>
+                    </li>
+
+                    <li class=" ">
+                      <a
+                        href="/hai-san-pesto"
+                        class=""
+                        title="Công Thức Đặc Biệt"
+                        ><span> Công Thức Đặc Biệt</span></a
+                      >
+                    </li>
+
+                    <li class=" ">
+                      <a
+                        href="/hai-san-cao-cap"
+                        class=""
+                        title="Hải Sản Cao Cấp "
+                        ><span> Hải Sản Cao Cấp </span></a
+                      >
+                    </li>
+
+                    <li class=" ">
+                      <a
+                        href="/thap-cam-cao-cap"
+                        class=""
+                        title="Thập Cẩm Cao Cấp "
+                        ><span> Thập Cẩm Cao Cấp </span></a
+                      >
+                    </li>
+
+                    <li class=" ">
+                      <a href="/truyen-thong" class="" title="Truyền Thống"
+                        ><span> Truyền Thống</span></a
+                      >
+                    </li>
+
+                    <li class=" ">
+                      <a href="/pizza-chay" class="" title="Pizza Chay"
+                        ><span> Pizza Chay</span></a
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </li>
+
+              <li class=" ">
+                <a href="/khai-vi" class="" title="Khai vị"
+                  ><span> Khai vị</span></a
+                >
+              </li>
+
+              <li class=" ">
+                <a href="/my-y" class="" title="Mỳ Ý"><span> Mỳ Ý</span></a>
+              </li>
+
+              <li class=" ">
+                <a href="/salad" class="" title="Salad"><span> Salad</span></a>
+              </li>
+
+              <li class=" ">
+                <a href="/thuc-uong" class="" title="Thức uống"
+                  ><span> Thức uống</span></a
+                >
+              </li>
+
+              <li class=" ">
+                <a
+                  href="https://thepizzacompany.vn/menu-the-moi-chat"
+                  class=""
+                  title="Thế Mới Chất!!"
+                  ><span> Thế Mới Chất!!</span></a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="right-wrap">
+            <div class="mobile-flyout-wrapper">
+              <div class="close-side-menu" style="">
+                <span class="close-side-menu-text">Giỏ hàng</span>
+                <span class="close-side-menu-btn">Close</span>
+              </div>
+            </div>
+
+            <div class="searchbox">
+              <form method="get" id="small-search-box-form" action="/search">
+                <input
+                  type="text"
+                  class="search-box-text"
+                  id="small-searchterms"
+                  autocomplete="off"
+                  name="q"
+                  placeholder="Tìm kiếm sản phẩm"
+                  aria-label="Tìm kiếm cửa hàng"
+                />
+                <button type="submit"><em class="mdi mdi-magnify"></em></button>
+              </form>
+            </div>
+            <div class="search-button"><em class="mdi mdi-magnify"></em></div>
+            <div class="cart custom-cart" id="topcartlink">
+              <div class="icon">
+                <a href="/cart">
+                  <em class="ri-shopping-cart-2-line"></em>
+                </a>
+              </div>
+
+              <p>
+                <a href="/cart" style="text-decoration: none"> Giỏ hàng </a>
+              </p>
+
+              <div class="amount">
+                <span class="cart-qty" id="_TotalProducts"> 1 </span>
+              </div>
+
+              <div
+                id="flyout-cart"
+                class="flyout-cart"
+                data-removeitemfromcarturl="/EmporiumTheme/RemoveItemFromCart"
+                data-flyoutcarturl="/EmporiumTheme/FlyoutShoppingCart"
+              >
+                <div class="mini-shopping-cart">
+                  <div
+                    class="flyout-cart-scroll-area"
+                    style="max-height: 711px"
+                  >
+                    <div class="items ps-container">
+                      <div class="list-product-cart">
+                        <div class="item first" data-shoppingcartid="3599045">
+                          <div class="product-item">
+                            <div class="image">
+                              <a
+                                title="Hiển thị chi tiết cho #unBOX 3 - TẶNG BỘ LY khi mua cùng Pepsi"
+                              >
+                                <img
+                                  alt="Ảnh của #unBOX 3 - TẶNG BỘ LY khi mua cùng Pepsi"
+                                  src="http://thepizzacompany.vn/images/thumbs/000/0003771_combo-unbox-3-ec-ta_95.png"
+                                  title="Hiển thị chi tiết cho #unBOX 3 - TẶNG BỘ LY khi mua cùng Pepsi"
+                                />
+                              </a>
+                            </div>
+                            <div class="content">
+                              <div class="title">
+                                <div class="title-shopping-cart">
+                                  #unBOX 3 - TẶNG BỘ LY khi mua cùng Pepsi
+                                </div>
+
+                                <style type="text/css">
+                                  .item-child-detail {
+                                    -webkit-box-align: baseline;
+                                    -ms-flex-align: baseline;
+                                    display: -webkit-box;
+                                    display: -ms-flexbox;
+                                    display: flex;
+                                    align-items: baseline;
+                                  }
+
+                                  .item-child-detail .number-of-child {
+                                    -webkit-box-pack: center;
+                                    -ms-flex-pack: center;
+                                    -webkit-box-align: center;
+                                    -ms-flex-align: center;
+                                    display: -webkit-box;
+                                    display: -ms-flexbox;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    margin-right: 10px;
+                                    border-radius: 50%;
+                                    background: #d30e15;
+                                    width: 20px;
+                                    height: 20px;
+                                    color: #fff;
+                                    font-size: 12px;
+                                    min-width: 20px;
+                                  }
+
+                                  .item-child-detail .name-of-child {
+                                    -o-text-overflow: ellipsis;
+                                    -webkit-line-clamp: 2;
+                                    -webkit-box-orient: vertical;
+                                    display: -webkit-box;
+                                    margin-top: 15px;
+                                    overflow: hidden;
+                                    text-overflow: ellipsis;
+                                  }
+
+                                  .item-child-detail .note-of-child {
+                                    /*            margin-left: 5px;*/
+                                    color: #00b041 !important;
+                                    font-size: 14px;
+                                    font-weight: 600;
+                                    line-height: 1;
+                                  }
+                                  .item-child-detail
+                                    .detail-content-child
+                                    p:not([class]) {
+                                    /*            margin-left: 5px;*/
+                                    /*            color: #111;*/
+                                    color: #666666 !important;
+                                    font-size: 14px;
+                                  }
+                                </style>
+
+                                <div class="item-child-detail">
+                                  <span class="number-of-child">1</span>
+                                  <div class="detail-content-child">
+                                    <p class="name-of-child font-weight-bold">
+                                      Pizza Rau Củ
+                                      <span
+                                        style="
+                                          margin-left: 10px;
+                                          color: #088730;
+                                          font-size: 15px;
+                                          font-weight: bold;
+                                        "
+                                        >x1</span
+                                      >
+                                    </p>
+                                    <p>Kích thước - Nhỏ 6”</p>
+                                    <p>Đế - Dày</p>
+                                  </div>
+                                </div>
+                                <div class="item-child-detail">
+                                  <span class="number-of-child">2</span>
+                                  <div class="detail-content-child">
+                                    <p class="name-of-child font-weight-bold">
+                                      Bánh Mì Bơ Tỏi
+                                      <span
+                                        style="
+                                          margin-left: 10px;
+                                          color: #088730;
+                                          font-size: 15px;
+                                          font-weight: bold;
+                                        "
+                                        >x1</span
+                                      >
+                                    </p>
+                                  </div>
+                                </div>
+                                <div class="item-child-detail">
+                                  <span class="number-of-child">3</span>
+                                  <div class="detail-content-child">
+                                    <p class="name-of-child font-weight-bold">
+                                      Gà Giòn Không Xương
+                                      <span
+                                        style="
+                                          margin-left: 10px;
+                                          color: #088730;
+                                          font-size: 15px;
+                                          font-weight: bold;
+                                        "
+                                        >x1</span
+                                      >
+                                    </p>
+                                  </div>
+                                </div>
+                                <div class="item-child-detail">
+                                  <span class="number-of-child">4</span>
+                                  <div class="detail-content-child">
+                                    <p class="name-of-child font-weight-bold">
+                                      Mỳ Ý Cay Xúc Xích
+                                      <span
+                                        style="
+                                          margin-left: 10px;
+                                          color: #088730;
+                                          font-size: 15px;
+                                          font-weight: bold;
+                                        "
+                                        >x1</span
+                                      >
+                                    </p>
+                                  </div>
+                                </div>
+                                <div class="item-child-detail">
+                                  <span class="number-of-child">5</span>
+                                  <div class="detail-content-child">
+                                    <p class="name-of-child font-weight-bold">
+                                      Pepsi Lon
+                                      <span
+                                        style="
+                                          margin-left: 10px;
+                                          color: #088730;
+                                          font-size: 15px;
+                                          font-weight: bold;
+                                        "
+                                        >x1</span
+                                      >
+                                    </p>
+                                  </div>
+                                </div>
+                                <div class="item-child-detail">
+                                  <span class="number-of-child">6</span>
+                                  <div class="detail-content-child">
+                                    <p class="name-of-child font-weight-bold">
+                                      BộLyTPC
+                                      <span
+                                        style="
+                                          margin-left: 10px;
+                                          color: #088730;
+                                          font-size: 15px;
+                                          font-weight: bold;
+                                        "
+                                        >x1</span
+                                      >
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="bottom">
+                                <div style="color: rgb(132, 135, 136)">
+                                  Số lượng: 1
+                                </div>
+                                <div class="price" style="color: #000">
+                                  <span>288.000đ</span>
+                                </div>
+                              </div>
+                            </div>
+                            <div
+                              class="delete _flyout-cart-delete"
+                              onclick="FlyOutCardDelete()"
+                            >
+                              <a
+                                class="remove-item"
+                                href="javascript:;"
+                                title="remove"
+                                ><em
+                                  class="ri-delete-bin-fill"
+                                  onclick="updateTotalQuantity(1)"
+                                ></em
+                              ></a>
+                            </div>
+                          </div>
+                        </div>
+
+                        <script>
+                          function updateTotalQuantity(quantity) {
+                            if (quantity) {
+                              let selectorTotalQuantity =
+                                document.getElementById("_TotalProducts");
+
+                              if (selectorTotalQuantity) {
+                                let totalQuantityString =
+                                  selectorTotalQuantity.textContent;
+
+                                let totalQuantity = totalQuantityString * 1; // convert string to number
+
+                                if (totalQuantity) {
+                                  totalQuantity = totalQuantity - quantity;
+                                  selectorTotalQuantity.textContent = `${totalQuantity}`;
+                                }
+                              }
+                            }
+                          }
+
+                          function FlyOutCardDelete() {
+                            if (
+                              window.location.pathname.toLocaleLowerCase() ==
+                              "/cart"
+                            ) {
+                              let selectorDelete =
+                                document.getElementsByClassName(
+                                  "_flyout-cart-delete"
+                                );
+
+                              if (selectorDelete) {
+                                for (
+                                  var i = 0;
+                                  i < selectorDelete.length;
+                                  i++
+                                ) {
+                                  let item = selectorDelete[i];
+                                  item.disabled = true;
+                                }
+                              }
+
+                              setTimeout(() => {
+                                location.reload();
+                              }, 800);
+                            }
+                          }
+                        </script>
+                      </div>
+                      <div
+                        class="ps-scrollbar-x-rail"
+                        style="left: 0px; bottom: 3px"
+                      >
+                        <div
+                          class="ps-scrollbar-x"
+                          style="left: 0px; width: 0px"
+                        ></div>
+                      </div>
+                      <div
+                        class="ps-scrollbar-y-rail"
+                        style="top: 0px; right: 3px"
+                      >
+                        <div
+                          class="ps-scrollbar-y"
+                          style="top: 0px; height: 0px"
+                        ></div>
+                      </div>
+                    </div>
+                    <div class="flyout-lower">
+                      <div class="count" style="font-weight: bold">
+                        Tổng Tiền
+                      </div>
+                      <div
+                        class="totals"
+                        style="
+                          color: #d30e15;
+                          font-size: 20px;
+                          font-weight: 900;
+                        "
+                        id="totals-price-custom"
+                      >
+                        288.000đ
+                      </div>
+
+                      <div class="buttons">
+                        <input
+                          type="button"
+                          value="Thanh toán"
+                          id="checkout"
+                          onclick="setLocation('/cart')"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <script>
+                var myIdContent =
+                  document.getElementById("_TotalProducts").innerHTML;
+                setInterval(function () {
+                  var totalProductEl =
+                    document.getElementById("_TotalProducts");
+                  var amountIdEl = document.getElementById("amount-id");
+                  if (
+                    totalProductEl &&
+                    amountIdEl &&
+                    totalProductEl.textContent != amountIdEl.textContent
+                  ) {
+                    amountIdEl.textContent = totalProductEl.textContent;
+                  }
+
+                  var amountCartEl = document.getElementById(
+                    "totals-price-custom"
+                  );
+                  var bottomAmount =
+                    document.getElementById("total-summary-id");
+
+                  if (
+                    amountCartEl &&
+                    bottomAmount &&
+                    amountCartEl.textContent != bottomAmount.textContent
+                  ) {
+                    bottomAmount.textContent = amountCartEl.textContent;
+                  }
+
+                  if (document.getElementById("mobile-total-bottom-id")) {
+                    if (
+                      document.getElementById("_TotalProducts") &&
+                      window.innerWidth <= 576 &&
+                      document.getElementById("_TotalProducts").textContent != 0
+                    ) {
+                      document.getElementById(
+                        "mobile-total-bottom-id"
+                      ).style.display = "-webkit-box";
+                    } else {
+                      document.getElementById(
+                        "mobile-total-bottom-id"
+                      ).style.display = "none";
+                    }
+                  }
+                }, 1000);
+              </script>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mobile-wrap" style="top: 136px"></div>
+      <div class="backdrop"></div>
+      <div class="fake-header">
+        <div class="container">
+          <div class="header-scroll">
+            <div class="left-wrap">
+              <div class="logo">
+                <a href="/" class="logo">
+                  <img
+                    alt="The Pizza Company"
+                    title="The Pizza Company"
+                    src="http://thepizzacompany.vn/images/thumbs/000/0003940_logo den.png"
+                  />
+                  <img
+                    class="logo-mobile"
+                    src="/Themes/Emporium/Content/img/LogoTPC_Delivery_(VN).png"
+                  />
+                </a>
+              </div>
+            </div>
+            <div class="mid-wrap"></div>
+            <div class="right-wrap">
+              <div class="account">
+                <a href="#"> <em class="ri-account-circle-line"></em></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+  </body>
+</html>

@@ -16,15 +16,9 @@
     opacity: 1;
 }
 
-
-
-
-
 header .main-menu li {
     margin: unset;
 }
-
-
 
 .mega-menu .sublist li:hover > a {
     color: #fff !important;
@@ -64,13 +58,9 @@ ol, ul {
     list-style: none;
 }
 
-
-
 header .main-menu li.active a, header .main-menu li:hover a {
     text-decoration: unset;
 }
-
-
 
 .mega-menu .has-sublist .sublist-wrap {
     -webkit-transition: all .3s ease-in-out;

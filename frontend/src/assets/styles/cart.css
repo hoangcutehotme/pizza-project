@@ -45,13 +45,6 @@
     font-weight: 600;
     line-height: 1;
   }
-  
-  .item-child-detail .detail-content-child p:not([class]) {
-    /*            margin-left: 5px;*/
-    /*            color: #111;*/
-    color: #666666 !important;
-    font-size: 14px;
-  }
 
   .mini-shopping-cart .flyout-cart-scroll-area {
     position: relative;
@@ -149,20 +142,10 @@
     font-weight: 700;
 }
 
-.item-child-detail {
-    -webkit-box-align: baseline;
-    -ms-flex-align: baseline;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    align-items: baseline;
-}
-
 .item-child-detail .detail-content-child p:not([class]) {
-    /* margin-left: 5px; */
-    /* color: #111; */
-    color: #666666 !important;
+    color: rgb(132, 135, 136) !important;
     font-size: 14px;
+    margin: 0 !important;
 }
 
 header .cart p {
@@ -211,4 +194,83 @@ header .cart p {
 
 a img {
     opacity: 0.99;
+}
+
+.product-item .price {
+    margin-top: 5px;
+    margin-right: 5px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.list-product-cart .product-item .delete, header .main-button-cart .list-product-cart .product-item .delete a {
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.list-product-cart .product-item .delete {
+    position: absolute;
+    top: 12px;
+    right: 0;
+}
+
+.list-product-cart .product-item .delete:hover .delete-icon {
+    color: red;
+}
+
+.flyout-lower {
+    background-color: #f6f6f6;
+    border-radius: 0 0 3px 3px;
+}
+
+.mini-shopping-cart .count {
+    float: left;
+    padding: 20px 0 20px 15px;
+}
+
+.mini-shopping-cart .totals {
+    float: right;
+    padding: 20px 15px 20px 0;
+    text-align: right;
+}
+
+.totals {
+    border-radius: 3px;
+    background-color: #f6f6f6;
+}
+
+
+.mini-shopping-cart .buttons {
+    padding: 0 15px 15px;
+    margin-bottom: 0;
+    text-align: right;
+    clear: both;
+}
+
+#checkout {
+    -webkit-transition: all .2s ease-in-out;
+    -o-transition: .2s ease-in-out all;
+    transition: all .2s ease-in-out;
+    border: 1px solid #006a31;
+    border-radius: 8px;
+    background: #006a31;
+    width: 100%;
+    height: 45px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 400;
+    text-align: center;
+}
+
+#checkout:hover {
+    border-color: #d50e15;
+    background: #d50e15;
+    color: #fff;
 }

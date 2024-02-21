@@ -1,6 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCartShopping, faHouse, faLocationDot, faPhone, faSearch, faShop, faTruckFast } from '@fortawesome/free-solid-svg-icons'
+import { faArrowRightFromBracket, faCartShopping, faSearch, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { faCircleUser } from '@fortawesome/free-regular-svg-icons'
 import logo from "../../assets/imgs/logoPizza.png"
 import "../../assets/styles/1024.css"
@@ -61,18 +61,21 @@ const Header = () => {
               <div href="/customer/info" class="icon">
                 <em> <FontAwesomeIcon icon={faCircleUser} /></em>
               </div>
-              <div class="login-and-register">
+              {/* <div class="login-and-register">
                 <a href="/login?returnUrl=%2F" class="register" style={{ textDecoration: 'none' }}>Đăng nhập</a>
                 <span>/</span>
                 <a href="/register?returnUrl=%2F" class="login" style={{ textDecoration: 'none' }}
                 >Tạo tài khoản</a>
+              </div> */}
+              <a href="/userInfo" class="opener" id="a-custom-id" style={{ color: 'black' }}>Huỳnh Thuận</a>
+              <div class="profile-menu-box">
+                <div class="close-side-menu" style={{ display: 'none' }}>
+                  <span class="close-side-menu-text">0707252330</span>
+                  <span class="close-side-menu-btn">Close</span>
+                </div>
+                <a href="/userInfo" className="menu-link" style={{ cursor: 'pointer' }}><FontAwesomeIcon icon={faCircleUser} style={{ marginRight: '10px' }} /> Tài khoản</a>
+                <a href="/" className="menu-link" style={{ cursor: 'pointer' }}><FontAwesomeIcon icon={faArrowRightFromBracket} style={{ marginRight: '10px' }} />Đăng xuất</a>
               </div>
-            </div>
-            <div class="language">
-              <label for="order-delivery">
-                <em><FontAwesomeIcon icon={faPhone} /></em>
-                <span style={{ marginLeft: '5px', color: '#111' }}>1111111111</span>
-              </label>
             </div>
           </div>
         </div>
@@ -148,7 +151,9 @@ const Header = () => {
                                 </div>
 
                               </div>
-                              <div class="delete _flyout-cart-delete" onclick=""><a class="remove-item" href="/" title="remove"><em class="ri-delete-bin-fill" onclick=""></em></a></div>
+                              <div class="delete _flyout-cart-delete" onclick="">
+                                  <em class='delete-icon'><FontAwesomeIcon icon={faTrash}/></em>
+                              </div>
                             </div>
                           </div>
                           <div class="item" data-shoppingcartid="3599162">
@@ -169,7 +174,9 @@ const Header = () => {
                                 </div>
 
                               </div>
-                              <div class="delete _flyout-cart-delete" onclick=""><a class="remove-item" href="/" title="remove"><em class="ri-delete-bin-fill" onclick=""></em></a></div>
+                              <div class="delete _flyout-cart-delete" onclick="">
+                                  <em class='delete-icon'><FontAwesomeIcon icon={faTrash}/></em>
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -215,7 +222,6 @@ const Header = () => {
                             type="button"
                             value="Thanh toán"
                             id="checkout"
-                            onclick="setLocation('/cart')"
                           />
                         </div>
                       </div>

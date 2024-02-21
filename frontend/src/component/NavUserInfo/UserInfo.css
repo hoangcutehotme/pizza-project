@@ -208,7 +208,7 @@ button, input {
     overflow: visible;
 }
 
-.wrap-forms input[type=text], .wrap-forms textarea {
+.wrap-forms input[type=text], .wrap-forms input[type=password], .wrap-forms input[type=email], .wrap-forms textarea {
     border: 1px solid #e5e5e5;
     padding: 13px 20px;
     width: 100%;
@@ -216,7 +216,7 @@ button, input {
     font-size: 15px;
 }
 
-.form-wrappers .wrap-forms .form-group input[type=text] {
+.form-wrappers .wrap-forms .form-group input[type=text], .wrap-forms input[type=password], .wrap-forms input[type=email] {
     outline: none;
     border: 1px solid #e1e1e1;
     border-radius: 8px;
@@ -265,4 +265,143 @@ button, input {
 #btn-create:hover {
     background: #fff;
     color: #006a31;
+}
+
+.table-address {
+    -webkit-box-shadow: 0 0 10px 0 rgba(0,0,0,.2);
+    margin-top: 30px;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,.2);
+    border-radius: 8px;
+    padding: 25px;
+    width: 100%;
+}
+
+.table-address table {
+    width: 100%;
+    color: #111;
+    border-collapse: collapse;
+}
+
+tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+}
+
+.table-address table td.title {
+    width: 150px;
+    color: #006a31;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.table-address table td {
+    color: #111;
+    font-weight: 400;
+}
+
+.table-address table td .default {
+    color: #00b041;
+}
+
+.table-address table td.td-delete {
+    width: 70px;
+    text-align: right;
+}
+
+.table-address table td.td-edit {
+    width: 115px;
+    text-align: right;
+}
+
+.table-address table td .edit {
+    color: #068fdd;
+}
+
+.table-address table td .delete {
+    color: #d50e15;
+}
+
+.col-lg-12 .col-12 {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
+    position: relative;
+    width: 100%;
+    min-height: 1px;
+    padding-left: 15px;
+}
+
+.center-2 .total-wrapper {
+    -ms-flex-wrap: wrap;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    position: relative;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: -5px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+@media (min-width: 768px) {
+    .center-2 .total-wrapper {
+        -webkit-box-pack: end;
+        -ms-flex-pack: end;
+        justify-content: flex-end;
+    }
+}
+
+.center-2 .total-wrapper .btn-next {
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    margin: 5px;
+    border: none;
+    border-radius: 8px;
+    background: #006a31;
+    width: 150px;
+    height: 45px;
+    color: #fff;
+    flex: none;
+}
+
+.table-history {
+    -webkit-box-shadow: 0 0 10px 0 rgba(0, 0, 0, .1);
+    margin-top: 25px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, .1);
+    border: 1px solid #e1e1e1;
+    border-radius: 8px;
+}
+
+.table-history table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table-history table thead tr th {
+    background: #eee;
+    padding: 15px 20px;
+    font-size: 18px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.order-history-product {
+    border-bottom: 1px solid #e1e1e1;
+}
+
+.order-history-product:last-child {
+    border-bottom: none !important;
 }

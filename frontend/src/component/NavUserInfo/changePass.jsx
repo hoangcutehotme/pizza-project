@@ -1,19 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 
 const ChangePass = () => {
+    const [formData, setFormData] = useState({
+        oldPass:'',
+        newPass:'',
+        confirmPass:''
+    })
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({
+            ...formData,
+            [name]: value,
+        });
+    };
+
+    const handleSubmit = () => {
+        console.log(formData)
+    }
     return (
         <div class="center-2">
             <div class="col-lg-12">
                 <h2 class="main-titles">Đổi mật khẩu</h2>
                 <div class="form-wrappers">
                     <div class="wrap-forms">
-                        <form
-                            method="post"
-                            enctype="multipart/form-data"
-                            action="/customer/info"
-                        >
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-4 col-md-3 mobile-custom-no-padding">
@@ -31,6 +43,8 @@ const ChangePass = () => {
                                             name="oldPass"
                                             class="info-custom-input"
                                             id="oldPass"
+                                            value={formData.oldPass}
+                                            onChange={handleChange}
                                         />
                                         <span
                                             class="validate-required field-validation-valid"
@@ -56,6 +70,8 @@ const ChangePass = () => {
                                             name="newPass"
                                             class="info-custom-input"
                                             id="newPass"
+                                            value={formData.newPass}
+                                            onChange={handleChange}
                                         />
                                         <span
                                             class="validate-required field-validation-valid"
@@ -81,6 +97,8 @@ const ChangePass = () => {
                                             name="confirmPass"
                                             class="info-custom-input"
                                             id="confirmPass"
+                                            value={formData.confirmPass}
+                                            onChange={handleChange}
                                         />
                                         <span
                                             class="validate-required field-validation-valid"
@@ -96,7 +114,7 @@ const ChangePass = () => {
                                         <button
                                             class="btn-creat-acc btn-creat-acc-custom"
                                             id="btn-create"
-                                            type="submit"
+                                            onClick={handleSubmit}
                                         >
                                             <em id="pencil-custom"><FontAwesomeIcon icon={faPen} /></em>Cập
                                             nhật
@@ -104,7 +122,6 @@ const ChangePass = () => {
                                     </div>
                                 </div>
                             </div>
-                        </form>
                     </div>
                 </div>
             </div>

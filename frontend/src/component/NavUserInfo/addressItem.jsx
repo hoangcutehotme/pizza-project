@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { faCircleCheck, faTrashCan } from "@fortawesome/free-regular-svg-icons";
 
-const AddressItem = () => {
+const AddressItem = ({address, showModal, handleShowModal}) => {
     return(
         <div class="table-address">
                     <table>
@@ -18,14 +18,14 @@ const AddressItem = () => {
 
                                         </a>
                                 </td>
-                                <td class="td-edit"  style={{cursor:'pointer'}}>
-                                    <a class="edit">
+                                <td class="td-edit"  >
+                                    <a class="edit" style={{cursor:'pointer'}} onClick={()  => handleShowModal('update', address)}>
                                         <em style={{marginRight:'5px'}}><FontAwesomeIcon icon={faPen}/></em>
                                         Sửa
                                     </a>
                                 </td>
-                                <td class="td-delete" style={{cursor:'pointer'}}>
-                                        <a class="delete">
+                                <td class="td-delete" >
+                                        <a class="delete" style={{cursor:'pointer'}}>
                                             <em  style={{marginRight:'5px'}}><FontAwesomeIcon icon={faTrashCan}/></em>
                                             Xóa
                                         </a>
@@ -33,11 +33,11 @@ const AddressItem = () => {
                             </tr>
                             <tr>
                                 <td>Địa chỉ</td>
-                                <td>4634543, dfgdfhdfhgfjgkhk, Quận Phú Nhuận, Phường 2, Thành phố Hồ Chí Minh, Việt Nam</td>
+                                <td>{address.address}</td>
                             </tr>
                             <tr>
                                 <td>Số điện thoại</td>
-                                <td colspan="3">0707252330</td>
+                                <td colspan="3">{address.phoneNumber}</td>
                             </tr>
                         </tbody>
                     </table>

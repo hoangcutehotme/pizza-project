@@ -21,6 +21,11 @@ const OrderHistory = () => {
                         <tbody>
                             <OrderHistoryItem/>
                             <OrderHistoryItem/>
+                            <OrderHistoryItem/>
+                            <OrderHistoryItem/>
+                            <OrderHistoryItem/>
+                            <OrderHistoryItem/>
+                            <OrderHistoryItem/>
                         </tbody>
                     </table>
                 </div>

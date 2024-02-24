@@ -7,7 +7,6 @@ const OrderHistory = () => {
             <div class="col-lg-12">
                 <h2 class="main-titles">Lịch sử đơn hàng</h2>
                 <div class="table-history" style={{ padding: '15px' }}>
-
                     <table>
                         <thead>
                             <tr>

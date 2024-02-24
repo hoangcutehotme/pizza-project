@@ -86,8 +86,8 @@ const Header = () => {
               data-isrtlenabled="false"
               data-enableclickfordropdown="false"
             >
-              <li class=" ">
-                <a href="/" class=""
+              <li className="">
+                <a href="/landingPage" class="" key="Trang chủ"
                 ><span> Trang chủ </span></a>
               </li>
               <li class=" ">
@@ -152,7 +152,7 @@ const Header = () => {
 
                               </div>
                               <div class="delete _flyout-cart-delete" onclick="">
-                                  <em class='delete-icon'><FontAwesomeIcon icon={faTrash}/></em>
+                                <em class='delete-icon'><FontAwesomeIcon icon={faTrash} /></em>
                               </div>
                             </div>
                           </div>
@@ -175,7 +175,7 @@ const Header = () => {
 
                               </div>
                               <div class="delete _flyout-cart-delete" onclick="">
-                                  <em class='delete-icon'><FontAwesomeIcon icon={faTrash}/></em>
+                                <em class='delete-icon'><FontAwesomeIcon icon={faTrash} /></em>
                               </div>
                             </div>
                           </div>

@@ -22,7 +22,7 @@ const Header = () => {
                   src={logo}
                   style={{ width: '100px', height: '90px' }}
                 />
-                <span style={{ marginLeft: '20px', color: 'black', fontSize: '20px', fontWeight: '700' }}>Pizza Home</span>
+                <span style={{ marginLeft: '20px', color: '#006a31', fontSize: '20px', fontWeight: '700' }}>Pizza Home</span>
               </a>
             </div>
           </div>

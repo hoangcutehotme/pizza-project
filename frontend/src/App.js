@@ -2,6 +2,7 @@ import './App.css';
 import Header from './component/Header/header';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import UserInfo from './page/UserInfo';
+import Pizza from './page/Pizza';
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
         <Header />
         <Routes>
           <Route path="/userInfo" element={<UserInfo />} />
+          <Route path="/pizza" element={<Pizza />} />
 
         </Routes>
         {/* <Footer /> */}

@@ -19,7 +19,7 @@ const UserInfo = () => {
                 {active === 'orderHistory' && <OrderHistory/>}
                 {active === 'changePass' && <ChangePass/>}
             </div>
-        </div>
+        </div>       
     )
 }
 

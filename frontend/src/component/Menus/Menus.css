@@ -1,6 +1,6 @@
 .title_menu {
     margin: 5px 0px;
-    padding: 5px 25px;
+    padding: 5px;
     width: 19%;
     display: flex;
     justify-content: center;
@@ -9,11 +9,12 @@
     font-weight: 500;
     font-size: 16px;
     border-radius: 10px;
+    max-height: 200px;
 }
 
 .title_menu:hover {
     margin: 5px 0px;
-    padding: 5px 25px;
+    padding: 5px;
     width: 19%;
     display: flex;
     justify-content: center;
@@ -23,6 +24,7 @@
     font-size: 16px;
     background-color: rgb(255, 0, 0);
     border-radius: 10px;
+    cursor: pointer;
 }
 
 .title_menu a {
@@ -30,7 +32,7 @@
 }
 
 .title_menu a:hover {
-    color: #ffffff;
+    color: #ffffff !important;
 }
 
 .Menus {
@@ -42,7 +44,51 @@
     padding: 0;
     text-decoration: none;
     justify-content: space-between;
-    margin-bottom: 20px;
     padding: 0 40px;
     border-radius: 5px;
+}
+
+@media screen and (max-width: 1200px) {
+
+    .Menus select option {
+        margin-left: 20px;
+        border: 0;
+        background-color: #ffffff;
+        color: #000000;
+    }
+
+    /* CSS cho select box */
+    .Menus select {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        width: 100%;
+        border-radius: 10px;
+        background-color: #006a31;
+        color: #ffffff;
+        border-radius: 5px;
+        padding: 8px 20px;
+        font-size: 16px;
+        border: 0;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        width: 100%;
+    }
+
+    .Menus select:focus {
+        border-color: #007bff;
+        /* Màu biên khi select box được focus */
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        /* Hiển thị shadow khi select box được focus */
+    }
+
+    .Menus select option {
+        background-color: #ffffff;
+        color: #333333;
+        padding: 8px 20px;
+        /* Điều chỉnh padding của option */
+    }
+
+
+
 }

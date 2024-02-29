@@ -1,5 +1,5 @@
 import React from 'react'
-import SimpleSlider from '../../component/Slider/Slider'
+import SimpleSlider from '../../component/Slider/slider'
 import slider1 from '../../assets/imgs/slider1.jpeg';
 import slider2 from '../../assets/imgs/slider2.jpeg';
 import slider3 from '../../assets/imgs/slider3.jpeg';
@@ -24,11 +24,6 @@ const LandingPage = () => {
       <ListProduct />
       <IntroduceStore2 />
       <SliderComment />
-
-
-
-
-
     </>
 
   )

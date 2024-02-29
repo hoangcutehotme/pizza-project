@@ -7,6 +7,7 @@ import ProductItem from './Product'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import './style.css'
+import Itemproduct from '../Itemproduct/Itemproduct'
 
 const listPizza = [
     {
@@ -48,10 +49,10 @@ const ListProduct = () => {
                     </a>
                 </div>
             </div>
-            <div className='item-grid row'>
+            <div className='view-temproduct'>
                 {listPizza.map(pizza => {
                     return (
-                        <ProductItem img={pizza.imgSrc} name={pizza.name} decrip={pizza.description} price={pizza.price} />
+                        <Itemproduct />
                     )
                 }
 

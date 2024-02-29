@@ -1,20 +1,27 @@
-import React from 'react'
+import React, { useState } from 'react'
 import style from './Itemproduct.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
 
-function Itemproduct() {
+function Itemproduct({ products }) {
+    const [product] = useState({
+        img: "http://thepizzacompany.vn/images/thumbs/000/0003102_seafood-peach_300.png",
+        name: 'Pizza Hải Sản Đào',
+        decrip: 'Tôm, Đào hoà quyện bùng nổ cùng sốt Thousand Island',
+        price: '169.000'
+    });
+
     return (
         <div class="container1">
             <div class="Img">
-                <img src="http://thepizzacompany.vn/images/thumbs/000/0003102_seafood-peach_300.png" alt="" />
+                <img src={product.img} alt="" />
             </div>
             <div class="Product_item">
                 <div class="Name_item">
-                    <span>Pizza Hải Sản Đào</span>
+                    <span>{product.name}</span>
                 </div>
                 <div class="describe_item">
-                    Tôm, Đào hoà quyện bùng nổ cùng sốt Thousand Island
+                    {product.decrip}
                 </div>
                 <div class="Price_item">
                     <div class="price">
@@ -22,7 +29,7 @@ function Itemproduct() {
                             Giá chỉ từ
                         </h6>
                         <h4>
-                            169.000đ
+                            {product.price}đ
                         </h4>
                     </div>
                     <div class="order_item">

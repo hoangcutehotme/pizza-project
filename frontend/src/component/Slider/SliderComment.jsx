@@ -2,7 +2,6 @@ import React from 'react'
 import avatar1 from '../../assets/imgs/ava1.png'
 import avatar2 from '../../assets/imgs/ava2.png'
 import avatar3 from '../../assets/imgs/ava3.png'
-
 import Slider from "react-slick";
 import CommentComponent from '../CommentComponent/CommentComponent';
 import './SliderCommentStyle.css'

@@ -1,0 +1,151 @@
+.container1 {
+    width: 23%;
+    margin: 20px 15px 0px 5px;
+}
+
+.Img {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 15px;
+
+}
+
+.Img img {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.3s ease;
+}
+
+.Img:hover img {
+    transform: rotate(20deg);
+}
+
+.Product_item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.Product_item .Name_item {
+    font-size: 18px;
+    text-align: left;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    font-weight: 800;
+    max-height: 3.775rem;
+    min-height: 3.775rem;
+}
+
+.describe_item {
+    color: #666;
+    font-size: 12px;
+    font-weight: 600;
+    max-height: 3.775rem;
+    min-height: 3.775rem;
+}
+
+.Price_item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+    margin-bottom: 5px;
+}
+
+.Price_item h6 {
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    color: #666;
+    font-size: 13px;
+    line-height: 1.2;
+}
+
+.Price_item h4 {
+    color: #111;
+    font-size: 20px;
+    font-weight: 800;
+    width: 100%;
+    margin-top: 5px;
+    margin-right: 5px;
+}
+
+
+.order_item {
+    padding: 5px 10px;
+    color: #006a31;
+    border: 1px solid #006a31;
+    border-radius: 5px;
+    align-items: center;
+    display: flex;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.order_item:hover {
+    padding: 5px 10px;
+    border: 1px solid #d50e15;
+    background-color: #d50e15;
+    color: #ffffff;
+    border-radius: 5px;
+    align-items: center;
+    display: flex;
+    gap: 5px;
+}
+
+
+
+
+.view-temproduct {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+@media screen and (max-width: 700px) {
+    .view-temproduct {
+        flex-direction: column;
+    }
+
+    .container1 {
+        display: flex;
+        width: 100%;
+        margin: 20px 15px 0px 5px;
+    }
+
+    .Img {
+        width: 200px;
+        height: 200px;
+        margin-right: 30px;
+    }
+
+    .Img img {
+        width: 100%;
+        height: 100%;
+        transition: transform 0.3s ease;
+    }
+
+    .Price_item {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-top: 8px;
+        margin-bottom: 5px;
+    }
+
+
+}
+
+@media screen and (min-width: 700px) and (max-width: 1200px) {
+
+    .Price_item {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-top: 8px;
+        margin-bottom: 5px;
+    }
+
+
+}

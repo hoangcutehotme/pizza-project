@@ -1,17 +1,20 @@
 import React from "react";
 import Slider from "react-slick";
 import "./Slider.css"
+import { WrapperSliderStyle } from './style'
 
-export default function SimpleSlider() {
+const SimpleSlider = ({ arrImages }) => {
     var settings = {
-        appendDots: true,
+        dots: true,
         infinite: true,
-        speed: 500,
+        speed: 1000,
         slidesToShow: 1,
         slidesToScroll: 1,
         autoplay: true,
-        autoplaySpeed: 1000,
-        accessibility: true
+        autoplaySpeed: 3000,
+        className: "center",
+        centerMode: true,
+        centerPadding: '130px',
     };
     return (
 
@@ -19,8 +22,7 @@ export default function SimpleSlider() {
             <WrapperSliderStyle {...settings} >
                 {arrImages.map((image) => {
                     return (
-
-                        <img key={image} src={image} alt="slider" preview={false} width='80%' height='auto' style={{ padding: '0 60px' }} />
+                        <img key={image} src={image} alt={image} width='80%' height='auto' style={{ padding: '0 60px' }} />
                     )
                 })}
             </WrapperSliderStyle>

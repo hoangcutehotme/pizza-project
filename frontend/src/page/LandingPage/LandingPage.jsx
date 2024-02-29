@@ -1,5 +1,5 @@
 import React from 'react'
-import SimpleSlider from '../../component/Slider/slider'
+import SimpleSlider from '../../component/Slider/SliderComponent'
 import IntroduceStore1 from '../../component/IntroduceStore/introduceStore1'
 import ListProduct from '../../component/ListProduct/ListProduct';
 import IntroduceStore2 from './IntroduceStore2';

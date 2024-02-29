@@ -22,14 +22,14 @@ function App() {
         <Routes>
           <Route path="/userInfo" element={<UserInfo />} />
           <Route path="/pizza" element={<Pizza />} />
-          <Route path='/landingPage' element={<LandingPage/>}/>
+          <Route path='/landingPage' element={<LandingPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Register />} />
           <Route path="/forgotPass" element={<ForgotPass />} />
           <Route path="/verify" element={<Verify />} />
           <Route path="/changePassVerify" element={<ChangePassVerify />} />
         </Routes>
-          <Footer />
+        <Footer />
         {/* <Footer /> */}
       </Router>
     </div>

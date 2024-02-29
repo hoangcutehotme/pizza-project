@@ -22,16 +22,12 @@ function App() {
         <Routes>
           <Route path="/userInfo" element={<UserInfo />} />
           <Route path="/pizza" element={<Pizza />} />
-<<<<<<< HEAD
-=======
           <Route path='/landingPage' element={<LandingPage/>}/>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Register />} />
           <Route path="/forgotPass" element={<ForgotPass />} />
           <Route path="/verify" element={<Verify />} />
           <Route path="/changePassVerify" element={<ChangePassVerify />} />
-
->>>>>>> b9fe6edbd3fae776562b81a17869fb7a53873008
         </Routes>
           <Footer />
         {/* <Footer /> */}

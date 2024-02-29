@@ -1,7 +1,7 @@
 
 import React from 'react'
 import Slider from 'react-slick';
-// import './slider.css'
+import './Slider.css'
 import { WrapperSliderStyle } from './style';
 
 const SliderComponent = ({ arrImages }) => {

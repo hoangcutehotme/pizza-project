@@ -1,5 +1,5 @@
 import React from 'react'
-import SliderComponent from '../../component/Slider/slider'
+import SliderComponent from '../../component/Slider/Slider'
 import slider1 from '../../assets/imgs/slider1.jpeg';
 import slider2 from '../../assets/imgs/slider2.jpeg';
 import slider3 from '../../assets/imgs/slider3.jpeg';

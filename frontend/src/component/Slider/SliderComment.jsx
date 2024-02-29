@@ -36,7 +36,7 @@ const SliderComment = () => {
         slidesToShow: 3,
         slidesToScroll: 1,
         autoplay: true,
-        autoplaySpeed: 10000,
+        autoplaySpeed: 5000,
         centerMode: true,
         centerPadding: "10px",
     };

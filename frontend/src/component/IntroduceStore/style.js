@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const SpecialtyTitle = styled.h2`
   margin-top: 24px;
-  font: 700 28px IBM Plex Serif, sans-serif;
+  font: 700 26px IBM Plex Serif, sans-serif;
 
   @media (max-width: 991px) {
     white-space: initial;

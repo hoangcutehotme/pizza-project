@@ -21,7 +21,8 @@ const SimpleSlider = ({ arrImages }) => {
             <WrapperSliderStyle {...settings} >
                 {arrImages.map((image) => {
                     return (
-                        <img key={image} src={image} alt="slider" preview={false} width='100%' height='auto' style={{ padding: '0 60px' }} />
+
+                        <img key={image} src={image} alt="slider" preview={false} width='80%' height='auto' style={{ padding: '0 60px' }} />
                     )
                 })}
             </WrapperSliderStyle>

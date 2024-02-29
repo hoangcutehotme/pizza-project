@@ -91,7 +91,7 @@ const Header = () => {
                 ><span> Trang chủ </span></a>
               </li>
               <li class=" ">
-                <a href="/" class=""
+                <a href="/pizza" class=""
                 ><span> Pizza </span></a>
               </li>
             </ul>

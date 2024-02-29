@@ -28,11 +28,8 @@ function App() {
           <Route path="/forgotPass" element={<ForgotPass />} />
           <Route path="/verify" element={<Verify />} />
           <Route path="/changePassVerify" element={<ChangePassVerify />} />
-
         </Routes>
-        <div>
           <Footer />
-        </div>
         {/* <Footer /> */}
       </Router>
     </div>

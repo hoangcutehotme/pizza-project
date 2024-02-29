@@ -19,9 +19,7 @@ const LandingPage = () => {
       <ListProduct />
       <IntroduceStore2 />
       <SliderComment />
-
       <ButtonUpWindow />
-
 
     </>
 

@@ -3,7 +3,7 @@ import Slider from '../component/Slider/Slider';
 import Title from '../component/Title/Title';
 import Menus from '../component/Menus/Menus';
 import Itemproduct from '../component/Itemproduct/Itemproduct';
-
+import Footer from '../component/Footer/Footer';
 import style from '../component/Itemproduct/Itemproduct.css'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -16,12 +16,36 @@ function Pizza() {
         useRef(null),
         useRef(null)
     ]);
+    const [activeIndex, setActiveIndex] = useState(0);
+    useEffect(() => {
+        const handleScroll = () => {
+            const scrollPosition = window.scrollY;
+            sectionRefs.current.forEach((ref, index) => {
+                const element = ref.current;
+                if (element) {
+                    const top = element.offsetTop;
+                    const height = element.clientHeight;
+                    if (scrollPosition >= top - 600 && scrollPosition < top - 600 + height) {
+                        setActiveIndex(index);
+                    }
+                }
+            });
+        };
+
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
 
     const scrollToRef = (index) => {
         const targetElement = sectionRefs.current[index].current;
         const parentElement = targetElement.parentElement;
         const offsetTop = targetElement.getBoundingClientRect().top - parentElement.getBoundingClientRect().top - 30;
         window.scrollTo(100, offsetTop);
+        setActiveIndex(parseInt(1));
     };
 
     const [isImageFixed, setIsImageFixed] = useState(false);
@@ -56,10 +80,11 @@ function Pizza() {
                     zIndex: 999,
                     alignItems: 'center'
                 }} className='container'>
-                    <Menus scrollToRef={scrollToRef} />
+                    <Menus scrollToRef={scrollToRef} activeIndex={activeIndex} />
                 </div>
             ) : (<div >
-                <Menus scrollToRef={scrollToRef} />
+                <Menus scrollToRef={scrollToRef} activeIndex={activeIndex} />
+
             </div>)}
             <div ref={sectionRefs.current[0]} >
                 <div>

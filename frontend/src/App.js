@@ -13,11 +13,8 @@ function App() {
         <Routes>
           <Route path="/userInfo" element={<UserInfo />} />
           <Route path="/pizza" element={<Pizza />} />
-
         </Routes>
-        <div>
           <Footer />
-        </div>
         {/* <Footer /> */}
       </Router>
     </div>

@@ -1,10 +1,8 @@
 
 import React from 'react'
-import Slider from 'react-slick';
-// import './slider.css'
 import { WrapperSliderStyle } from './style';
 
-const SliderComponent = ({ arrImages }) => {
+const SimpleSlider = ({ arrImages }) => {
 
     const settings = {
         dots: true,
@@ -23,7 +21,7 @@ const SliderComponent = ({ arrImages }) => {
             <WrapperSliderStyle {...settings} >
                 {arrImages.map((image) => {
                     return (
-                        <img key={image} src={image} alt="slider" preview={false} width='100%' height='400px' style={{ padding: '0 60px' }} />
+                        <img key={image} src={image} alt="slider" preview={false} width='100%' height='auto' style={{ padding: '0 60px' }} />
                     )
                 })}
             </WrapperSliderStyle>
@@ -32,4 +30,38 @@ const SliderComponent = ({ arrImages }) => {
     )
 }
 
-export default SliderComponent
+export default SimpleSlider
+
+// import React from "react";
+// import Slider from "react-slick";
+// import "./Slider.css"
+
+// export default function SimpleSlider() {
+//     var settings = {
+//         appendDots: true,
+//         infinite: true,
+//         speed: 500,
+//         slidesToShow: 1,
+//         slidesToScroll: 1,
+//         autoplay: true,
+//         autoplaySpeed: 1000,
+//         accessibility: true
+//     };
+//     return (
+//         <Slider {...settings}>
+//             <div class="Slider_img">
+//                 <img src="https://thepizzacompany.vn/images/thumbs/000/0003966_BANNER%20SLIDER%201200X480-100.jpeg" alt="" />
+//             </div>
+//             <div class="Slider_img">
+//                 <img src="https://thepizzacompany.vn/images/thumbs/000/0003966_BANNER%20SLIDER%201200X480-100.jpeg" alt="" />
+//             </div>
+//             <div class="Slider_img">
+//                 <img src="https://thepizzacompany.vn/images/thumbs/000/0003966_BANNER%20SLIDER%201200X480-100.jpeg" alt="" />
+//             </div>
+//             <div class="Slider_img">
+//                 <img src="https://thepizzacompany.vn/images/thumbs/000/0003966_BANNER%20SLIDER%201200X480-100.jpeg" alt="" />
+//             </div>
+//         </Slider>
+//     );
+// }
+

@@ -1,0 +1,20 @@
+.button-border {
+    padding: 5px 10px;
+    color: #006a31;
+    border: 1px solid #006a31;
+    border-radius: 5px;
+    align-items: center;
+    display: inline-block;
+    gap: 5px;
+}
+
+.button-border:hover {
+    padding: 5px 10px;
+    border: 1px solid #d50e15;
+    background-color: #d50e15;
+    color: #ffffff;
+    border-radius: 5px;
+    align-items: center;
+    display: inline-block;
+    gap: 5px;
+}

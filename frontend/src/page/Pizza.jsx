@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import Slider from '../component/Slider/Slider';
+import SimpleSlider from '../component/Slider/Slider';
 import Title from '../component/Title/Title';
 import Menus from '../component/Menus/Menus';
 import Itemproduct from '../component/Itemproduct/Itemproduct';
@@ -7,6 +7,12 @@ import Footer from '../component/Footer/Footer';
 import style from '../component/Itemproduct/Itemproduct.css'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+
+const images = ["https://thepizzacompany.vn/images/thumbs/000/0003966_BANNER%20SLIDER%201200X480-100.jpeg",
+    "https://thepizzacompany.vn/images/thumbs/000/0003966_BANNER%20SLIDER%201200X480-100.jpeg",
+    "https://thepizzacompany.vn/images/thumbs/000/0003966_BANNER%20SLIDER%201200X480-100.jpeg",
+    "https://thepizzacompany.vn/images/thumbs/000/0003966_BANNER%20SLIDER%201200X480-100.jpeg"]
+
 
 function Pizza() {
     const sectionRefs = useRef([
@@ -66,7 +72,7 @@ function Pizza() {
     return (
         <div className="container">
             <div style={{ width: "100%" }}>
-                <Slider />
+                <SimpleSlider arrImages={images} />
             </div>
             <div>
                 <Title title={"Pizza"} />

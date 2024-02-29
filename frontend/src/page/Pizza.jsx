@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import SimpleSlider from '../component/Slider/Slider';
+import SimpleSlider from '../component/Slider/slider';
 import Title from '../component/Title/Title';
 import Menus from '../component/Menus/Menus';
 import Itemproduct from '../component/Itemproduct/Itemproduct';

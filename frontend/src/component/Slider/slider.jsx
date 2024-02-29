@@ -14,19 +14,20 @@ export default function SimpleSlider() {
         accessibility: true
     };
     return (
-        <Slider {...settings}>
-            <div class="Slider_img">
-                <img src="https://thepizzacompany.vn/images/thumbs/000/0003966_BANNER%20SLIDER%201200X480-100.jpeg" alt="" />
-            </div>
-            <div class="Slider_img">
-                <img src="https://thepizzacompany.vn/images/thumbs/000/0003966_BANNER%20SLIDER%201200X480-100.jpeg" alt="" />
-            </div>
-            <div class="Slider_img">
-                <img src="https://thepizzacompany.vn/images/thumbs/000/0003966_BANNER%20SLIDER%201200X480-100.jpeg" alt="" />
-            </div>
-            <div class="Slider_img">
-                <img src="https://thepizzacompany.vn/images/thumbs/000/0003966_BANNER%20SLIDER%201200X480-100.jpeg" alt="" />
-            </div>
-        </Slider>
-    );
+
+        <div className="slider-container" style={{ marginTop: '10px' }}>
+            <WrapperSliderStyle {...settings} >
+                {arrImages.map((image) => {
+                    return (
+
+                        <img key={image} src={image} alt="slider" preview={false} width='80%' height='auto' style={{ padding: '0 60px' }} />
+                    )
+                })}
+            </WrapperSliderStyle>
+        </div>
+
+    )
 }
+
+export default SimpleSlider
+

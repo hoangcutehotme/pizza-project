@@ -22,7 +22,7 @@ const Header = () => {
                   src={logo}
                   style={{ width: '100px', height: '90px' }}
                 />
-                <span style={{ marginLeft: '20px', color: 'black', fontSize: '20px', fontWeight: '700' }}>Pizza Home</span>
+                <span style={{ marginLeft: '20px', color: '#006a31', fontSize: '20px', fontWeight: '700' }}>Pizza Home</span>
               </a>
             </div>
           </div>
@@ -86,8 +86,8 @@ const Header = () => {
               data-isrtlenabled="false"
               data-enableclickfordropdown="false"
             >
-              <li class=" ">
-                <a href="/" class=""
+              <li className="">
+                <a href="/landingPage" class="" key="Trang chủ"
                 ><span> Trang chủ </span></a>
               </li>
               <li class=" ">
@@ -152,7 +152,7 @@ const Header = () => {
 
                               </div>
                               <div class="delete _flyout-cart-delete" onclick="">
-                                  <em class='delete-icon'><FontAwesomeIcon icon={faTrash}/></em>
+                                <em class='delete-icon'><FontAwesomeIcon icon={faTrash} /></em>
                               </div>
                             </div>
                           </div>
@@ -175,7 +175,7 @@ const Header = () => {
 
                               </div>
                               <div class="delete _flyout-cart-delete" onclick="">
-                                  <em class='delete-icon'><FontAwesomeIcon icon={faTrash}/></em>
+                                <em class='delete-icon'><FontAwesomeIcon icon={faTrash} /></em>
                               </div>
                             </div>
                           </div>

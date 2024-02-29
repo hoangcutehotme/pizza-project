@@ -1,20 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 
 const Info = () => {
+    const [formData, setFormData] = useState({
+        name : 'Huỳnh Bá Thuận',
+        phoneNumber : '0707252330',
+        email: 'thuan@gmail.com',
+        address: '241 Mai Đăng Chơn, Ngũ Hành Sơn, Đà Nẵng'
+    })
+        const handleChange = (e) => {
+            const { name, value } = e.target;
+            setFormData({
+                ...formData,
+                [name]: value,
+            });
+        };
+    const handleUpdate  = () =>  {
+        console.log(formData)
+    }
     return(
         <div class="center-2">
                     <div class="col-lg-12">
                         <h2 class="main-titles">Thông tin khách hàng</h2>
                         <div class="form-wrappers">
                             <div class="wrap-forms">
-                                <form
-                                    method="post"
-                                    enctype="multipart/form-data"
-                                    action="/customer/info"
-                                    novalidate="novalidate"
-                                >
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-4 col-md-3 mobile-custom-no-padding">
@@ -29,12 +39,10 @@ const Info = () => {
                                             <div class="col-7 col-md-8">
                                                 <input
                                                     type="text"
-                                                    name="FirstName"
+                                                    name="name"
                                                     class="info-custom-input"
-                                                    data-val="true"
-                                                    data-val-required="Tên bắt buộc nhập"
-                                                    id="FirstName"
-                                                    value="Huỳnh Thuận"
+                                                    value={formData.name}
+                                                    onChange={handleChange}
                                                 />
                                                 <span
                                                     class="validate-required field-validation-valid"
@@ -52,17 +60,16 @@ const Info = () => {
                                                     id="custom-username"
                                                     class="custom-label-info-customer"
                                                     style={{fontWeight: '500'}}
-                                                    for="Username"
                                                 >Số điện thoại</label>
                                             </div>
                                             <div class="col-7 col-md-8">
                                                 <input
                                                     type="text"
-                                                    name=""
-                                                    disabled="disabled"
+                                                    name="phoneNumber"
                                                     class="info-custom-input"
                                                     id="Username"
-                                                    value="0707252330"
+                                                    value={formData.phoneNumber}
+                                                    onChange={handleChange}
                                                 />
                                             </div>
                                         </div>
@@ -79,12 +86,35 @@ const Info = () => {
                                             <div class="col-7 col-md-8">
                                                 <input
                                                     type="text"
-                                                    name="Email"
+                                                    name="email"
                                                     class="info-custom-input"
-                                                    data-val="true"
-                                                    data-val-email="Email không hợp lệ"
-                                                    id="Email"
-                                                    value="huynhbathuan2672002@gmail.com"
+                                                    value={formData.email}
+                                                    disabled="disabled"
+                                                />
+                                                <span
+                                                    class="validate-required field-validation-valid"
+                                                    data-valmsg-for="Email"
+                                                    data-valmsg-replace="true"
+                                                ></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-4 col-md-3 mobile-custom-no-padding">
+                                                <label
+                                                    id="custom-email"
+                                                    class="custom-label-info-customer"
+                                                    style={{fontWeight: '500'}}
+                                                >Địa chỉ</label>
+                                            </div>
+                                            <div class="col-7 col-md-8">
+                                                <input
+                                                    type="text"
+                                                    name="address"
+                                                    class="info-custom-input"
+                                                    value={formData.address}
+                                                    onChange={handleChange}
                                                 />
                                                 <span
                                                     class="validate-required field-validation-valid"
@@ -101,7 +131,7 @@ const Info = () => {
                                                 <button
                                                     class="btn-creat-acc btn-creat-acc-custom"
                                                     id="btn-create"
-                                                    type="submit"
+                                                    onClick={handleUpdate}
                                                 >
                                                     <em id="pencil-custom"><FontAwesomeIcon icon={faPen}/></em>Cập
                                                     nhật
@@ -109,7 +139,6 @@ const Info = () => {
                                             </div>
                                         </div>
                                     </div>
-                                </form>
                             </div>
                         </div>
                     </div>

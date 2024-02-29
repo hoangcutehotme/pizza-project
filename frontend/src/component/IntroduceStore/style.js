@@ -19,16 +19,6 @@ export const SpecialtyDesc = styled.p`
   }
 `;
 
-export const SpecialtyImg = styled.img`
-  aspect-ratio: 1.39;
-  object-fit: auto;
-  object-position: center;
-  width: 160px;
-  margin-bottom: 20px;
-  fill: #18ac4e;
-  align-self: center;
-  max-width: 100%;
-`;
 
 export const SpecialtiesSection = styled.section`
   background-color: #e8fff0;

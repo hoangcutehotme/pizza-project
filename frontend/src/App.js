@@ -2,6 +2,12 @@ import './App.css';
 import Header from './component/Header/header';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import UserInfo from './page/UserInfo';
+import Pizza from './page/Pizza';
+import Footer from './component/Footer/Footer';
+
+import LandingPage from './page/LandingPage/LandingPage';
+
+
 import Login from './page/login';
 import Register from './page/register';
 import ForgotPass from './page/forgotPass';

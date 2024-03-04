@@ -11,8 +11,8 @@ const appError = require("../utils/appError");
 function route(app) {
   app.use("/api/auth", authRoute);
   app.use("/api/user", userRoute);
-  // app.use("/api/product", productRoute);
-  // app.use("/api/category", categoryRoute);
+  app.use("/api/product", productRoute);
+  app.use("/api/category", categoryRoute);
   // app.use("/api/rating", ratingRoute);
   // app.use("/api/order", orderRoute);
   // app.use("/", (req, res, next) => {

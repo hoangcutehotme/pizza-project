@@ -901,3 +901,7 @@ header {
 .account .opener:hover {
   color: #006a31 !important; /* Màu sắc bạn muốn áp dụng khi hover */
 }
+
+a{
+  cursor: pointer;
+}

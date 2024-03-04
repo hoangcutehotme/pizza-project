@@ -8,11 +8,6 @@ const productSchema = new Schema(
         required: [true, "Tên danh mục là bắt buộc"],
       },
     },
-    storeId: {
-      type: Schema.Types.ObjectId,
-      ref: "Store",
-      required: true,
-    },
     name: {
       type: String,
       required: [true, "Tên sản phẩm là bắt buộc"],
@@ -75,11 +70,6 @@ const productSchema = new Schema(
   }
 );
 
-productSchema.virtual("ratings", {
-  ref: "Rating",
-  foreignField: "reference",
-  localField: "_id",
-});
 productSchema.pre(`/^find/`, function(next) {
   if (!this.isAvailable) {
     this.isAvailable = true;

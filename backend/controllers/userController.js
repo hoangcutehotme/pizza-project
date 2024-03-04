@@ -40,10 +40,7 @@ class userController {
     let obj = {
       role: "User",
     };
-    const features = new ApiFeatures(
-      User.find(obj).select("+isVerified"),
-      req.query
-    )
+    const features = new ApiFeatures(User.find(obj), req.query)
       .search()
       .limitFields()
       .paginate();

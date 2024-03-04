@@ -7,22 +7,31 @@ import Register from './page/register';
 import ForgotPass from './page/forgotPass';
 import Verify from './page/verify';
 import ChangePassVerify from './page/changePassVerify';
+import OrderPage from './page/orderPage';
+import { AuthProvider } from './service/authContext';
+import { UserProvider } from './service/userContext';
 function App() {
   return (
-    <div class="master-wrapper-page html-account-page" id="master-wrapper-custom-id" style={{marginTop: '168px'}}>
-      <Router>
-        <Header />
-        <Routes>
-          <Route path="/userInfo" element={<UserInfo />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Register />} />
-          <Route path="/forgotPass" element={<ForgotPass />} />
-          <Route path="/verify" element={<Verify />} />
-          <Route path="/changePassVerify" element={<ChangePassVerify />} />
-        </Routes>
-        {/* <Footer /> */}
-      </Router>
-    </div>
+    <AuthProvider>
+      <UserProvider>
+        <div class="master-wrapper-page html-account-page" id="master-wrapper-custom-id" style={{ marginTop: '168px' }}>
+          <Router>
+            <Header />
+            <Routes>
+              <Route path="/" element />
+              <Route path="/user/Info" element={<UserInfo />} />
+              <Route path="/user/order" element={<OrderPage />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Register />} />
+              <Route path="/forgotPass" element={<ForgotPass />} />
+              <Route path="/verify" element={<Verify />} />
+              <Route path="/changePassVerify" element={<ChangePassVerify />} />
+            </Routes>
+            {/* <Footer /> */}
+          </Router>
+        </div>
+      </UserProvider>
+    </AuthProvider>
   )
 }
 

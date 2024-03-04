@@ -1,23 +1,39 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
-
+import { useAuth } from "../../service/authContext";
 const Info = () => {
+    const [error, setError] = useState("");
     const [formData, setFormData] = useState({
         name : 'Huỳnh Bá Thuận',
         phoneNumber : '0707252330',
         email: 'thuan@gmail.com',
         address: '241 Mai Đăng Chơn, Ngũ Hành Sơn, Đà Nẵng'
     })
-        const handleChange = (e) => {
-            const { name, value } = e.target;
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({
+            ...formData,
+            [name]: value,
+        });
+    };
+    const handleChangeRequired = (e) => {
+        const { name, value } = e.target;
+        if(value !== '') {
             setFormData({
                 ...formData,
                 [name]: value,
             });
-        };
+            setError('')
+        } else {
+            setError('Tên bắt buộc nhập')
+        }
+        console.log(error)
+    };
+    const {isLoggedIn} = useAuth();
     const handleUpdate  = () =>  {
         console.log(formData)
+        console.log(isLoggedIn)
     }
     return(
         <div class="center-2">
@@ -40,15 +56,15 @@ const Info = () => {
                                                 <input
                                                     type="text"
                                                     name="name"
-                                                    class="info-custom-input"
+                                                    class={`info-custom-input ${error !== '' ? 'input-validation-error' : ''}`}
                                                     value={formData.name}
-                                                    onChange={handleChange}
+                                                    onChange={handleChangeRequired}
                                                 />
+                                                {error && (
                                                 <span
-                                                    class="validate-required field-validation-valid"
-                                                    data-valmsg-for="FirstName"
-                                                    data-valmsg-replace="true"
-                                                ></span>
+                                                    class="validate-required field-validation-error"
+                                                >{error}</span>
+                                                )}
                                             </div>
                                         </div>
                                     </div>
@@ -66,8 +82,8 @@ const Info = () => {
                                                 <input
                                                     type="text"
                                                     name="phoneNumber"
+                                                    maxLength={10}
                                                     class="info-custom-input"
-                                                    id="Username"
                                                     value={formData.phoneNumber}
                                                     onChange={handleChange}
                                                 />

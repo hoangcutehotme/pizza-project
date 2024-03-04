@@ -405,3 +405,24 @@ tr {
 .order-history-product:last-child {
     border-bottom: none !important;
 }
+
+.message-error, .field-validation-error, .field-validation-error *, .username-not-available-status, .poll-vote-error, .password-error {
+    display: block;
+    margin: 2px 0 0;
+    font-size: 13px;
+    color: #ff4f60;
+    font-weight: 700;
+    /* text-align: center; */
+    white-space: normal;
+}
+
+.input-validation-error {
+    border-bottom: 2px solid #ff4f60 !important;
+}
+
+/* .validate-required {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 60%;
+    flex: 0 0 60%;
+    padding-left: 150px;
+} */

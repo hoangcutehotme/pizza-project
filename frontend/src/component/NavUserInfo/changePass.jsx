@@ -3,6 +3,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 
 const ChangePass = () => {
+    const [error, setError] = useState("");
+    const [error1, setError1] = useState("");
+    const [error2, setError2] = useState("");
     const [formData, setFormData] = useState({
         oldPass:'',
         newPass:'',
@@ -11,10 +14,35 @@ const ChangePass = () => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value,
-        });
+        console.log(name)
+        let notify
+        switch (name) {
+            case 'oldPass':
+                notify = setError
+                break;
+        
+            case 'newPass':
+                notify = setError1
+                break;
+        
+            case 'confirmPass':
+                notify = setError2
+                break;
+
+            default:
+                break;
+        }
+
+        
+        if (value === '') {
+            notify('Thông tin bắt buộc')
+        } else {
+            setFormData({
+                ...formData,
+                [name]: value,
+            });
+            notify('')
+        }
     };
 
     const handleSubmit = () => {
@@ -41,14 +69,16 @@ const ChangePass = () => {
                                         <input
                                             type="password"
                                             name="oldPass"
-                                            class="info-custom-input"
+                                            class={`info-custom-input ${error !== '' ? 'input-validation-error' : ''}`}
                                             id="oldPass"
                                             value={formData.oldPass}
                                             onChange={handleChange}
                                         />
-                                        <span
-                                            class="validate-required field-validation-valid"
-                                        ></span>
+                                        {error && (
+                                                <span
+                                                    class="validate-required field-validation-error"
+                                                >{error}</span>
+                                                )}
                                     </div>
                                 </div>
                             </div>
@@ -68,14 +98,16 @@ const ChangePass = () => {
                                         <input
                                             type="password"
                                             name="newPass"
-                                            class="info-custom-input"
+                                            class={`info-custom-input ${error1 !== '' ? 'input-validation-error' : ''}`}
                                             id="newPass"
                                             value={formData.newPass}
                                             onChange={handleChange}
                                         />
-                                        <span
-                                            class="validate-required field-validation-valid"
-                                        ></span>
+                                        {error1 && (
+                                                <span
+                                                    class="validate-required field-validation-error"
+                                                >{error1}</span>
+                                                )}
                                     </div>
                                 </div>
                             </div>
@@ -95,14 +127,16 @@ const ChangePass = () => {
                                         <input
                                             type="password"
                                             name="confirmPass"
-                                            class="info-custom-input"
+                                            class={`info-custom-input ${error2 !== '' ? 'input-validation-error' : ''}`}
                                             id="confirmPass"
                                             value={formData.confirmPass}
                                             onChange={handleChange}
                                         />
-                                        <span
-                                            class="validate-required field-validation-valid"
-                                        ></span>
+                                        {error2 && (
+                                                <span
+                                                    class="validate-required field-validation-error"
+                                                >{error2}</span>
+                                                )}
                                     </div>
                                 </div>
                             </div>

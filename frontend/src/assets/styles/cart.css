@@ -62,7 +62,7 @@
     overflow: hidden;
 }
 
-.mini-shopping-cart .item.first {
+.mini-shopping-cart .item:first-child {
     margin-top: 0;
 }
 
@@ -273,4 +273,12 @@ a img {
     border-color: #d50e15;
     background: #d50e15;
     color: #fff;
+}
+
+.item-child-detail .note-of-child {
+    margin-left: 0px;
+    color: #00b041 !important;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1;
 }

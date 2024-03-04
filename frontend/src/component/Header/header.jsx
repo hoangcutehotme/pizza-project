@@ -1,26 +1,53 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowRightFromBracket, faCartShopping, faSearch, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faArrowRightFromBracket, faCartShopping, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { faCircleUser } from '@fortawesome/free-regular-svg-icons'
 import logo from "../../assets/imgs/logoPizza.png"
 import "../../assets/styles/1024.css"
 import "./header.css"
 import "../../assets/styles/Custom.css"
-import "../../assets/styles/cart.css"
-
+import CartItem from "../Items/cartItem";
+import { useAuth, useLogout } from "../../service/authContext";
+import { useUser } from "../../service/userContext";
 const Header = () => {
+  const navigate = useNavigate()
+
+  const handleNav = (nav) => {
+    navigate(`/${nav}`);
+  };
+
+  const { isLoggedIn, setIsLoggedIn } = useAuth();
+  const logout = useLogout();
+  const handleLogout = () =>  {
+    logout();
+    localStorage.removeItem("token");
+    navigate("/")
+  }
+
+  const handleOrder = () => {
+    if(isLoggedIn) {
+      navigate("user/order");
+    } else {
+      navigate("/login")
+    }
+  };
+
+  const {cart, setCart} = useUser();
+
   return (
     <header id="_main-header" class="" style={{ paddingBottom: "20px" }}>
       <div class="container">
         <div class="top-wrap">
           <div class="left-wrap">
             <div class="logo">
-              <a href="/" class="logo" style={{ textDecoration: 'none' }}>
+              <a class="logo" style={{ textDecoration: 'none' }}>
                 <img
                   alt="The Pizza Home"
                   title="The Pizza Company"
                   src={logo}
-                  style={{ width: '100px', height: '90px' }}
+                  style={{ width: '100px', height: '90px', cursor:'pointer' }}
+                  onClick={() =>  handleNav("")}
                 />
                 <span style={{ marginLeft: '20px', color: '#006a31', fontSize: '20px', fontWeight: '700' }}>Pizza Home</span>
               </a>
@@ -61,21 +88,26 @@ const Header = () => {
               <div href="/customer/info" class="icon">
                 <em> <FontAwesomeIcon icon={faCircleUser} /></em>
               </div>
-              {/* <div class="login-and-register">
-                <a href="/login?returnUrl=%2F" class="register" style={{ textDecoration: 'none' }}>Đăng nhập</a>
-                <span>/</span>
-                <a href="/register?returnUrl=%2F" class="login" style={{ textDecoration: 'none' }}
-                >Tạo tài khoản</a>
-              </div> */}
-              <a href="/userInfo" class="opener" id="a-custom-id" style={{ color: 'black' }}>Huỳnh Thuận</a>
-              <div class="profile-menu-box">
-                <div class="close-side-menu" style={{ display: 'none' }}>
-                  <span class="close-side-menu-text">0707252330</span>
-                  <span class="close-side-menu-btn">Close</span>
+              {isLoggedIn ? (
+                <div>
+                  <a href="/user/Info" class="opener" id="a-custom-id" style={{ color: 'black' }}>Huỳnh Thuận</a>
+                  <div class="profile-menu-box">
+                    <div class="close-side-menu" style={{ display: 'none' }}>
+                      <span class="close-side-menu-text">0707252330</span>
+                      <span class="close-side-menu-btn">Close</span>
+                    </div>
+                    <a className="menu-link" style={{ cursor: 'pointer' }} onClick={() => handleNav("user/Info")}><FontAwesomeIcon icon={faCircleUser} style={{ marginRight: '10px' }} /> Tài khoản</a>
+                    <a className="menu-link" style={{ cursor: 'pointer' }} onClick={handleLogout}><FontAwesomeIcon icon={faArrowRightFromBracket} style={{ marginRight: '10px' }} />Đăng xuất</a>
+                  </div>
                 </div>
-                <a href="/userInfo" className="menu-link" style={{ cursor: 'pointer' }}><FontAwesomeIcon icon={faCircleUser} style={{ marginRight: '10px' }} /> Tài khoản</a>
-                <a href="/" className="menu-link" style={{ cursor: 'pointer' }}><FontAwesomeIcon icon={faArrowRightFromBracket} style={{ marginRight: '10px' }} />Đăng xuất</a>
-              </div>
+              ) : (
+                <div class="login-and-register">
+                  <a onClick={() => handleNav("login")} class="register" style={{ textDecoration: 'none' }}>Đăng nhập</a>
+                  <span>/</span>
+                  <a onClick={() => handleNav("signup")} class="login" style={{ textDecoration: 'none' }}
+                  >Tạo tài khoản</a>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -100,17 +132,17 @@ const Header = () => {
             <div class="mobile-flyout-wrapper">
               <div class="cart custom-cart" id="topcartlink">
                 <div class="icon">
-                  <a href="/cart">
+                  <a>
                     <em><FontAwesomeIcon icon={faCartShopping} style={{ fontSize: '18px' }} /></em>
                   </a>
                 </div>
 
                 <p style={{ marginTop: '0px', marginBottom: '0px', marginLeft: '5px' }}>
-                  <a href="/cart" style={{ textDecoration: 'none', color: '#006a31' }}> Giỏ hàng </a>
+                  <a style={{ textDecoration: 'none', color: '#006a31' }}> Giỏ hàng </a>
                 </p>
 
                 <div class="amount">
-                  <span class="cart-qty" id="_TotalProducts"> 1 </span>
+                  <span class="cart-qty" id="_TotalProducts"> {cart.length} </span>
                 </div>
 
                 <div
@@ -126,59 +158,9 @@ const Header = () => {
                     >
                       <div class="items ps-container">
                         <div class="list-product-cart">
-                          <div class="item first" data-shoppingcartid="3600342">
-                            <div class="product-item">
-                              <div class="image">
-                                <a href="/pizza-tom-cocktail-4" title="Hiển thị chi tiết cho Pizza Tôm Cocktail ">
-                                  <img alt="Ảnh của Pizza Tôm Cocktail " src="http://thepizzacompany.vn/images/thumbs/000/0002216_shrimp-ctl_95.png" title="Hiển thị chi tiết cho Pizza Tôm Cocktail " />
-                                </a>
-                              </div>
-                              <div class="content">
-                                <div class="title">
-                                  <div class="title-shopping-cart">Pizza Tôm Cocktail </div>
-                                  <div class="item-child-detail">
-                                    <div class="detail-content-child">
-                                      <p>Kích thước - Vừa 9”</p>
-                                      <p>Đế - Dày</p>
-
-                                    </div>
-                                  </div>
-                                </div>
-
-                                <div class="bottom">
-                                  <div style={{ color: 'rgb(132, 135, 136)' }}>Số lượng: 1</div>
-                                  <div class="price" style={{ color: '#000' }}> <span>239.000đ</span></div>
-                                </div>
-
-                              </div>
-                              <div class="delete _flyout-cart-delete" onclick="">
-                                  <em class='delete-icon'><FontAwesomeIcon icon={faTrash}/></em>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="item" data-shoppingcartid="3599162">
-                            <div class="product-item">
-                              <div class="image">
-                                <a href="/mirinda-soda-kem-lon" title="Hiển thị chi tiết cho Mirinda Soda Kem Lon">
-                                  <img alt="Ảnh của Mirinda Soda Kem Lon" src="http://thepizzacompany.vn/images/thumbs/000/0002702_mirinda-soda-kem-can_95.png" title="Hiển thị chi tiết cho Mirinda Soda Kem Lon" />
-                                </a>
-                              </div>
-                              <div class="content">
-                                <div class="title">
-                                  <div class="title-shopping-cart">Mirinda Soda Kem Lon</div>
-                                </div>
-
-                                <div class="bottom">
-                                  <div style={{ color: 'rgb(132, 135, 136)' }}>Số lượng: 1</div>
-                                  <div class="price" style={{ color: '#000' }}> <span>29.000đ</span></div>
-                                </div>
-
-                              </div>
-                              <div class="delete _flyout-cart-delete" onclick="">
-                                  <em class='delete-icon'><FontAwesomeIcon icon={faTrash}/></em>
-                              </div>
-                            </div>
-                          </div>
+                        {cart.map((product) =>  (
+                          <CartItem product={product}/>
+                        ))}
                         </div>
                         <div
                           class="ps-scrollbar-x-rail"
@@ -217,10 +199,10 @@ const Header = () => {
                           288.000đ
                         </div>
 
-                        <div class="buttons">
+                        <div class="buttons" onClick={handleOrder}>
                           <input
                             type="button"
-                            value="Thanh toán"
+                            value={isLoggedIn ? 'Đặt hàng' : 'Đăng nhập để đặt hàng'}
                             id="checkout"
                           />
                         </div>

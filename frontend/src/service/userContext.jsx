@@ -5,18 +5,20 @@ const UserContext = createContext();
 export function UserProvider({ children }) {
   const [cart, setCart] = useState([
     {
-        image:'http://thepizzacompany.vn/images/thumbs/000/0002702_mirinda-soda-kem-can_95.png',
-        name:'Mirinda Soda Kem Lon',
-        detail:'không sao',
-        amount:2,
-        price: 15000
+      _id : 1,
+      image:'http://thepizzacompany.vn/images/thumbs/000/0002702_mirinda-soda-kem-can_95.png',
+      name:'Mirinda Soda Kem Lon',
+      detail:'không sao',
+      amount:2,
+      price: 15000
     },
     {
-        image:'http://thepizzacompany.vn/images/thumbs/000/0002216_shrimp-ctl_95.png',
-        name:'Pizza Tôm Cocktail',
-        detail:'không sao',
-        amount:1,
-        price: 200000
+      _id : 2,
+      image:'http://thepizzacompany.vn/images/thumbs/000/0002216_shrimp-ctl_95.png',
+      name:'Pizza Tôm Cocktail',
+      detail:'không sao',
+      amount:1,
+      price: 200000
     },
   ]);
   return (

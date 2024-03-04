@@ -3,13 +3,12 @@ import '../../assets/styles/cart.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
 
-const CartItem = ({product}) => {
+const CartItem = ({product, handleDeleteItem}) => {
     return (
-        
         <div class="item" data-shoppingcartid="3600342">
             <div class="product-item">
                 <div class="image">
-                    <a href="/pizza-tom-cocktail-4" title="Hiển thị chi tiết cho Pizza Tôm Cocktail ">
+                <a>
                         <img alt={`Ảnh của ${product.name}`} src={product.image} title={`Hiển thị chi tiết cho ${product.name}`} />
                     </a>
                 </div>
@@ -31,8 +30,8 @@ const CartItem = ({product}) => {
                     </div>
 
                 </div>
-                <div class="delete _flyout-cart-delete" onclick=""  style={{cursor:'pointer'}}>
-                    <em class='delete-icon'><FontAwesomeIcon icon={faTrashCan} /></em>
+                <div class="delete _flyout-cart-delete" onClick={() => handleDeleteItem(product._id)}  style={{cursor:'pointer'}}>
+                    <em class='delete-icon'><FontAwesomeIcon icon={faTrashCan}/></em>
                 </div>
             </div>
         </div>

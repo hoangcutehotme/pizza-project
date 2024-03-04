@@ -1,8 +1,16 @@
 import React, {useState} from "react";
+import { useNavigate } from "react-router-dom";
+import { useLogout } from "../../service/authContext";
 import './UserInfo.css'
 
 const NavUserInfo = ({active, setActive}) => {
-    
+    const navigate = useNavigate()
+    const logout = useLogout()
+    const handleLogout = () =>  {
+        logout();
+        localStorage.removeItem("token");
+        navigate("/")
+      }
     return (
         <div class="side-2">
             <div class="user-sidebar">
@@ -32,7 +40,7 @@ const NavUserInfo = ({active, setActive}) => {
                                 Đổi mật khẩu
                             </a>
                         </li>
-                        <li>
+                        <li onClick={handleLogout}>
                             <a class="router-tag-a" href="#" style={{ color: "inherit" }}>
                                 Đăng xuất
                             </a>

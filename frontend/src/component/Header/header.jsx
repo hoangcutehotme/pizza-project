@@ -7,7 +7,8 @@ import logo from "../../assets/imgs/logoPizza.png"
 import "../../assets/styles/1024.css"
 import "./header.css"
 import "../../assets/styles/Custom.css"
-import CartItem from "../Items/cartItem";
+// import CartItem from "../Items/cartItem";
+import Cart from "./cart";
 import { useAuth, useLogout } from "../../service/authContext";
 import { useUser } from "../../service/userContext";
 const Header = () => {
@@ -17,23 +18,15 @@ const Header = () => {
     navigate(`/${nav}`);
   };
 
-  const { isLoggedIn, setIsLoggedIn } = useAuth();
+  const { isLoggedIn } = useAuth();
   const logout = useLogout();
-  const handleLogout = () =>  {
+  const handleLogout = () => {
     logout();
     localStorage.removeItem("token");
     navigate("/")
   }
 
-  const handleOrder = () => {
-    if(isLoggedIn) {
-      navigate("user/order");
-    } else {
-      navigate("/login")
-    }
-  };
-
-  const {cart, setCart} = useUser();
+  const { cart, setCart } = useUser();
 
   return (
     <header id="_main-header" class="" style={{ paddingBottom: "20px" }}>
@@ -46,8 +39,8 @@ const Header = () => {
                   alt="The Pizza Home"
                   title="The Pizza Company"
                   src={logo}
-                  style={{ width: '100px', height: '90px', cursor:'pointer' }}
-                  onClick={() =>  handleNav("")}
+                  style={{ width: '100px', height: '90px', cursor: 'pointer' }}
+                  onClick={() => handleNav("")}
                 />
                 <span style={{ marginLeft: '20px', color: '#006a31', fontSize: '20px', fontWeight: '700' }}>Pizza Home</span>
               </a>
@@ -151,64 +144,7 @@ const Header = () => {
                   data-removeitemfromcarturl="/EmporiumTheme/RemoveItemFromCart"
                   data-flyoutcarturl="/EmporiumTheme/FlyoutShoppingCart"
                 >
-                  <div class="mini-shopping-cart">
-                    <div
-                      class="flyout-cart-scroll-area"
-                      style={{ maxHeight: '711px' }}
-                    >
-                      <div class="items ps-container">
-                        <div class="list-product-cart">
-                        {cart.map((product) =>  (
-                          <CartItem product={product}/>
-                        ))}
-                        </div>
-                        <div
-                          class="ps-scrollbar-x-rail"
-                          style={{ left: '0px', bottom: '3px' }}
-                        >
-                          <div
-                            class="ps-scrollbar-x"
-                            style={{ left: '0px', width: '0px' }}
-                          ></div>
-                        </div>
-                        <div
-                          class="ps-scrollbar-y-rail"
-                          style={{ top: '0px', right: '3px' }}
-                        >
-                          <div
-                            class="ps-scrollbar-y"
-                            style={{ top: '0px', height: '0px' }}
-                          ></div>
-                        </div>
-                      </div>
-                      <div class="flyout-lower">
-                        <div class="count" style={{ fontWeight: 'bold' }}>
-                          Tổng Tiền
-                        </div>
-                        <div
-                          class="totals"
-                          style={{
-
-                            color: '#d30e15',
-                            fontSize: '20px',
-                            fontWeight: '900'
-
-                          }}
-                          id="totals-price-custom"
-                        >
-                          288.000đ
-                        </div>
-
-                        <div class="buttons" onClick={handleOrder}>
-                          <input
-                            type="button"
-                            value={isLoggedIn ? 'Đặt hàng' : 'Đăng nhập để đặt hàng'}
-                            id="checkout"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  <Cart cart={cart} setCart={setCart}/>
                 </div>
               </div>
             </div>

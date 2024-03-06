@@ -14,7 +14,7 @@ function Itemproduct({ products, setdetail }) {
     return (
         <div class="container1">
             <div class="Img">
-                <img src={product.img} alt="" />
+                <img src={product.img} alt={product.img} />
             </div>
             <div class="Product_item">
                 <div class="Name_item">

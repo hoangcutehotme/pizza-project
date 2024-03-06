@@ -3,7 +3,6 @@ import pizza1 from '../../assets/imgs/pizza1.png'
 import pizza2 from '../../assets/imgs/pizza2.png'
 import pizza3 from '../../assets/imgs/pizza3.png'
 import pizza4 from '../../assets/imgs/pizza4.png'
-import ProductItem from './Product'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import './style.css'
@@ -38,7 +37,7 @@ const listPizza = [
 
 const ListProduct = () => {
     return (
-        <div className='container mt-5'>
+        <div className='container mt-5' key='list-best-product'>
             <div className='title-group row'>
 
                 <div className="d-flex justify-content-between align-items-center w-100">
@@ -49,10 +48,10 @@ const ListProduct = () => {
                     </a>
                 </div>
             </div>
-            <div className='view-temproduct'>
+            <div className='view-temproduct' >
                 {listPizza.map(pizza => {
                     return (
-                        <Itemproduct />
+                        <Itemproduct key={pizza.name} />
                     )
                 }
 

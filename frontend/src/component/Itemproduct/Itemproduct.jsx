@@ -3,7 +3,7 @@ import style from './Itemproduct.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
 
-function Itemproduct({ products }) {
+function Itemproduct({ products, setdetail }) {
     const [product] = useState({
         img: "http://thepizzacompany.vn/images/thumbs/000/0003102_seafood-peach_300.png",
         name: 'Pizza Hải Sản Đào',
@@ -32,8 +32,8 @@ function Itemproduct({ products }) {
                             {product.price}đ
                         </h4>
                     </div>
-                    <div class="order_item">
-                        <span> Mua ngay</span>
+                    <div class="order_item" onClick={() => setdetail(true)}>
+                        <span > Mua ngay</span>
                         <FontAwesomeIcon icon={faArrowRight} />
                     </div>
                 </div>

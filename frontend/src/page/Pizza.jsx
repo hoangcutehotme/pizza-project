@@ -14,7 +14,7 @@ const images = ["https://thepizzacompany.vn/images/thumbs/000/0003966_BANNER%20S
     "https://thepizzacompany.vn/images/thumbs/000/0003966_BANNER%20SLIDER%201200X480-100.jpeg"]
 
 
-function Pizza() {
+function Pizza({ setdetail }) {
     const sectionRefs = useRef([
         useRef(null),
         useRef(null),
@@ -97,7 +97,7 @@ function Pizza() {
                     <Title title={"Công Thức Đặc Biệt"} />
                 </div>
                 <div style={{ display: 'flex' }} class="view-temproduct">
-                    <Itemproduct />
+                    <Itemproduct setdetail={setdetail} />
                     <Itemproduct />
                     <Itemproduct />
                     <Itemproduct />

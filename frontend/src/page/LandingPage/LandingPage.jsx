@@ -17,13 +17,14 @@ const LandingPage = () => {
   return (
     <>
       <SimpleSlider arrImages={images} />
+      <div className='container'>
 
+        <IntroduceStore1 />
+        <ListProduct />
+        <IntroduceStore2 />
+        <SliderComment />
+      </div>
 
-
-      <IntroduceStore1 />
-      <ListProduct />
-      <IntroduceStore2 />
-      <SliderComment />
     </>
 
   )

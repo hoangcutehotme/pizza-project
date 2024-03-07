@@ -108,51 +108,51 @@ class userController {
     const contact = await Contact.findById(id, { _id: 0, __v: 0 });
     res.status(200).json(contact);
   });
-  getInfoCart = catchAsync(async (req, res, next) => {
-    const { userId, storeId } = req.params;
-    let user = await User.findById(userId);
+  // getInfoCart = catchAsync(async (req, res, next) => {
+  //   const { userId, storeId } = req.params;
+  //   let user = await User.findById(userId);
 
-    const store = await Store.findById(storeId);
+  //   const store = await Store.findById(storeId);
 
-    const storeCoordinates = {
-      latitude: store.location.coordinates[0],
-      longitude: store.location.coordinates[1],
-    };
-    console.log(store);
-    const data = user.contact.map(function(contact) {
-      console.log(contact);
-      const contactCoordinates = {
-        latitude: contact.location.coordinates[0],
-        longitude: contact.location.coordinates[1],
-      };
-      let distance = +mapUtils.getDistance(
-        storeCoordinates,
-        contactCoordinates
-      );
+  //   const storeCoordinates = {
+  //     latitude: store.location.coordinates[0],
+  //     longitude: store.location.coordinates[1],
+  //   };
+  //   console.log(store);
+  //   const data = user.contact.map(function(contact) {
+  //     console.log(contact);
+  //     const contactCoordinates = {
+  //       latitude: contact.location.coordinates[0],
+  //       longitude: contact.location.coordinates[1],
+  //     };
+  //     let distance = +mapUtils.getDistance(
+  //       storeCoordinates,
+  //       contactCoordinates
+  //     );
 
-      const prepareTime = +process.env.prepareTime; // time expected for preparing
-      distance = +(distance / 1000).toFixed(1);
-      let deliveryTime = Math.round((distance / 40) * 60 + prepareTime); // 40 is deliverySpeed -- duration = distance / deliverySpeed
+  //     const prepareTime = +process.env.prepareTime; // time expected for preparing
+  //     distance = +(distance / 1000).toFixed(1);
+  //     let deliveryTime = Math.round((distance / 40) * 60 + prepareTime); // 40 is deliverySpeed -- duration = distance / deliverySpeed
 
-      //totalPrice
-      let shipCost;
-      const baseFee = +process.env.baseFee;
-      const feePerKm = +process.env.feePerKm;
-      distance > 3
-        ? (shipCost = baseFee + Math.ceil(distance - 3) * feePerKm)
-        : (shipCost = baseFee);
-      return {
-        contact,
-        deliveryTime,
-        distance,
-        shipCost,
-      };
-    });
-    res.status(200).json({
-      status: "success",
-      data,
-    });
-  });
+  //     //totalPrice
+  //     let shipCost;
+  //     const baseFee = +process.env.baseFee;
+  //     const feePerKm = +process.env.feePerKm;
+  //     distance > 3
+  //       ? (shipCost = baseFee + Math.ceil(distance - 3) * feePerKm)
+  //       : (shipCost = baseFee);
+  //     return {
+  //       contact,
+  //       deliveryTime,
+  //       distance,
+  //       shipCost,
+  //     };
+  //   });
+  //   res.status(200).json({
+  //     status: "success",
+  //     data,
+  //   });
+  // });
 
   updateUserPhoto = catchAsync(async (req, res, next) => {
     const user = await User.findById({ _id: req.params.id });

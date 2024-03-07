@@ -3,10 +3,11 @@ var router = express.Router();
 const userController = require("../controllers/userController");
 const contactController = require("../controllers/contactController");
 const authController = require("../controllers/authController");
-const orderController = require("../controllers/orderController");
 // router.route("/:email").post(userController.verifiedUser);
 //contactController.createContact
-router.route("/").post(userController.signUpUser);
+router
+  .route("/")
+  .post(contactController.createContact, userController.signUpUser);
 
 router.use(authController.protect);
 router
@@ -58,11 +59,11 @@ router.patch(
   authController.restrict("User"),
   contactController.updateContact
 );
-router.get(
-  "/:userId/store/:storeId",
-  authController.restrict("User"),
-  userController.getInfoCart
-);
+// router.get(
+//   "/:userId/store/:storeId",
+//   authController.restrict("User"),
+//   userController.getInfoCart
+// );
 router.patch(
   "/:id/photo",
   authController.restrict("User"),

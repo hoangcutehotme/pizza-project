@@ -7,9 +7,11 @@ const dotenv = require("dotenv");
 const session = require("express-session");
 const MemoryStore = require("memorystore")(session);
 const passport = require("passport");
+const morgan = require("morgan");
 require("./utils/googleAuth");
 
 const rateLimit = require("express-rate-limit");
+
 const helmet = require("helmet");
 const cors = require("cors");
 const xss = require("xss-clean");
@@ -49,7 +51,7 @@ app.use(
     }),
   })
 );
-
+app.use(morgan("dev"));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(

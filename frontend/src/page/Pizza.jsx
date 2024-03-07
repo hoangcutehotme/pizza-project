@@ -14,7 +14,7 @@ const images = ["https://thepizzacompany.vn/images/thumbs/000/0003966_BANNER%20S
     "https://thepizzacompany.vn/images/thumbs/000/0003966_BANNER%20SLIDER%201200X480-100.jpeg"]
 
 
-function Pizza() {
+function Pizza({ setdetail }) {
     const sectionRefs = useRef([
         useRef(null),
         useRef(null),
@@ -75,7 +75,28 @@ function Pizza() {
                 <SimpleSlider arrImages={images} />
             </div>
 
-            <div className='container'>
+            </div>)}
+            <div ref={sectionRefs.current[0]} >
+                <div>
+                    <Title title={"Công Thức Đặc Biệt"} />
+                </div>
+                <div style={{ display: 'flex' }} class="view-temproduct">
+                    <Itemproduct setdetail={setdetail} />
+                    <Itemproduct />
+                    <Itemproduct />
+                    <Itemproduct />
+                </div>
+            </div>
+            <div ref={sectionRefs.current[1]} >
+                <div>
+                    <Title title={"Hải Sản Cao Cấp"} />
+                </div>
+                <div style={{ display: 'flex' }} class="view-temproduct">
+                    <Itemproduct />
+                    <Itemproduct />
+                </div>
+            </div>
+            <div ref={sectionRefs.current[2]} >
                 <div>
                     <Title title={"Pizza"} />
                 </div>

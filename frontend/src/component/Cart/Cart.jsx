@@ -1,64 +1,87 @@
-import React from 'react'
-import Title from '../Title/Title'
-import style from './Cart.css'
+import React from 'react';
+import Title from '../Title/Title';
+import './Cart.css'; // Đảm bảo import CSS một cách chính xác
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useNavigate } from 'react-router-dom';
 import { faMinus, faPlus, faTrash, faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
+function Cart({ cartItems, addToCart, removeToCart }) {
+    function formatCurrency(price) {
+        return price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+    }
 
+    const totalPrice = cartItems.reduce((total, product) => total + (product.price * product.quantity), 0);
+    const navigate = useNavigate();
 
-function Cart() {
+    const handleNav = (nav) => {
+        navigate(`/${nav}`);
+    };
+
     return (
-        <div class="container">
-            <div>
-                <div>
-                    <Title title={"Công Thức Đặc Biệt"} />
+        <div className="container">
+            <div className="min-height">
+                <Title title={'Công Thức Đặc Biệt'} />
+                <div className='scroll'> {/* Đã sửa tên class thành 'scroll' */}
+                    {cartItems.length > 0 ? (
+                        <>
+                            {cartItems.map((product, index) => (
+                                <div className="cart" key={index}>
+                                    <div className="item0">
+                                        <img src={product.images} alt="" />
+                                    </div>
+                                    <div className="item2">
+                                        {product.name}
+                                        <div className="item2_decrip">
+                                            Chi chu : {product.noti}
+                                        </div>
+                                    </div>
+                                    <div className="item0">
+                                        <div className="item_box">
+                                            <div className="but" onClick={() => removeToCart(product)}>
+                                                <FontAwesomeIcon icon={faMinus} />
+                                            </div>
+                                            <div className="but">
+                                                {product.quantity}
+                                            </div>
+                                            <div className="but" onClick={() => addToCart(product)}>
+                                                <FontAwesomeIcon icon={faPlus} />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="item0">
+                                        {formatCurrency(product.price)}
+                                    </div>
+                                    <div className="item" style={{ color: '#4f4f4f' }}>
+                                        <FontAwesomeIcon icon={faTrash} />
+                                    </div>
+                                </div>
+                            ))}
+                        </>
+                    ) : (
+                        <div className="cart_no">Rất tiếc!!! Bạn không có sản phẩm ở đây.</div>
+                    )}
                 </div>
-                <div class="cart">
-                    <div class='item'>
-                        <img src="http://thepizzacompany.vn/images/thumbs/000/0003667_ham-mushroom-w-cream-truffle-sause_360.png" alt="" />
-                    </div>
-                    <div class='item2'>
-                        Mỳ Ý Truffle
-                    </div>
-                    <div class='item'>
-                        <div class="item_box">
-                            <div class='but'>
-                                <FontAwesomeIcon icon={faMinus} />
-                            </div>
-                            <div class='but'>
-                                2
-                            </div>
-                            <div class='but'>
-                                <FontAwesomeIcon icon={faPlus} />
-                            </div>
+                <div className="cart1">
+                    <div className="cart1_price">
+                        <div>Tổng tiền:</div>
+                        <div style={{ color: "red", marginLeft: "20px" }}>
+                            {totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
                         </div>
-
                     </div>
-                    <div class='item'>
-                        199.000 đ
-                    </div>
-                    <div class='item' style={{ color: "#4f4f4f" }}>
-                        <FontAwesomeIcon icon={faTrash} />
-                    </div>
-                </div>
-                <div class="cart1" >
-                    <div class="cart1_price">
-                        Tổng tiền: 	487.000 đ
-                    </div>
-                    <div class="cart1_button">
-                        <div class="cart1_item_left" >
+                    <div className="cart1_button" onClick={() => handleNav('pizza')}>
+                        <div className="cart1_item_left">
                             <FontAwesomeIcon icon={faArrowLeft} />
-                            <span >Tiếp tục mua hàng</span>
+                            <span>Tiếp tục mua hàng</span>
                         </div>
-                        <div class="cart1_item_rigth" >
-                            <span >Thanh toán</span>
+                        <div className="cart1_item_rigth">
+                            <span>Thanh toán</span>
                             <FontAwesomeIcon icon={faArrowRight} />
                         </div>
                     </div>
                 </div>
             </div>
-        </div >
-    )
+        </div>
+    );
 }
 
-export default Cart
+export default Cart;

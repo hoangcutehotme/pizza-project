@@ -1,3 +1,6 @@
+
+
+
 import React, { useRef, useState, useEffect } from 'react';
 import SimpleSlider from '../component/Slider/SliderComponent';
 import Title from '../component/Title/Title';
@@ -7,14 +10,12 @@ import Footer from '../component/Footer/Footer';
 import style from '../component/Itemproduct/Itemproduct.css'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
-const images = ["https://thepizzacompany.vn/images/thumbs/000/0003966_BANNER%20SLIDER%201200X480-100.jpeg",
+import axiosInstancenotoken from '../service/axiosInstance'
+const images = [
     "https://thepizzacompany.vn/images/thumbs/000/0003966_BANNER%20SLIDER%201200X480-100.jpeg",
     "https://thepizzacompany.vn/images/thumbs/000/0003966_BANNER%20SLIDER%201200X480-100.jpeg",
     "https://thepizzacompany.vn/images/thumbs/000/0003966_BANNER%20SLIDER%201200X480-100.jpeg"]
-
-
-function Pizza({ setdetail }) {
+function Pizza({ addToCart, setdetail, setitem }) {
     const sectionRefs = useRef([
         useRef(null),
         useRef(null),
@@ -23,6 +24,34 @@ function Pizza({ setdetail }) {
         useRef(null)
     ]);
     const [activeIndex, setActiveIndex] = useState(0);
+    const [menu, setMenu] = useState([]);
+    useEffect(() => {
+        async function fetchMenu() {
+            try {
+                const response = await axiosInstancenotoken.get('/api/category/');
+                const newMenu = [];
+                for (const item of response.data) {
+                    const products = await fetchProducts(item.catName);
+                    newMenu.push({ ...item, products });
+                }
+                console.log(newMenu);
+                setMenu(newMenu);
+            } catch (error) {
+                console.error('Đã xảy ra lỗi khi lấy danh sách danh mục:', error);
+            }
+        }
+        fetchMenu();
+    }, []);
+    async function fetchProducts(catName) {
+        try {
+            const response = await axiosInstancenotoken.get(`/api/product/cat/?catName=${catName}`);
+            return response.data.data;
+        } catch (error) {
+            console.error('Đã xảy ra lỗi khi lấy danh sách sản phẩm:', error);
+            return [];
+        }
+    }
+
     useEffect(() => {
         const handleScroll = () => {
             const scrollPosition = window.scrollY;
@@ -37,68 +66,41 @@ function Pizza({ setdetail }) {
                 }
             });
         };
-
         window.addEventListener('scroll', handleScroll);
-
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };
     }, []);
-
-
     const scrollToRef = (index) => {
         const targetElement = sectionRefs.current[index].current;
         const parentElement = targetElement.parentElement;
-        const offsetTop = targetElement.getBoundingClientRect().top - parentElement.getBoundingClientRect().top - 30;
+        const offsetTop = targetElement.getBoundingClientRect().top - parentElement.getBoundingClientRect().top + 450;
         window.scrollTo(100, offsetTop);
-        setActiveIndex(parseInt(1));
     };
-
     const [isImageFixed, setIsImageFixed] = useState(false);
-
     useEffect(() => {
         const handleScroll = () => {
             const scrollPosition = window.scrollY;
             setIsImageFixed(scrollPosition > 500);
         };
-
         window.addEventListener('scroll', handleScroll);
-
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };
     }, []);
+    function formatCurrency(price) {
+        return price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+    }
 
     return (
         <>
             <div style={{ width: "100%" }}>
                 <SimpleSlider arrImages={images} />
             </div>
+            <div className="container">
 
-            </div>)}
-            <div ref={sectionRefs.current[0]} >
                 <div>
-                    <Title title={"Công Thức Đặc Biệt"} />
-                </div>
-                <div style={{ display: 'flex' }} class="view-temproduct">
-                    <Itemproduct setdetail={setdetail} />
-                    <Itemproduct />
-                    <Itemproduct />
-                    <Itemproduct />
-                </div>
-            </div>
-            <div ref={sectionRefs.current[1]} >
-                <div>
-                    <Title title={"Hải Sản Cao Cấp"} />
-                </div>
-                <div style={{ display: 'flex' }} class="view-temproduct">
-                    <Itemproduct />
-                    <Itemproduct />
-                </div>
-            </div>
-            <div ref={sectionRefs.current[2]} >
-                <div>
-                    <Title title={"Pizza"} />
+                    <Title title={"Menus"} />
                 </div>
                 {isImageFixed ? (
                     <div style={{
@@ -106,108 +108,28 @@ function Pizza({ setdetail }) {
                         top: 170,
                         width: '100%',
                         backgroundColor: '#ffffff',
-                        zIndex: 999,
+                        zIndex: 99,
                         alignItems: 'center'
                     }} className='container'>
-                        <Menus scrollToRef={scrollToRef} activeIndex={activeIndex} />
+                        <Menus scrollToRef={scrollToRef} activeIndex={activeIndex} menu={menu} />
                     </div>
-                ) : (<div >
-                    <Menus scrollToRef={scrollToRef} activeIndex={activeIndex} />
-
+                ) : (<div style={{ zIndex: 99, }}>
+                    <Menus scrollToRef={scrollToRef} activeIndex={activeIndex} menu={menu} />
                 </div>)}
-                <div ref={sectionRefs.current[0]} >
-                    <div>
-                        <Title title={"Công Thức Đặc Biệt"} />
-                    </div>
-                    <div style={{ display: 'flex' }} class="view-temproduct">
-                        <Itemproduct />
-                        <Itemproduct />
-                        <Itemproduct />
-                        <Itemproduct />
-                    </div>
-                </div>
-                <div ref={sectionRefs.current[1]} >
-                    <div>
-                        <Title title={"Hải Sản Cao Cấp"} />
-                    </div>
-                    <div style={{ display: 'flex' }} class="view-temproduct">
-                        <Itemproduct />
-                        <Itemproduct />
-                    </div>
-                </div>
-                <div ref={sectionRefs.current[2]} >
-                    <div>
-                        <Title title={"Pizza"} />
-                    </div>
-                    {isImageFixed ? (
-                        <div style={{
-                            position: 'fixed',
-                            top: 170,
-                            width: '100%',
-                            backgroundColor: '#ffffff',
-                            zIndex: 999,
-                            alignItems: 'center'
-                        }} className='container'>
-                            <Menus scrollToRef={scrollToRef} />
-                        </div>
-                    ) : (<div >
-                        <Menus scrollToRef={scrollToRef} />
-                    </div>)}
-                    <div ref={sectionRefs.current[0]} >
+                {menu?.map((item, index) => (
+                    <div ref={sectionRefs.current[index]} >
                         <div>
-                            <Title title={"Công Thức Đặc Biệt"} />
+                            <Title title={item.catName} />
                         </div>
-                        <div style={{ display: 'flex' }} class="view-temproduct">
-                            <Itemproduct />
-                            <Itemproduct />
-                            <Itemproduct />
-                            <Itemproduct />
-                        </div>
-                    </div>
-                    <div ref={sectionRefs.current[1]} >
-                        <div>
-                            <Title title={"Hải Sản Cao Cấp"} />
-                        </div>
-                        <div style={{ display: 'flex' }} class="view-temproduct">
-                            <Itemproduct />
-                            <Itemproduct />
+                        <div style={{ display: 'flex' }} className="view-temproduct">
+                            {item?.products?.data.map((product, productIndex) => (
+                                <Itemproduct key={productIndex} setdetail={setdetail} addToCart={addToCart} setitem={setitem} product={product} />
+                            ))}
                         </div>
                     </div>
-                    <div ref={sectionRefs.current[2]} >
-                        <div>
-                            <Title title={"Thập Cẩm Cao Cấp"} />
-                        </div>
-                        <div style={{ display: 'flex' }} class="view-temproduct" >
-                            <Itemproduct />
-                            <Itemproduct />
-                        </div>
-                    </div>
-                    <div ref={sectionRefs.current[3]} >
-                        <div>
-                            <Title title={"Truyền Thống"} />
-                        </div>
-                        <div style={{ display: 'flex' }} class="view-temproduct">
-                            <Itemproduct />
-                            <Itemproduct />
-                        </div>
-                    </div>
-                    <div ref={sectionRefs.current[4]} >
-                        <div>
-                            <Title title={"Pizza Chay"} />
-                        </div>
-                        <div style={{ display: 'flex' }} class="view-temproduct">
-                            <Itemproduct />
-                            <Itemproduct />
-                        </div>
-                    </div>
-
-                </div>
+                ))}
             </div>
-
-
         </>
-
     );
 }
-
 export default Pizza;

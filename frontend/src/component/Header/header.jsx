@@ -10,7 +10,9 @@ import "../../assets/styles/Custom.css"
 import CartItem from "../Items/cartItem";
 import { useAuth, useLogout } from "../../service/authContext";
 import { useUser } from "../../service/userContext";
-const Header = () => {
+const Header = ({ cartItems, removeToCart }) => {
+
+  const totalPrice = cartItems.reduce((total, product) => total + (product.price * product.quantity), 0);
   const navigate = useNavigate()
 
   const handleNav = (nav) => {
@@ -19,21 +21,21 @@ const Header = () => {
 
   const { isLoggedIn, setIsLoggedIn } = useAuth();
   const logout = useLogout();
-  const handleLogout = () =>  {
+  const handleLogout = () => {
     logout();
     localStorage.removeItem("token");
     navigate("/")
   }
 
   const handleOrder = () => {
-    if(isLoggedIn) {
+    if (isLoggedIn) {
       navigate("user/order");
     } else {
       navigate("/login")
     }
   };
 
-  const {cart, setCart} = useUser();
+  const { cart, setCart } = useUser();
 
   return (
     <header id="_main-header" class="" style={{ paddingBottom: "20px" }}>
@@ -46,8 +48,8 @@ const Header = () => {
                   alt="The Pizza Home"
                   title="The Pizza Company"
                   src={logo}
-                  style={{ width: '100px', height: '90px', cursor:'pointer' }}
-                  onClick={() =>  handleNav("")}
+                  style={{ width: '100px', height: '90px', cursor: 'pointer' }}
+                  onClick={() => handleNav("")}
                 />
                 <span style={{ marginLeft: '20px', color: '#006a31', fontSize: '20px', fontWeight: '700' }}>Pizza Home</span>
               </a>
@@ -142,7 +144,7 @@ const Header = () => {
                 </p>
 
                 <div class="amount">
-                  <span class="cart-qty" id="_TotalProducts"> {cart.length} </span>
+                  <span class="cart-qty" id="_TotalProducts"> {cartItems.length} </span>
                 </div>
 
                 <div
@@ -150,17 +152,21 @@ const Header = () => {
                   class="flyout-cart"
                   data-removeitemfromcarturl="/EmporiumTheme/RemoveItemFromCart"
                   data-flyoutcarturl="/EmporiumTheme/FlyoutShoppingCart"
+
                 >
                   <div class="mini-shopping-cart">
                     <div
                       class="flyout-cart-scroll-area"
-                      style={{ maxHeight: '711px' }}
-                    >
-                      <div class="items ps-container">
-                        <div class="list-product-cart">
-                        {cart.map((product) =>  (
-                          <CartItem product={product}/>
-                        ))}
+                      style={{ maxHeight: '711px', zIndex: 10000 }}
+                    > {cartItems.length ? (
+                      <div>
+                        <div class="items ps-container">
+                          <div class="list-product-cart scroll">
+                            {cartItems.map((product) => (
+                              <CartItem product={product} removeToCart={removeToCart} />
+                            ))}
+                          </div>
+
                         </div>
                         <div
                           class="ps-scrollbar-x-rail"
@@ -180,33 +186,38 @@ const Header = () => {
                             style={{ top: '0px', height: '0px' }}
                           ></div>
                         </div>
-                      </div>
-                      <div class="flyout-lower">
-                        <div class="count" style={{ fontWeight: 'bold' }}>
-                          Tổng Tiền
-                        </div>
-                        <div
-                          class="totals"
-                          style={{
-
-                            color: '#d30e15',
-                            fontSize: '20px',
-                            fontWeight: '900'
-
-                          }}
-                          id="totals-price-custom"
-                        >
-                          288.000đ
-                        </div>
-
-                        <div class="buttons" onClick={handleOrder}>
-                          <input
-                            type="button"
-                            value={isLoggedIn ? 'Đặt hàng' : 'Đăng nhập để đặt hàng'}
-                            id="checkout"
-                          />
+                        <div class="flyout-lower">
+                          <div class="count" style={{ fontWeight: 'bold' }}>
+                            Tổng Tiền
+                          </div>
+                          <div
+                            class="totals"
+                            style={{
+                              color: '#d30e15',
+                              fontSize: '20px',
+                              fontWeight: '900'
+                            }}
+                            id="totals-price-custom"
+                          >
+                            {totalPrice} đ
+                          </div>
+                          <div class="buttons" onClick={handleOrder}>
+                            <input
+                              type="button"
+                              value={isLoggedIn ? 'Đặt hàng' : 'Đăng nhập để đặt hàng'}
+                              id="checkout"
+                            />
+                          </div>
                         </div>
                       </div>
+
+
+                    ) : (
+                      <div class='cart_no'>Rất tiếc!!! Bạn không có sản phẩm ở đây.</div>
+                    )}
+
+
+
                     </div>
                   </div>
                 </div>

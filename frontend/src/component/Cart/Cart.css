@@ -1,12 +1,16 @@
+.min-height {
+    min-height: 510px;
+}
+
 .cart {
     display: flex;
     align-items: center;
     padding-left: 20px;
+    padding-right: 20px;
     border-bottom: 0.1px solid rgb(208, 208, 208);
-    ;
 }
 
-.item {
+.item0 {
     font-size: 18px;
     flex: 1;
     font-weight: 500;
@@ -41,9 +45,10 @@
 
 .but {
     margin: 5px 10px;
+    cursor: pointer;
 }
 
-.item img {
+.item0 img {
     height: 120px;
     width: 120px;
 }
@@ -61,7 +66,7 @@
     margin-right: 10px;
     font-size: 24px;
     color: #000;
-    font-weight: 500;
+    font-weight: 700;
     padding: 50px;
 }
 
@@ -107,4 +112,14 @@
 
 .cart1_item_left:hover {
     text-decoration: underline;
+}
+
+.item2_decrip {
+    font-size: 14px;
+    color: #007d43;
+}
+
+.scroll {
+    max-height: 450px;
+    overflow-y: auto;
 }

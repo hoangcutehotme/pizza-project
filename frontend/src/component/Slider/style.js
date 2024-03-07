@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 export const WrapperSliderStyle = styled(Slider)`
     & .slick-slide > div {
-        margin: 0 30px; 
+        padding : 0 20px
       }
     & .slick-arrow.slick-prev {
         left: 12px;

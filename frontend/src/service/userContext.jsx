@@ -19,6 +19,7 @@ export function UserProvider({ children }) {
         price: 200000
     },
   ]);
+  
   return (
     <UserContext.Provider value={{cart, setCart}}>
       {children}

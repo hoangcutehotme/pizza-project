@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import style from './Menus.css';
 
-function Menus({ scrollToRef, activeIndex }) {
-    console.log(activeIndex);
+function Menus({ scrollToRef, activeIndex, menu }) {
+
+    console.log(menu);
     const [isMobileView, setIsMobileView] = useState(false);
-
-
-    // Xác định kích thước màn hình
     const handleResize = () => {
         if (window.innerWidth <= 1200) {
             setIsMobileView(true);
@@ -15,7 +13,6 @@ function Menus({ scrollToRef, activeIndex }) {
         }
     };
 
-    // Lắng nghe sự kiện thay đổi kích thước màn hình
     useEffect(() => {
         window.addEventListener('resize', handleResize);
         return () => {
@@ -23,27 +20,21 @@ function Menus({ scrollToRef, activeIndex }) {
         };
     }, []);
 
-    // Hàm để cập nhật activeIndex
-
-
-    // Render danh sách menu hoặc select box tùy thuộc vào kích thước màn hình
     return (
         <div className="Menus">
             {isMobileView ? (
                 <select onChange={(e) => scrollToRef(parseInt(e.target.value))} defaultValue={activeIndex}>
-                    <option className="opti" value={0}>Công Thức Đặc Biệt</option>
-                    <option className="opti" value={1}>Hải Sản Cao Cấp</option>
-                    <option className="opti" value={2}>Thập Cẩm Cao Cấp</option>
-                    <option className="opti" value={3}>Truyền Thống</option>
-                    <option className="opti" value={4}>Pizza Chay</option>
+                    {menu?.map((item, index) => (
+                        <option className="opti" value={index}>{item.catName}</option>
+                    ))}
                 </select>
             ) : (
                 <>
-                    <Menu title={"Công Thức Đặc Biệt"} onClick={() => { scrollToRef(0) }} active={activeIndex === 0} />
-                    <Menu title={"Hải Sản Cao Cấp"} onClick={() => { scrollToRef(1) }} active={activeIndex === 1} />
-                    <Menu title={"Thập Cẩm Cao Cấp"} onClick={() => { scrollToRef(2) }} active={activeIndex === 2} />
-                    <Menu title={"Truyền Thống"} onClick={() => { scrollToRef(3) }} active={activeIndex === 3} />
-                    <Menu title={"Pizza Chay"} onClick={() => { scrollToRef(4) }} active={activeIndex === 4} />
+                    {menu?.map((item, index) => (
+                        <>
+                            <Menu title={item.catName} onClick={() => { scrollToRef(index) }} active={activeIndex === index} />
+                        </>
+                    ))}
                 </>
             )}
         </div>

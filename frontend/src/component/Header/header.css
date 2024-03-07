@@ -836,8 +836,8 @@ ul {
 }
 
 header {
-  -webkit-box-shadow: 1px 0 20px 0 rgba(0,0,0,.1);
-  box-shadow: 1px 0 20px 0 rgba(0,0,0,.1);
+  -webkit-box-shadow: 1px 0 20px 0 rgba(0, 0, 0, .1);
+  box-shadow: 1px 0 20px 0 rgba(0, 0, 0, .1);
 }
 
 .profile-menu-box {
@@ -857,13 +857,15 @@ header {
   transition: all .2s ease;
 }
 
-.profile-menu-box > a, .header-form-holder > a {
+.profile-menu-box>a,
+.header-form-holder>a {
   display: block !important;
   padding: 10px 17px;
   color: #444444;
 }
 
-.profile-menu-box span:before, .profile-menu-box a:before {
+.profile-menu-box span:before,
+.profile-menu-box a:before {
   display: inline-block !important;
   color: #8e8e8e;
   font-size: 17px;
@@ -895,13 +897,25 @@ header {
 }
 
 .profile-menu-box .menu-link:hover {
-  color: #006a31 !important; /* Màu sắc bạn muốn áp dụng khi hover */
+  color: #006a31 !important;
+  /* Màu sắc bạn muốn áp dụng khi hover */
 }
 
 .account .opener:hover {
-  color: #006a31 !important; /* Màu sắc bạn muốn áp dụng khi hover */
+  color: #006a31 !important;
+  /* Màu sắc bạn muốn áp dụng khi hover */
 }
 
-a{
+a {
   cursor: pointer;
+}
+
+.cart_no {
+  font-size: 20px;
+  font-family: 800;
+  padding: 20px 0 40px;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
 }

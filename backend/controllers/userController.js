@@ -14,25 +14,13 @@ class userController {
   updatePhoto = fileUploader.single("photo");
   sendEmail = authController.sendEmailVerify;
   signUpUser = catchAsync(async (req, res, next) => {
-    const {
-      firstName,
-      lastName,
-      password,
-      passwordConfirm,
-      address,
-      phoneNumber,
-      email,
-    } = req.body;
-    const newUser = await User.create({
-      firstName,
-      lastName,
-      password,
-      passwordConfirm,
-      address,
-      phoneNumber,
+    const userData = {
+      ...req.body,
+      contact: req.body.contact,
+      defaultContact: req.body.defaultContact,
       role: "User",
-      email,
-    });
+    };
+    const newUser = await User.create(userData);
     jwtToken.generateAndSendJWTToken(newUser, 200, res, req);
   });
   // verifiedUser = authController.verifiedSignUp(User);

@@ -85,16 +85,6 @@ const userSchema = new Schema(
           trim: true,
           required: [true, "Địa chỉ là bắt buộc"],
         },
-        location: {
-          type: {
-            type: String,
-            enum: ["Point"],
-          },
-          coordinates: {
-            type: [Number],
-            index: "2dsphere",
-          },
-        },
       },
     ],
 

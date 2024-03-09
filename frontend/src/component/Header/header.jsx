@@ -11,7 +11,9 @@ import "../../assets/styles/Custom.css"
 import Cart from "./cart";
 import { useAuth, useLogout } from "../../service/authContext";
 import { useUser } from "../../service/userContext";
-const Header = () => {
+const Header = ({ cartItems, removeToCart }) => {
+
+  const totalPrice = cartItems.reduce((total, product) => total + (product.price * product.quantity), 0);
   const navigate = useNavigate()
 
   const handleNav = (nav) => {
@@ -28,7 +30,6 @@ const Header = () => {
     // setUser({})
     navigate("/")
   }
-
   const { cart, setCart, userName, setUserName } = useUser();
 
   useEffect (() => {
@@ -40,6 +41,14 @@ const Header = () => {
       setUserName(`${userData.lastName} ${userData.firstName}`)
     }
   }, [])
+
+  const handleOrder = () => {
+    if (isLoggedIn) {
+      navigate("user/order");
+    } else {
+      navigate("/login")
+    }
+  };
 
   return (
     <header id="_main-header" class="" style={{ paddingBottom: "20px" }}>
@@ -144,7 +153,7 @@ const Header = () => {
                 </p>
 
                 <div class="amount">
-                  <span class="cart-qty" id="_TotalProducts"> {cart.length} </span>
+                  <span class="cart-qty" id="_TotalProducts"> {cartItems.length} </span>
                 </div>
 
                 <div
@@ -152,6 +161,7 @@ const Header = () => {
                   class="flyout-cart"
                   data-removeitemfromcarturl="/EmporiumTheme/RemoveItemFromCart"
                   data-flyoutcarturl="/EmporiumTheme/FlyoutShoppingCart"
+
                 >
                   <Cart cart={cart} setCart={setCart}/>
                 </div>

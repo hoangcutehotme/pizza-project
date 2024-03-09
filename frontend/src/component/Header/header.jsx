@@ -12,8 +12,8 @@ import Cart from "./cart";
 import { useAuth, useLogout } from "../../service/authContext";
 import { useUser } from "../../service/userContext";
 const Header = ({ cartItems, removeToCart }) => {
-
-  const totalPrice = cartItems.reduce((total, product) => total + (product.price * product.quantity), 0);
+  console.log(cartItems)
+  
   const navigate = useNavigate()
 
   const handleNav = (nav) => {
@@ -32,9 +32,9 @@ const Header = ({ cartItems, removeToCart }) => {
   }
   const { cart, setCart, userName, setUserName } = useUser();
 
-  useEffect (() => {
+  useEffect(() => {
     const token = localStorage.getItem('token');
-    if(token)  {
+    if (token) {
       const user = localStorage.getItem('user');
       setIsLoggedIn(true)
       const userData = (JSON.parse(user));
@@ -163,7 +163,7 @@ const Header = ({ cartItems, removeToCart }) => {
                   data-flyoutcarturl="/EmporiumTheme/FlyoutShoppingCart"
 
                 >
-                  <Cart cart={cart} setCart={setCart}/>
+                  <Cart cart={cart} setCart={setCart} cartItems={cartItems} removeToCart={removeToCart} />
                 </div>
               </div>
             </div>

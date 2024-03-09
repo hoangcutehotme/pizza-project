@@ -20,7 +20,7 @@ function Cart({ cartItems, addToCart, removeToCart }) {
     return (
         <div className="container">
             <div className="min-height">
-                <Title title={'Công Thức Đặc Biệt'} />
+                <Title title={'Sản phẩm'} />
                 <div className='scroll'> {/* Đã sửa tên class thành 'scroll' */}
                     {cartItems.length > 0 ? (
                         <>
@@ -32,7 +32,7 @@ function Cart({ cartItems, addToCart, removeToCart }) {
                                     <div className="item2">
                                         {product.name}
                                         <div className="item2_decrip">
-                                            Chi chu : {product.noti}
+                                            Ghi chú : {product.noti}
                                         </div>
                                     </div>
                                     <div className="item0">

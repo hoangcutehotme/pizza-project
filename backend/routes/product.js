@@ -19,6 +19,6 @@ router
   .route("/:id")
   .all(authController.restrict("Admin"))
   .delete(productController.deleteProduct)
-  .put(productController.updateProduct);
+  .put(productController.uploadProductImages, productController.updateProduct);
 
 module.exports = router;

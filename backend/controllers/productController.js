@@ -5,6 +5,7 @@ const handleController = require("./handleController");
 const ApiFeatures = require("../utils/ApiFeatures");
 const appError = require("../utils/appError");
 const fileUploader = require("../utils/uploadImage");
+const cloudinary = require("cloudinary").v2;
 
 class ProductController {
   uploadProductImages = fileUploader.array("images", 10);
@@ -41,22 +42,54 @@ class ProductController {
     res.status(201).json("Đã xoá thành công");
   });
   updateProduct = catchAsync(async (req, res, next) => {
-    console.log(req.body);
     let cat = await Category.findOne({
       catName: req.body.catName,
     });
-    if (cat == null) cat = await Category.create({ catName: req.body.catName });
     req.body.category = cat;
-    const product = await Product.findByIdAndUpdate(
-      { _id: req.params.id },
-      req.body,
-      { new: true }
-    );
+    let body = req.body;
+    let product = await Product.findById({ _id: req.params.id });
+    if (!product) return next(new appError("Không thể tìm thấy sản phẩm", 404));
+    let images = [...product.images];
+    let dels = req.body.dels;
+    // fillter exits image
+    if (req.body.dels) {
+      images = images.filter((el) => !dels.includes(el));
+    }
+    if (req.files) {
+      images = images.concat(req.files.map((image) => image.path));
+      body = {
+        ...body,
+        images,
+      };
+    }
+    // let dels = product.images;
+    const data = await Product.findByIdAndUpdate({ _id: req.params.id }, body, {
+      new: true,
+      runValidators: true,
+    })
+      .then()
+      .catch((err) => {
+        // urls = req.files.map((image) => image.path);
+        next(err);
+      });
+
+    // delete images
+    if (req.body.dels) {
+      // let urls = [...req.body.dels];
+      // console.log(urls);
+      for (let i = 0; i < dels.length; i++) {
+        let parts = dels[i].split("/");
+        let id =
+          parts.slice(parts.length - 2, parts.length - 1).join("/") +
+          "/" +
+          parts[parts.length - 1].split(".")[0];
+        console.log(id);
+        cloudinary.uploader.destroy(id);
+      }
+    }
     res.status(200).json({
       status: "success",
-      data: {
-        data: product,
-      },
+      data,
     });
   });
   // View Products by Category
@@ -82,27 +115,6 @@ class ProductController {
       },
     });
   });
-  // getProductByCat = catchAsync(async (req, res, next) => {
-  //   const storeId = req.params.storeId;
-  //   const products = await Product.find({ storeId: storeId }).aggregate([
-  //     // { $unwind: "$category" },
-  //     {
-  //       $group: {
-  //         _id: null,
-  //         // name: "$category",
-  //         productCount: { $sum: 1 },
-  //         // productName: { $push: "$name" },
-  //       },
-  //     },
-  //   ]);
-  //   res.status(200).json({
-  //     status: "success",
-  //     length: products.length,
-  //     data: {
-  //       data: products,
-  //     },
-  //   });
-  // });
   getAllProduct = catchAsync(async (req, res, next) => {
     const features = new ApiFeatures(Product.find({}), req.query)
       .filter()

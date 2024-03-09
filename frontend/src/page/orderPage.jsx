@@ -5,60 +5,60 @@ import { faArrowLeft, faArrowRight, faLocationDot } from "@fortawesome/free-soli
 import { useUser } from "../service/userContext";
 import PickAddress from "../component/Modal/pickAddress";
 import { useNavigate } from "react-router-dom";
-const OrderPage = () => {
+const OrderPage = ({cartItems, removeToCart, decreaseQuantity, increaseQuantity}) => {
     const navigate = useNavigate()
-    const { cart, setCart } = useUser();
-    const [total, setTotal] = useState(0);
-    const handleDeleteItem = (id) => {
-        console.log("delete")
-        const updatedProducts = cart.filter((product) => product._id !== id);
-        setCart(updatedProducts);
-        // const updatedCart = {
-        //     ...cart,
-        //     products: updatedProducts
-        // };
-        // localStorage.setItem('cart', JSON.stringify(updatedCart));
-        let tempTotal = 0;
-        updatedProducts.forEach(product => {
-            const productTotal = product.amount * product.price;
-            tempTotal += productTotal;
-        });
+    const totalPrice = cartItems.reduce((total, product) => total + (product.price * product.quantity), 0);
+    // const [total, setTotal] = useState(0);
+    // const handleDeleteItem = (id) => {
+    //     console.log("delete")
+    //     const updatedProducts = cart.filter((product) => product._id !== id);
+    //     setCart(updatedProducts);
+    //     // const updatedCart = {
+    //     //     ...cart,
+    //     //     products: updatedProducts
+    //     // };
+    //     // localStorage.setItem('cart', JSON.stringify(updatedCart));
+    //     let tempTotal = 0;
+    //     updatedProducts.forEach(product => {
+    //         const productTotal = product.amount * product.price;
+    //         tempTotal += productTotal;
+    //     });
 
-        setTotal(tempTotal);
-        // const count = updatedCart.products.length;
-        // setProductsCount(count)
-        // setIsModalOpen(true)
-    };
+    //     setTotal(tempTotal);
+    //     // const count = updatedCart.products.length;
+    //     // setProductsCount(count)
+    //     // setIsModalOpen(true)
+    // };
 
-    const updateTotalPrice = (id, quantity) => {
-        const updatedProducts = cart.map(product => {
-            if (product._id === id) {
-                product.amount = quantity;
-            }
-            return product;
-        });
+    // const updateTotalPrice = (id, quantity) => {
+    //     const updatedProducts = cart.map(product => {
+    //         if (product._id === id) {
+    //             product.amount = quantity;
+    //         }
+    //         return product;
+    //     });
 
-        setCart(updatedProducts);
-        let tempTotal = 0;
-        updatedProducts.forEach(product => {
-            const productTotal = product.amount * product.price;
-            tempTotal += productTotal;
-        });
-        setTotal(tempTotal);
-    };
+    //     setCart(updatedProducts);
+    //     let tempTotal = 0;
+    //     updatedProducts.forEach(product => {
+    //         const productTotal = product.amount * product.price;
+    //         tempTotal += productTotal;
+    //     });
+    //     setTotal(tempTotal);
+    // };
 
-    useEffect(() => {
-        if (cart) {
-            let tempTotal = 0;
-            cart.forEach(product => {
-                console.log(product)
-                const productTotal = product.amount * product.price;
-                tempTotal += productTotal;
-            });
+    // useEffect(() => {
+    //     if (cart) {
+    //         let tempTotal = 0;
+    //         cart.forEach(product => {
+    //             console.log(product)
+    //             const productTotal = product.amount * product.price;
+    //             tempTotal += productTotal;
+    //         });
 
-            setTotal(tempTotal);
-        }
-    }, [cart])
+    //         setTotal(tempTotal);
+    //     }
+    // }, [cart])
     const [user, setUser] = useState()
     const [selectedContact, setSelectedContact] = useState({})
     const [contacts, setContacts] = useState([])
@@ -125,11 +125,13 @@ const OrderPage = () => {
 
                                     <div class="cart-wrapper pl-0 pr-0">
                                         <h3 class="main-title" style={{ textAlign: 'left', color: '#006a31' }}>Sản phẩm</h3>
-                                        {cart.map((product) => (
+                                        {cartItems?.map((product) => (
                                             <OrderPageItem
                                                 product={product}
-                                                handleDeleteItem={handleDeleteItem}
-                                                updateTotalPrice={updateTotalPrice}
+                                                handleDeleteItem={removeToCart}
+                                                // updateTotalPrice={updateTotalPrice}
+                                                decreaseQuantity={decreaseQuantity}
+                                                increaseQuantity={increaseQuantity}
                                             />
                                         ))}
                                     </div>
@@ -137,11 +139,11 @@ const OrderPage = () => {
                                         <div class="d-none d-sm-block">
                                             <div class="yHG0SE" aria-live="polite">
                                                 <h3 class="o13Lc4 hERTPn cFXdGN">Tổng tiền hàng</h3>
-                                                <div class="o13Lc4 X9R_0O cFXdGN">{total.toLocaleString('vi-VN')}₫</div>
+                                                <div class="o13Lc4 X9R_0O cFXdGN">{totalPrice.toLocaleString('vi-VN')}₫</div>
                                                 <h3 class="o13Lc4 hERTPn fwPZIN">Phí vận chuyển</h3>
                                                 <div class="o13Lc4 X9R_0O fwPZIN">30.000₫</div>
                                                 <h3 class="o13Lc4 hERTPn cNgneA">Tổng thanh toán</h3>
-                                                <div class="o13Lc4 fYeyE4 X9R_0O cNgneA">₫{(total+30000).toLocaleString('vi-VN')}</div>
+                                                <div class="o13Lc4 fYeyE4 X9R_0O cNgneA">₫{(totalPrice+30000).toLocaleString('vi-VN')}</div>
                                             </div>
                                         </div>
                                     </div>

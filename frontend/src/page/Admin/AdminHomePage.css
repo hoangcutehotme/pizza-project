@@ -1,0 +1,54 @@
+.nav-admin {
+    display: flex;
+    justify-content: space-between;
+}
+
+.left-nav-admin {
+    display: inline-flex;
+    align-items: center;
+}
+
+.right-nav-admin {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.btn-dropdown {
+    border: none !important;
+    border-color: white;
+    /* Change to your desired color */
+    /* color: #000; */
+    background-color: white;
+}
+
+.logo {
+
+    width: 70px;
+    /* Specify your desired width */
+    height: 70px;
+    /* Specify your desired height */
+    border-radius: 50%;
+    /* Make it circular */
+    overflow: hidden;
+    margin: 10px 20px;
+    /* Hide overflowing parts of the image */
+}
+
+.logo img {
+
+    width: 100%;
+    /* Make the image fill its container */
+    height: auto;
+    /* Maintain aspect ratio */
+}
+
+.slider-bar {
+    width: 25%;
+    background-color: antiquewhite;
+}
+
+.content {
+    background-color: white;
+    display: flex;
+}

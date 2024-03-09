@@ -18,6 +18,7 @@ import ChangePassVerify from './page/changePassVerify';
 import OrderPage from './page/orderPage';
 import { AuthProvider } from './service/authContext';
 import { UserProvider } from './service/userContext';
+import AdminHomePage from './page/Admin/AdminHomePage';
 function App() {
 
   const [detail, setdetail] = useState(false)
@@ -89,22 +90,14 @@ function App() {
       <UserProvider>
         <div className="master-wrapper-page html-account-page" id="master-wrapper-custom-id" style={{ marginTop: '168px' }}>
           <Router>
-{/* <<<<<<< HEAD
-            {detail ? (<Detailproduct setdetail={setdetail} />) : (<></>)}
-            <Header />
-            <Routes>
-              <Route path="/pizza" element={<Pizza setdetail={setdetail} />} />
-              <Route path='/' element={<LandingPage />} />
-              <Route path='/cart' element={<Cart />} />
-======= */}
             {detail ? (<Detailproduct setdetail={setdetail} addToCart={addToCart} item={item} />) : (<></>)}
             <Header cartItems={cartItems} removeToCart={removeToCart} />
             <Routes>
-              <Route path="/" element={<LandingPage />}/>
+              <Route path="/" element={<LandingPage setdetail={setdetail} addToCart={addToCart} setitem={setitem}/>}/>
               <Route path="/pizza" element={<Pizza setdetail={setdetail} addToCart={addToCart} setitem={setitem} />} />
-              {/* <Route path='/landingPage' element={<LandingPage />} /> */}
+
               <Route path='/cart' element={<Cart cartItems={cartItems} addToCart={addToCart} removeToCart={removeToCart} />} />
-{/* >>>>>>> 6dcf86328c2119a0d6c750ab9c0054d68b8fa060 */}
+
               <Route path="/user/Info" element={<UserInfo />} />
               <Route path="/user/order" element={<OrderPage />} />
               <Route path="/login" element={<Login />} />
@@ -112,6 +105,7 @@ function App() {
               <Route path="/forgotPass" element={<ForgotPass />} />
               <Route path="/verify" element={<Verify />} />
               <Route path="/changePassVerify" element={<ChangePassVerify />} />
+              <Route path="/admin" element={<AdminHomePage />} />
             </Routes>
             <Footer />
           </Router>

@@ -3,7 +3,8 @@ import CartItem from "../Items/cartItem";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../service/authContext";
 import nocart from "../../assets/imgs/no_cart.png"
-const Cart = ({ cart, setCart }) => {
+const Cart = ({ cart, setCart, cartItems, removeToCart }) => {
+    const totalPrice = cartItems.reduce((total, product) => total + (product.price * product.quantity), 0);
     const navigate = useNavigate()
     const [total, setTotal] = useState(0);
     const { isLoggedIn } = useAuth();
@@ -11,7 +12,7 @@ const Cart = ({ cart, setCart }) => {
         if (isLoggedIn) {
             navigate("user/order");
         } else {
-            navigate("/login", {state: { his: 'order'}})
+            navigate("/login", { state: { his: 'order' } })
         }
     };
 
@@ -39,7 +40,7 @@ const Cart = ({ cart, setCart }) => {
     useEffect(() => {
         if (cart) {
             let tempTotal = 0;
-            cart.forEach(product => {
+            cartItems.forEach(product => {
                 const productTotal = product.amount * product.price;
                 tempTotal += productTotal;
             });
@@ -49,15 +50,15 @@ const Cart = ({ cart, setCart }) => {
     }, [cart])
     return (
         <div class="mini-shopping-cart">
-            {cart.length > 0 ? (
+            {cartItems.length > 0 ? (
                 <div
                     class="flyout-cart-scroll-area"
                     style={{ maxHeight: '711px' }}
                 >
                     <div class="items ps-container">
                         <div class="list-product-cart">
-                            {cart.map((product) => (
-                                <CartItem product={product} handleDeleteItem={handleDeleteItem} />
+                            {cartItems?.map((product) => (
+                                <CartItem product={product} removeToCart={removeToCart} />
                             ))}
                         </div>
                         <div
@@ -94,7 +95,7 @@ const Cart = ({ cart, setCart }) => {
                             }}
                             id="totals-price-custom"
                         >
-                            {total.toLocaleString('vi-VN')}đ
+                            {totalPrice.toLocaleString('vi-VN')}đ
                         </div>
 
                         <div class="buttons" onClick={handleOrder}>
@@ -107,25 +108,11 @@ const Cart = ({ cart, setCart }) => {
                     </div>
                 </div>
             ) : (
-                <div className="ant-drawer-body">
-                    <div className="CartClose___2qcP9">
-                        <div role="button" tabIndex="0" style={{ fontSize: '25px', fontWeight: '300', color: 'black', cursor: 'pointer' }} >x</div>
-                    </div>
-                    <div className="Container___2ODfk">
-                        <div className="InnerContainer___127AT">
-                            <div className="Ilus___1VMHi">
-                                <img src={nocart} alt="" />
-                            </div>
-                            <h5 className="Title___ELm2y"></h5>
-                            <div className="Caption___2tnhx"></div>
-                            <div className="">
-                                <button type="button" className="ant-btn textButton___2wwqU Button___2IyZ2" >
-                                    <span></span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
+                <div
+                    class="flyout-cart-scroll-area"
+                    style={{ maxHeight: '711px' }}
+                >
+                    <div class='cart_no'>Rất tiếc!!! Bạn không có sản phẩm ở đây.</div>
                 </div>
             )}
         </div>

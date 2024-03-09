@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import '../assets/styles/login.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-
+import { signupUser } from "../service/userService";
+import Notify from "../Notify/Notify";
 const Register = () => {
     const navigate = useNavigate();
     const [error, setError] = useState("");
@@ -13,13 +14,16 @@ const Register = () => {
     const [error4, setError4] = useState("");
     const [isChecked, setIsChecked] = useState(false);
     const [formData, setFormData] = useState({
-        name: '',
+        firstName: '',
+        lastName: '',
         phoneNumber: '',
         email: '',
         address: '',
         passwordConfirm: '',
         password: ''
     })
+    const [message, setMessage] = useState("");
+    const [openNotify, setOpenNotify] = useState(false);
     const checked = () => {
         setIsChecked(!isChecked)
     }
@@ -31,38 +35,61 @@ const Register = () => {
         });
     };
 
-    const handleSubmit = () => {
-        if (formData.name === '') {
-            setError('Bạn chưa nhập họ và tên');
+    const handleSubmit = async () => {
+        let check = 1;
+        if (formData.firstName === '') {
+            setError('Tên là bắt buộc');
+            check = 0;
         } else {
             setError('')
         }
 
         if (formData.email === '') {
-            setError1('Bạn chưa nhập email');
+            check = 0;
+            setError1('Email là bắt buộc');
         } else {
             setError1('')
         }
 
         if (formData.password === '') {
-            setError2('Bạn chưa nhập mật khẩu');
+            check = 0;
+            setError2('Mật khẩu là bắt buộc');
         } else {
             setError2('')
         }
 
         if (formData.passwordConfirm === '') {
-            setError3('Bạn chưa nhập xác nhận mật khẩu');
+            check = 0;
+            setError3('Xác nhận mật khẩu là bắt buộc');
         } else {
             setError3('')
         }
+
+        if (formData.password !== formData.passwordConfirm) {
+            check = 0;
+            setError4('Mât khẩu và xác nhận mật khẩu không khớp');
+        } else {
+            setError4('')
+        }
         
-        if (formData.name !== '' && formData.email !== '' && formData.password !== '' && formData.passwordConfirm !== '') {
+        if (check) {
             if (!isChecked) {
                 window.alert("Vui lòng chấp nhận chính sách bảo mật")
             }  else {
                 console.log(formData)
+                try {
+                    await signupUser(formData);
+                    setMessage("Đăng kí tài khoản thành công!")
+                    setOpenNotify(true)
+                } catch (error) {
+                    setError4("Email đã tồn tại! Mời bạn sử dụng email khác để thử lại!")
+                }
             }
         }
+    }
+
+    const handleNavLogin = () => {
+        navigate("/login")
     }
     return (
         <div>
@@ -80,13 +107,13 @@ const Register = () => {
                                         <h2 class="main-title line-2">Tạo tài khoản</h2>
                                         <div class="wrap-form">
                                             <div class="form-group">
-                                                <label>Họ và Tên<span class="required">*</span></label>
+                                                <label>Tên<span class="required">*</span></label>
                                                 <input type="text"
                                                     class={`name ${error !== '' ? 'input-validation-error' : ''}`}
-                                                    id="name"
-                                                    name="name"
-                                                    placeholder="Nhập họ và tên của bạn tại đây"
-                                                    value={formData.name}
+                                                    id="firstName"
+                                                    name="firstName"
+                                                    placeholder="Nhập tên của bạn tại đây"
+                                                    value={formData.firstName}
                                                     onChange={handleChange}
                                                 />
                                                 {error && (
@@ -95,6 +122,18 @@ const Register = () => {
                                                     >{error}</span>
                                                 )}
                                             </div>
+
+                                            <div class="form-group">
+                                                <label>Họ</label>
+                                                <input type="text"
+                                                    id="lastName"
+                                                    name="lastName"
+                                                    placeholder="Nhập họ của bạn tại đây"
+                                                    value={formData.lastName}
+                                                    onChange={handleChange}
+                                                />
+                                            </div>
+
                                             <div class="form-group">
                                                 <label id="Username">Số điện thoại</label>
                                                 <input
@@ -172,6 +211,15 @@ const Register = () => {
                                                 )}
                                             </div>
 
+                                            <div class="form-group" style={{textAlign:'center'}}>
+                                                {error4 && (
+                                                    <span
+                                                    style={{fontSize:'16px'}}
+                                                        class="validate-required field-validation-error"
+                                                    >{error4}</span>
+                                                )}
+                                            </div>
+
                                             <div class="form-group form-accept">
                                                 <div class="checked">
                                                     <input type="checkbox" data-val="true" data-val-required="The AcceptPrivacyPolicy field is required." id="AcceptPrivacyPolicy" name="AcceptPrivacyPolicy" value="true" onClick={checked} />
@@ -195,6 +243,7 @@ const Register = () => {
 
                 </div>
             </div>
+            {openNotify && (<Notify message={message} setOpenNotify={setOpenNotify} handleClose={handleNavLogin}/>)}
         </div>
     )
 }

@@ -1,10 +1,11 @@
 import React, {useState} from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import '../assets/styles/login.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { loginAPI } from "../service/userService";
 import { useAuth } from "../service/authContext";
+import { useUser } from "../service/userContext";
 const Login = () => {
     const navigate = useNavigate();
     const [error, setError] = useState("");
@@ -14,6 +15,8 @@ const Login = () => {
         email: '',
         password: ''
     })
+    const location = useLocation()
+    const his = location.state?.his || false;
     const {isLoggedIn, setIsLoggedIn}  = useAuth();
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -23,7 +26,9 @@ const Login = () => {
         });
     };
 
-    const handleSubmit  = () =>  {
+    const { setUserName, defaultContact, setDefaultContact} = useUser();
+
+    const handleSubmit  = async () =>  {
         if(formData.email === '') {
             setError('Bạn chưa nhập email');
         } else {
@@ -35,25 +40,40 @@ const Login = () => {
             setError1('')
         }
         if(formData.email !== '' && formData.password !== '') {
-            if(loginAPI(formData.email, formData.password)) {
-                localStorage.setItem("token", "login")
-                navigate("/user/Info");
+            console.log(formData)
+            try {
+                let res = await loginAPI(formData);
+                localStorage.setItem("token", res.data.token);
+                localStorage.setItem('user', JSON.stringify(res.data.data.user));
+                console.log(res)
+                setUserName(res.data.data.user.lastName + " " + res.data.data.user.firstName)
                 setIsLoggedIn(true)
-                console.log(isLoggedIn)
+                if(his)  {
+                    navigate("/user/order");
+                } else  {
+                    navigate("/");
+                }
             }
-            else {
+            catch {
                 setError2("Tên đăng nhập hoặc mật khẩu không đúng");
             }
         }
     }
+
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter' || e.keyCode === 13) {
+            handleSubmit();
+        }
+    };
+
     return (
-        <div class="master-column-wrapper custom-master-column-wrapper-min-height" id="_master-column-wrapper-id" style={{minHeight: '2px'}}>
+        <div class="master-column-wrapper custom-master-column-wrapper-min-height" id="_master-column-wrapper-id" style={{minHeight: '2px'}} >
             <div class="center-1">
                 <div>
 
                     <div class="page-body">
                         <section class="main-section" id="main-section-id">
-                            <div class="container">
+                            <div class="container" onKeyDown={handleKeyDown}>
                                 <div class="form-wrapper">
                                     <h2 class="main-title line-2">Đăng nhập</h2>
                                         <div class="wrap-form">
@@ -99,8 +119,8 @@ const Login = () => {
                                                 >{error2}</span>
                                                 )}
                                             <div class="form-group">
-                                                <a class="forgot-pass" href="/forgotPass">Quên mật khẩu</a>
-                                                <p>Bạn đã có tài khoản chưa? <a class="forgot-pass" href="/signup">Tạo tài khoản</a></p>
+                                                <a class="forgot-pass" onClick={() => {navigate("/forgotPass")}}>Quên mật khẩu</a>
+                                                <p>Bạn đã có tài khoản chưa? <a class="forgot-pass" onClick={() => {navigate("/signup")}}>Tạo tài khoản</a></p>
                                             </div>
                                             <div class="form-group form-submit">
                                                 <button class="btn-creat-acc" type="submit" name="buttonCheckoutLogin" id="btn-login" onClick={handleSubmit}>
@@ -117,7 +137,7 @@ const Login = () => {
                 </div>
 
             </div>
-
+            
         </div>
     )
 }

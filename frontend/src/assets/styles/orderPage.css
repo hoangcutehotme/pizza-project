@@ -437,9 +437,9 @@ a img {
 }
 
 .order-total td label, .order-total td span {
-    font-size: 22px;
+    font-size: 16px;
     color: #111;
-    font-weight: 600;
+    font-weight: 400;
 }
 
 .the-pizza-giohang .button-wrapper .btn-prev {
@@ -575,4 +575,191 @@ a img {
 
 .the-pizza-giohang .cart-wrapper .item-wrapper .item-right .delete:hover {
     color: red;
+}
+
+.m6A2B1 {
+    background: #fff;
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.05);
+}
+
+.xBNaac {
+    background-image: repeating-linear-gradient(45deg, #6fa6d6, #6fa6d6 33px, transparent 0, transparent 41px, #f18d9b 0, #f18d9b 74px, transparent 0, transparent 82px);
+    background-position-x: -30px;
+    background-size: 116px 3px;
+    height: 3px;
+    width: 100%;
+}
+
+.hYgtuo {
+    padding: 28px 30px 24px;
+}
+
+.SvK9MH {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+}
+
+.IZawzb {
+    align-items: center;
+    color: #006a31;
+    display: flex;
+    flex: 1 1 auto;
+    font-size: 30px !important;
+    margin-bottom: 20px;
+    text-transform: capitalize;
+}
+
+.IZawzb .qclVa9 {
+    display: flex;
+    margin-right: 9px;
+}
+
+.HYmUPs h1, .HYmUPs h2, .HYmUPs h3 {
+    color: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    margin: 0;
+    padding: 0;
+}
+
+.i1xLmh {
+    align-items: center;
+    display: flex;
+}
+
+.y0jyrJ {
+    align-items: center;
+    display: flex;
+    font-size: 1rem;
+    word-break: break-word;
+}
+
+.PzGLCh {
+    color: #222;
+    font-weight: 700;
+}
+
+.a9c4OR {
+    margin-left: 20px;
+    word-break: break-word;
+}
+
+.dIzOca {
+    border: .5px solid;
+    border-radius: 1px;
+    color: #ee4d2d;
+    flex-shrink: 0;
+    font-size: 10px;
+    margin-left: 1.5em;
+    padding: 2px 5px;
+    text-transform: capitalize;
+}
+
+button.VNkBIJ.div-style {
+    color: #4080ee;
+    cursor: pointer;
+    margin-left: 2.5rem;
+    text-transform: capitalize;
+}
+
+.div-style {
+    background: none;
+    border: 0;
+    cursor: pointer;
+    display: block;
+    margin: 0;
+    padding: 0;
+    text-align: inherit;
+}
+
+.SvK9MH .icon-location-marker {
+    height: 16px;
+    width: 12px;
+}
+svg:not(:root) {
+    overflow: hidden;
+}
+.icon-location-marker {
+    color: #ee4d2d;
+    fill: currentColor;
+}
+.shopee-svg-icon {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    fill: currentColor;
+    position: relative;
+}
+
+.yHG0SE {
+    background: #fffefb;
+    border-top: 1px solid #f1f0ed;
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.05);
+    display: grid;
+    grid-template-columns: 1fr -webkit-max-content -webkit-max-content;
+    grid-template-columns: 1fr max-content max-content;
+    grid-template-rows: auto;
+    padding-top: 15px;
+    grid-column-gap: 10px;
+}
+
+h3.o13Lc4.hERTPn {
+    color: rgba(0, 0, 0, .54);
+    grid-column-end: 3;
+    grid-column-start: 2;
+    -ms-grid-column-span: 1;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-weight: 400;
+    font-size: 14px;
+}
+.HYmUPs h1, .HYmUPs h2, .HYmUPs h3 {
+    color: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    margin: 0;
+    padding: 0;
+}
+
+.cFXdGN {
+    grid-row-end: 12;
+    grid-row-start: 11;
+}
+.cFXdGN, .dXQApm {
+    -ms-grid-row-span: 1;
+}
+.o13Lc4 {
+    align-items: center;
+    display: flex;
+    font-size: 14px;
+}
+
+.X9R_0O {
+    grid-column-end: 4;
+    grid-column-start: 3;
+    height: 40px;
+    min-width: 100px;
+    padding: 0 25px 0 10px;
+    -ms-grid-column-span: 1;
+    justify-content: flex-end;
+}
+
+.fwPZIN {
+    grid-row-end: 13;
+    grid-row-start: 12;
+}
+
+.cNgneA {
+    grid-row-end: 31;
+    grid-row-start: 30;
+}
+
+.fYeyE4 {
+    color: #006a31;
+    font-size: 28px;
+    font-weight: 500;
+    height: 50px;
 }

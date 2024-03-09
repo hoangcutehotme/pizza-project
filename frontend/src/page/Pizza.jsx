@@ -93,43 +93,48 @@ function Pizza({ addToCart, setdetail, setitem }) {
     }
 
     return (
-        <>
+        <div>
             <div style={{ width: "100%" }}>
                 <SimpleSlider arrImages={images} />
             </div>
-            <div className="container">
+            {/* <<<<<<< HEAD */}
+            <div ref={sectionRefs.current[0]} >
+                {/* ======= */}
+                <div className="container">
 
-                <div>
-                    <Title title={"Menus"} />
-                </div>
-                {isImageFixed ? (
-                    <div style={{
-                        position: 'fixed',
-                        top: 170,
-                        width: '100%',
-                        backgroundColor: '#ffffff',
-                        zIndex: 99,
-                        alignItems: 'center'
-                    }} className='container'>
+                    {/* >>>>>>> 6dcf86328c2119a0d6c750ab9c0054d68b8fa060 */}
+                    <div>
+                        <Title title={"Menus"} />
+                    </div>
+                    {isImageFixed ? (
+                        <div style={{
+                            position: 'fixed',
+                            top: 170,
+                            width: '100%',
+                            backgroundColor: '#ffffff',
+                            zIndex: 99,
+                            alignItems: 'center'
+                        }} className='container'>
+                            <Menus scrollToRef={scrollToRef} activeIndex={activeIndex} menu={menu} />
+                        </div>
+                    ) : (<div style={{ zIndex: 99, }}>
                         <Menus scrollToRef={scrollToRef} activeIndex={activeIndex} menu={menu} />
-                    </div>
-                ) : (<div style={{ zIndex: 99, }}>
-                    <Menus scrollToRef={scrollToRef} activeIndex={activeIndex} menu={menu} />
-                </div>)}
-                {menu?.map((item, index) => (
-                    <div ref={sectionRefs.current[index]} >
-                        <div>
-                            <Title title={item.catName} />
+                    </div>)}
+                    {menu?.map((item, index) => (
+                        <div ref={sectionRefs.current[index]} >
+                            <div>
+                                <Title title={item.catName} />
+                            </div>
+                            <div style={{ display: 'flex' }} className="view-temproduct">
+                                {item?.products?.data.map((product, productIndex) => (
+                                    <Itemproduct key={productIndex} setdetail={setdetail} addToCart={addToCart} setitem={setitem} product={product} />
+                                ))}
+                            </div>
                         </div>
-                        <div style={{ display: 'flex' }} className="view-temproduct">
-                            {item?.products?.data.map((product, productIndex) => (
-                                <Itemproduct key={productIndex} setdetail={setdetail} addToCart={addToCart} setitem={setitem} product={product} />
-                            ))}
-                        </div>
-                    </div>
-                ))}
+                    ))}
+                </div>
             </div>
-        </>
+        </div>
     );
 }
 export default Pizza;

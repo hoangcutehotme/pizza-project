@@ -1,9 +1,26 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import '../../assets/styles/orderPage.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
-const OrderPageItem = ({product}) => {
+const OrderPageItem = ({product, handleDeleteItem, updateTotalPrice}) => {
+    const [totalPrice, setTotalPrice] = useState(product.amount * product.price);
+    const handleDecrease = () => {
+        if (product.amount > 1) {
+            console.log("hahahah")
+            updateTotalPrice(product._id, product.amount - 1);
+        }
+    };
+
+    const handleIncrease = () => {
+        if (product.amount < 20) {
+            updateTotalPrice(product._id, product.amount + 1);
+        }
+    };
+
+    useEffect(() => {
+        setTotalPrice(product.amount * product.price);
+    }, [product.amount, product.price]);
     return (
         <div class="item-wrapper">
             <div class="row ml-0 mr-0">
@@ -41,28 +58,26 @@ const OrderPageItem = ({product}) => {
                 <div class="col-lg-6 item-right" style={{ justifyContent: 'space-between' }}>
                     <div class="row ml-0 mr-0">
                         <div class="quantity-wrapper" style={{width:'fit-content'}}>
-                            <div class="quantity" on="">
+                            <div class="quantity">
 
-                                <button class="sub" id="buttonSub" type="button" name="updatecart" onclick="updatePrice();">-</button>
+                                <button class="sub" id="buttonSub" type="button" name="updatecart" onClick={handleDecrease}>-</button>
 
                                 <input
-                                    min="1"
-                                    max="999"
-                                    name="itemquantity3599162"
-                                    id="itemquantity3599162"
-                                    type="text" value="1"
+                                    name="quntity"
+                                    id="quntity"
+                                    type="text" value={product.amount}
                                     class="qty-input"
                                     aria-label="Số lượng."
                                 />
-                                <button class="add" id="buttonAdd" type="button" name="updatecart" onclick="updatePrice();">+	</button>
+                                <button class="add" id="buttonAdd" type="button" name="updatecart" onClick={handleIncrease}>+</button>
                             </div>
                             <div class="button-wrap">
                             </div>
                         </div>
                         <div class="price-dish" style={{width:'fit-content'}}>
-                            <span class="product-subtotal" style={{ fontWeight: '700', fontSize: '18px' }}>29.000đ</span>
+                            <span class="product-subtotal" style={{ fontWeight: '700', fontSize: '18px' }}>{totalPrice.toLocaleString('vi-VN')}đ</span>
                         </div>
-                        <a class="delete" href="#" style={{width:'fit-content'}}><em class="mdi mdi-trash-can"><FontAwesomeIcon icon={faTrashCan}/></em></a>
+                        <a class="delete" href="#" style={{width:'fit-content'}} onClick={() => handleDeleteItem(product._id)}><em class="mdi mdi-trash-can"><FontAwesomeIcon icon={faTrashCan}/></em></a>
                         <a class="delete" href="#" style={{width:'fit-content'}}><em class="mdi mdi-trash-can"><FontAwesomeIcon icon={faPen}/></em></a>
                     </div>
                 </div>

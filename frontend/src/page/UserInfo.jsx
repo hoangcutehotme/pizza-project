@@ -6,7 +6,9 @@ import Address from "../component/NavUserInfo/address";
 import OrderHistory from "../component/NavUserInfo/orderHistory";
 const UserInfo = () => {
     const [active, setActive] = useState("info");
+
     return (
+        <div>
         <div class="master-wrapper-content container jCarousel-overflow-for-button-next-arrow" id="master-container">
             <div
                 class="master-column-wrapper custom-master-column-wrapper-min-height"
@@ -19,7 +21,8 @@ const UserInfo = () => {
                 {active === 'orderHistory' && <OrderHistory/>}
                 {active === 'changePass' && <ChangePass/>}
             </div>
-        </div>       
+        </div>    
+        </div>
     )
 }
 

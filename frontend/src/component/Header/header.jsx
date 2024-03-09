@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRightFromBracket, faCartShopping, faSearch } from '@fortawesome/free-solid-svg-icons'
@@ -7,7 +7,8 @@ import logo from "../../assets/imgs/logoPizza.png"
 import "../../assets/styles/1024.css"
 import "./header.css"
 import "../../assets/styles/Custom.css"
-import CartItem from "../Items/cartItem";
+// import CartItem from "../Items/cartItem";
+import Cart from "./cart";
 import { useAuth, useLogout } from "../../service/authContext";
 import { useUser } from "../../service/userContext";
 const Header = ({ cartItems, removeToCart }) => {
@@ -20,12 +21,26 @@ const Header = ({ cartItems, removeToCart }) => {
   };
 
   const { isLoggedIn, setIsLoggedIn } = useAuth();
+
   const logout = useLogout();
   const handleLogout = () => {
     logout();
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    // setUser({})
     navigate("/")
   }
+  const { cart, setCart, userName, setUserName } = useUser();
+
+  useEffect (() => {
+    const token = localStorage.getItem('token');
+    if(token)  {
+      const user = localStorage.getItem('user');
+      setIsLoggedIn(true)
+      const userData = (JSON.parse(user));
+      setUserName(`${userData.lastName} ${userData.firstName}`)
+    }
+  }, [])
 
   const handleOrder = () => {
     if (isLoggedIn) {
@@ -34,8 +49,6 @@ const Header = ({ cartItems, removeToCart }) => {
       navigate("/login")
     }
   };
-
-  const { cart, setCart } = useUser();
 
   return (
     <header id="_main-header" class="" style={{ paddingBottom: "20px" }}>
@@ -92,12 +105,8 @@ const Header = ({ cartItems, removeToCart }) => {
               </div>
               {isLoggedIn ? (
                 <div>
-                  <a href="/user/Info" class="opener" id="a-custom-id" style={{ color: 'black' }}>Huỳnh Thuận</a>
+                  <a href="/user/Info" class="opener" id="a-custom-id" style={{ color: 'black' }}>{userName}</a>
                   <div class="profile-menu-box">
-                    <div class="close-side-menu" style={{ display: 'none' }}>
-                      <span class="close-side-menu-text">0707252330</span>
-                      <span class="close-side-menu-btn">Close</span>
-                    </div>
                     <a className="menu-link" style={{ cursor: 'pointer' }} onClick={() => handleNav("user/Info")}><FontAwesomeIcon icon={faCircleUser} style={{ marginRight: '10px' }} /> Tài khoản</a>
                     <a className="menu-link" style={{ cursor: 'pointer' }} onClick={handleLogout}><FontAwesomeIcon icon={faArrowRightFromBracket} style={{ marginRight: '10px' }} />Đăng xuất</a>
                   </div>
@@ -121,7 +130,7 @@ const Header = ({ cartItems, removeToCart }) => {
               data-enableclickfordropdown="false"
             >
               <li className="">
-                <a href="/landingPage" class="" key="Trang chủ"
+                <a href="/" class="" key="Trang chủ"
                 ><span> Trang chủ </span></a>
               </li>
               <li class=" ">
@@ -154,72 +163,7 @@ const Header = ({ cartItems, removeToCart }) => {
                   data-flyoutcarturl="/EmporiumTheme/FlyoutShoppingCart"
 
                 >
-                  <div class="mini-shopping-cart">
-                    <div
-                      class="flyout-cart-scroll-area"
-                      style={{ maxHeight: '711px', zIndex: 10000 }}
-                    > {cartItems.length ? (
-                      <div>
-                        <div class="items ps-container">
-                          <div class="list-product-cart scroll">
-                            {cartItems.map((product) => (
-                              <CartItem product={product} removeToCart={removeToCart} />
-                            ))}
-                          </div>
-
-                        </div>
-                        <div
-                          class="ps-scrollbar-x-rail"
-                          style={{ left: '0px', bottom: '3px' }}
-                        >
-                          <div
-                            class="ps-scrollbar-x"
-                            style={{ left: '0px', width: '0px' }}
-                          ></div>
-                        </div>
-                        <div
-                          class="ps-scrollbar-y-rail"
-                          style={{ top: '0px', right: '3px' }}
-                        >
-                          <div
-                            class="ps-scrollbar-y"
-                            style={{ top: '0px', height: '0px' }}
-                          ></div>
-                        </div>
-                        <div class="flyout-lower">
-                          <div class="count" style={{ fontWeight: 'bold' }}>
-                            Tổng Tiền
-                          </div>
-                          <div
-                            class="totals"
-                            style={{
-                              color: '#d30e15',
-                              fontSize: '20px',
-                              fontWeight: '900'
-                            }}
-                            id="totals-price-custom"
-                          >
-                            {totalPrice} đ
-                          </div>
-                          <div class="buttons" onClick={handleOrder}>
-                            <input
-                              type="button"
-                              value={isLoggedIn ? 'Đặt hàng' : 'Đăng nhập để đặt hàng'}
-                              id="checkout"
-                            />
-                          </div>
-                        </div>
-                      </div>
-
-
-                    ) : (
-                      <div class='cart_no'>Rất tiếc!!! Bạn không có sản phẩm ở đây.</div>
-                    )}
-
-
-
-                    </div>
-                  </div>
+                  <Cart cart={cart} setCart={setCart}/>
                 </div>
               </div>
             </div>

@@ -35,7 +35,7 @@ const listPizza = [
     }
 ];
 
-const ListProduct = () => {
+const ListProduct = ({ addToCart, setdetail, setitem }) => {
     return (
         <div className='container mt-5' key='list-best-product'>
             <div className='title-group row'>
@@ -51,7 +51,7 @@ const ListProduct = () => {
             <div className='view-temproduct' >
                 {listPizza.map(pizza => {
                     return (
-                        <Itemproduct key={pizza.name} />
+                        <Itemproduct key={pizza.name} setdetail={setdetail} addToCart={addToCart} setitem={setitem} product={pizza} />
                     )
                 }
 

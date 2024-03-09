@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRightFromBracket, faCartShopping, faSearch } from '@fortawesome/free-solid-svg-icons'
@@ -18,15 +18,28 @@ const Header = () => {
     navigate(`/${nav}`);
   };
 
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, setIsLoggedIn } = useAuth();
+
   const logout = useLogout();
   const handleLogout = () => {
     logout();
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    // setUser({})
     navigate("/")
   }
 
-  const { cart, setCart } = useUser();
+  const { cart, setCart, userName, setUserName } = useUser();
+
+  useEffect (() => {
+    const token = localStorage.getItem('token');
+    if(token)  {
+      const user = localStorage.getItem('user');
+      setIsLoggedIn(true)
+      const userData = (JSON.parse(user));
+      setUserName(`${userData.lastName} ${userData.firstName}`)
+    }
+  }, [])
 
   return (
     <header id="_main-header" class="" style={{ paddingBottom: "20px" }}>
@@ -83,12 +96,8 @@ const Header = () => {
               </div>
               {isLoggedIn ? (
                 <div>
-                  <a href="/user/Info" class="opener" id="a-custom-id" style={{ color: 'black' }}>Huỳnh Thuận</a>
+                  <a href="/user/Info" class="opener" id="a-custom-id" style={{ color: 'black' }}>{userName}</a>
                   <div class="profile-menu-box">
-                    <div class="close-side-menu" style={{ display: 'none' }}>
-                      <span class="close-side-menu-text">0707252330</span>
-                      <span class="close-side-menu-btn">Close</span>
-                    </div>
                     <a className="menu-link" style={{ cursor: 'pointer' }} onClick={() => handleNav("user/Info")}><FontAwesomeIcon icon={faCircleUser} style={{ marginRight: '10px' }} /> Tài khoản</a>
                     <a className="menu-link" style={{ cursor: 'pointer' }} onClick={handleLogout}><FontAwesomeIcon icon={faArrowRightFromBracket} style={{ marginRight: '10px' }} />Đăng xuất</a>
                   </div>
@@ -112,7 +121,7 @@ const Header = () => {
               data-enableclickfordropdown="false"
             >
               <li className="">
-                <a href="/landingPage" class="" key="Trang chủ"
+                <a href="/" class="" key="Trang chủ"
                 ><span> Trang chủ </span></a>
               </li>
               <li class=" ">

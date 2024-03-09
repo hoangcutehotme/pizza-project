@@ -21,8 +21,11 @@ export function UserProvider({ children }) {
       price: 200000
     },
   ]);
+
+  const [userName, setUserName] = useState("")
+  const [defaultContact, setDefaultContact] = useState({})
   return (
-    <UserContext.Provider value={{cart, setCart}}>
+    <UserContext.Provider value={{cart, setCart, userName, setUserName, defaultContact, setDefaultContact}}>
       {children}
     </UserContext.Provider>
   );

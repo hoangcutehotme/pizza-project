@@ -15,7 +15,7 @@ function Notify({ error, message, setOpenNotify, handleClose }) {
         <div class="modal is-active show fade modal-noti modal-alert" style={{zIndex:'1000000'}}>
             <div class="modal-dialog modal-noti" role="document" style={{zIndex:'1000000'}}>
                 <div class="modal-content" style={{zIndex:'1000000'}}>
-                    <span class="close" data-dismiss="modal" onClick={() => setOpenNotify(false)}>x</span>
+                    {/* <span class="close" data-dismiss="modal" onClick={() => setOpenNotify(false)}>x</span> */}
                     <div class="modal-header">
                         <div class="txt-bold font13">
                             <span class="txt-red">Pizza Home</span> Thông báo

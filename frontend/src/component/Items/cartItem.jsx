@@ -9,7 +9,7 @@ const CartItem = ({product, handleDeleteItem}) => {
             <div class="product-item">
                 <div class="image">
                 <a>
-                        <img alt={`Ảnh của ${product.name}`} src={product.image} title={`Hiển thị chi tiết cho ${product.name}`} />
+                        <img alt={`Ảnh của ${product.name}`} src={product.image} title={`Hiển thị chi tiết cho ${product.name}`} style={{width:'80px', height:'80px'}}/>
                     </a>
                 </div>
                 <div class="content">
@@ -19,14 +19,14 @@ const CartItem = ({product, handleDeleteItem}) => {
                             <div class="detail-content-child">
                                 <p>Kích thước - Vừa 9”</p>
                                 <p>Đế - Dày</p>
-                                <p class="note-of-child">{product.detail}</p>
+                                <p class="note-of-child" style={{marginBottom:'0px'}}>{product.detail}</p>
                             </div>
                         </div>
                     </div>
 
                     <div class="bottom">
-                        <div style={{ color: 'rgb(132, 135, 136)' }}>Số lượng: {product.amount}</div>
-                        <div class="price" style={{ color: '#000' }}> <span>239.000đ</span></div>
+                        <div style={{ color: 'rgb(132, 135, 136)', fontWeight:'400', fontSize:'16px' }}>Số lượng: {product.amount}</div>
+                        <div class="price" style={{ color: '#000' }}> <span>{product.price.toLocaleString('vi-VN')}đ</span></div>
                     </div>
 
                 </div>

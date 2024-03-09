@@ -1,14 +1,17 @@
 import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { useLogout } from "../../service/authContext";
+import { useUser } from "../../service/userContext";
 import './UserInfo.css'
 
 const NavUserInfo = ({active, setActive}) => {
     const navigate = useNavigate()
+    const { userName, setUserName } = useUser()
     const logout = useLogout()
     const handleLogout = () =>  {
         logout();
         localStorage.removeItem("token");
+        localStorage.removeItem("user");
         navigate("/")
       }
     return (
@@ -16,7 +19,7 @@ const NavUserInfo = ({active, setActive}) => {
             <div class="user-sidebar">
                 <div class="head-box userinfo">
                     <p style={{ lineHeight: '20px', marginBottom: '5px', marginTop: '0px' }}>Tài khoản của</p>
-                    <p class="user-name" style={{ marginBottom: '0px' }}>Huỳnh Thuận</p>
+                    <p class="user-name" style={{ marginBottom: '0px' }}>{userName}</p>
                 </div>
                 <div class="head-body user-sidelink">
                     <ul>

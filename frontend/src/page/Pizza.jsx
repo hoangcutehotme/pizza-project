@@ -74,8 +74,6 @@ function Pizza({ setdetail }) {
             <div style={{ width: "100%" }}>
                 <SimpleSlider arrImages={images} />
             </div>
-
-            </div>)}
             <div ref={sectionRefs.current[0]} >
                 <div>
                     <Title title={"Công Thức Đặc Biệt"} />

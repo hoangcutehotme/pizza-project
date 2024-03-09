@@ -3,17 +3,21 @@ import Modal from 'react-bootstrap/Modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../../assets/styles/modal.css'
 import { faCircleXmark } from '@fortawesome/free-regular-svg-icons';
-import LoadingModal from '../Loading/Loading';
-const ModalUpdateAddress = ({ show, handleClose, action, address }) => {
-    // const ModalUpdateAddress = ({ show, handleClose, phoneNumber1, address1, action1, contactId, setContacts, setDefaultContact}) => {
-    const [isLoading, setIsLoading] = useState(false)
-    // const [error, setError] = useState("");
-    // const [openNotify, setOpenNotify] = useState(false)
-    // const [message, setMessage] = useState("")
+// import LoadingModal from '../Loading/Loading';
+import Notify from '../../Notify/Notify';
+import { addContact, updateDefaultContact, updateContact } from '../../service/userService';
+// const ModalUpdateAddress = ({ show, handleClose, action, address }) => {
+    const ModalUpdateAddress = ({ show, handleClose, address, action, contactId, setContacts, setDefaultContact}) => {
+    // const [isLoading, setIsLoading] = useState(false)
+    const [error, setError] = useState("");
+    const [openNotify, setOpenNotify] = useState(false)
+    const [message, setMessage] = useState("")
     const [formData, setFormData] = useState({
         phoneNumber: address.phoneNumber,
         address: address.address,
     });
+
+    const [isChecked, setIsChecked] = useState(false);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -23,60 +27,64 @@ const ModalUpdateAddress = ({ show, handleClose, action, address }) => {
         });
     };
 
-    const handleSubmit = () => {
-        console.log(formData)
-    }
-
-    // const handleSubmit = async (e) => {
-    //     if (/^\d{10}$/.test(formData.phoneNumber)) {
-    //         setIsLoading(true)
-    //         if (action1 === 'add') {
-    //             try {                  
-    //                 const response = await addContact(e, formData);
-    //                 localStorage.setItem("user", JSON.stringify(response));
-    //                 setContacts(response.contact);
-    //                 setDefaultContact(response.defaultContact)
-    //                 setMessage(`${t("updateAddressSuccess")}`)
-    //                 setOpenNotify(true)
-    //                 handleClose()
-    //             } catch (error) {
-    //                 setMessage(`${t("updateAddressFail")}`)
-    //                 setOpenNotify(true)
-    //                 handleClose()
-    //             }
-    //         } else {
-    //             try { 
-    //                 if(isChecked) {
-    //                     try {
-    //                         await updateDefaultContact(e, contactId)
-    //                     } catch (error) {
-    //                     }
-    //                 }                  
-    //                 const response = await updateContact(e, formData, contactId, isChecked)
-    //                 localStorage.setItem("user", JSON.stringify(response.data));
-    //                 setContacts(response.data.contact);
-    //                 setDefaultContact(response.data.defaultContact)
-    //                 setMessage(`${t("updateAddressSuccess")}`)
-    //                 setOpenNotify(true)
-    //                 handleClose()
-    //             } catch (error) {
-    //                 setMessage(`${t("updateAddressFail")}`)
-    //                 setOpenNotify(true)
-    //                 handleClose()
-    //             }
-    //         }
-    //         setFormData({
-    //             phoneNumber: '',
-    //             address: '',
-    //         });
-    //         setIsChecked(false)
-    //         setIsLoading(false)
-    //     } else {
-    //         setError(`${t("error9")}`)
-    //     }
-
-
+    // const handleSubmit = () => {
+    //     console.log(formData)
     // }
+
+    const handleSubmit = async (e) => {
+        if (/^\d{10}$/.test(formData.phoneNumber)) {
+            // setIsLoading(true)
+            if (action === 'add') {
+                try {  
+                    
+                    console.log(action)                
+                    const response = await addContact(formData);
+                    console.log(response)                
+                    localStorage.setItem("user", JSON.stringify(response.data));
+                    setContacts(response.data.contact); 
+                    setDefaultContact(response.data.defaultContact)
+                    setMessage("Thêm địa chỉ thành công")
+                    setOpenNotify(true)
+                    handleClose()
+                } catch (error) {
+                    setMessage("Thêm địa chỉ thất bại")
+                    setOpenNotify(true)
+                    handleClose()
+                }
+            }
+             else {
+                try { 
+                    if(isChecked) {
+                        try {
+                            await updateDefaultContact(contactId)
+                        } catch (error) {
+                        }
+                    }                  
+                    const response = await updateContact(formData, contactId)
+                    localStorage.setItem("user", JSON.stringify(response.data.data));
+                    setContacts(response.data.data.contact);
+                    setDefaultContact(response.data.data.defaultContact)
+                    setMessage("Cập nhật liên hệ thành công")
+                    setOpenNotify(true)
+                    handleClose()
+                } catch (error) {
+                    setMessage("Cập nhật liên hệ thất bại")
+                    setOpenNotify(true)
+                    handleClose()
+                }
+            }
+            setFormData({
+                phoneNumber: '',
+                address: '',
+            });
+            setIsChecked(false)
+            // setIsLoading(false)
+        } else {
+            setError('Số điện thoại không hợp lệ')
+        }
+
+
+    }
 
     const handleReset = () => {
         handleClose()
@@ -95,19 +103,19 @@ const ModalUpdateAddress = ({ show, handleClose, action, address }) => {
         });
     }, [address]);
 
-    const [isChecked, setIsChecked] = useState(false);
+    
 
     return (
         <div>
 
-            <Modal className="modal fade modal-change-address" show={show} onHide={handleReset} size="lg" >
-                <Modal.Body style={{ zIndex: '1000' }}>
+            <Modal className="modal fade modal-change-address" show={show} onHide={handleReset} size="lg" style={{ zIndex: '10000' }}>
+                <Modal.Body style={{ zIndex: '10000' }}>
                     <Modal.Title style={{ color: '#006a31' }}>Cập nhật địa chỉ</Modal.Title>
                     <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content">
                             <span class="close" data-dismiss="modal" onClick={handleReset}><FontAwesomeIcon icon={faCircleXmark} style={{ color: 'red' }} /></span>
                             <form>
-                                {/* {error && <div className="alert-danger">{error}</div>} */}
+                                {error && <div className="alert-danger">{error}</div>}
                                 <div class="modal-body">
                                     <div class="row">
                                         <div class="col col-12 form-group input-field">
@@ -145,13 +153,14 @@ const ModalUpdateAddress = ({ show, handleClose, action, address }) => {
                                             />
                                         </div>
                                     </div>
-
+                                    {action !== 'add' && (
                                     <div class="pqpMRq">
                                         <label class="kbCWJr" style={{color:'black'}}>
                                         <div class={`ciVq4v ${isChecked ? 'wb33QF' : ''}`} onClick={() => {setIsChecked(!isChecked)}}></div>
                                             Đặt làm địa chỉ mặc định
                                         </label>
                                     </div>
+                                    )}
                                 </div>
                                 <div class="modal-footer content-right" style={{border:'none'}}>
                                     <button
@@ -171,8 +180,8 @@ const ModalUpdateAddress = ({ show, handleClose, action, address }) => {
                     </div>
                 </Modal.Body>
             </Modal>
-            {isLoading && (<LoadingModal />)}
-            {/* {openNotify && (<Notify message={message} setOpenNotify={setOpenNotify} handleClose={handleClose}/>)} */}
+            {/* {isLoading && (<LoadingModal />)} */}
+            {openNotify && (<Notify message={message} setOpenNotify={setOpenNotify} handleClose={handleClose}/>)}
         </div>
     )
 }

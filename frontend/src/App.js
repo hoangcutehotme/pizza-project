@@ -25,13 +25,12 @@ function App() {
       <UserProvider>
         <div class="master-wrapper-page html-account-page" id="master-wrapper-custom-id" style={{ marginTop: '168px' }}>
           <Router>
-                  {detail ? (<Detailproduct setdetail={setdetail} />) : (<></>)}
+            {detail ? (<Detailproduct setdetail={setdetail} />) : (<></>)}
             <Header />
             <Routes>
-              <Route path="/" element />
-                          <Route path="/pizza" element={<Pizza setdetail={setdetail} />} />
-          <Route path='/landingPage' element={<LandingPage />} />
-          <Route path='/cart' element={<Cart />} />
+              <Route path="/pizza" element={<Pizza setdetail={setdetail} />} />
+              <Route path='/' element={<LandingPage />} />
+              <Route path='/cart' element={<Cart />} />
               <Route path="/user/Info" element={<UserInfo />} />
               <Route path="/user/order" element={<OrderPage />} />
               <Route path="/login" element={<Login />} />

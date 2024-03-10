@@ -16,10 +16,16 @@
 
 }
 
+.form-img-new-product .box {
+    border-radius: 10px;
+    width: 200px;
+    min-height: 200px;
+
+}
+
 .label-form-add-product {
     font: 1em sans-serif;
     font-size: medium;
     font-weight: 600;
     padding: 10px 0 0;
 }
-

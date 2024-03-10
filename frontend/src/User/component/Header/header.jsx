@@ -13,7 +13,7 @@ import { useUser } from "../../service/userContext";
 
 const Header = ({ cartItems, removeToCart }) => {
   console.log(cartItems)
-  
+
   const navigate = useNavigate()
 
   const handleNav = (nav) => {

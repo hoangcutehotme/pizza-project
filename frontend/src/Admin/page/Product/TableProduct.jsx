@@ -2,17 +2,17 @@ import React, { useEffect, useState } from 'react'
 import './style.css'
 import ReactPaginate from 'react-paginate';
 import Container from 'react-bootstrap/Container';
-import { fetchAllProduct, deleteProduct } from '../../../../service/productService'
+import { fetchAllProduct, deleteProduct } from '../../service/productService'
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import ModelAddProduct from './ModelAddProduct';
-import { ToastContainer } from 'react-toastify';
+// import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ModelDetailProduct from './ModelDetailProduct';
 import ModelConfirm from './ModelConfirm';
 import { toast } from 'react-toastify';
-import LoadingModal from '../../../../component/Loading/Loading';
 import SearchProduct from './SearchProduct';
+import LoadingModel from '../../component/Loading/Loading'
 
 const TableProduct = () => {
 
@@ -30,7 +30,7 @@ const TableProduct = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     // pagination
-    const [loading, setLoading] = useState(true);
+    // const [loading, setLoading] = useState(true);
     const [listProducts, setListProducts] = useState([]);
     const [indexPage, setIndexPage] = useState(0);
     const pageCount = 4;
@@ -40,7 +40,7 @@ const TableProduct = () => {
     const [productDetail, setProductDetail] = useState({});
     const [idDelete, setIdDelete] = useState(null);
 
-    // Invoke when user click to request another page.
+
     const handlePageClick = (event) => {
         getProducts(+event.selected + 1);
         setIndexPage(event.selected);
@@ -53,14 +53,6 @@ const TableProduct = () => {
         setIdDelete(null);
         console.log("reload");
         getProducts(indexPage + 1);
-    }
-
-    const handleCloseAddProduct = () => {
-        setIsShowAddProduct(false);
-    }
-
-    const handleCloseDetailProduct = () => {
-        setIsShowDetailProduct(false);
     }
 
     useEffect(() => {
@@ -95,14 +87,14 @@ const TableProduct = () => {
     const handDeleteProduct = async (id) => {
         setIsLoading(true);
         try {
-            await deleteProduct(id); // Call the delete function passed as prop
+            await deleteProduct(id); 
             notify("success", "Xoá sản phẩm thành công");
         } catch (error) {
             console.error('Error deleting product:', error);
             notify("error", "Xoá sản phẩm không thành công");
         } finally {
             setIsLoading(false);
-            handleClose(); // Close the modal regardless of success or failure
+            handleClose(); 
         }
     }
 
@@ -200,8 +192,8 @@ const TableProduct = () => {
 
             </Container>
 
-            <ToastContainer />
-            {isLoading && (<LoadingModal />)}
+            {/* <ToastContainer /> */}
+            {isLoading && (<LoadingModel />)}
         </>
 
 

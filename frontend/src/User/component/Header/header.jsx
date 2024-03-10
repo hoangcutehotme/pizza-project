@@ -47,8 +47,8 @@ const Header = ({ cartItems, removeToCart }) => {
       <div class="container">
         <div class="top-wrap">
           <div class="left-wrap">
-            <div class="logo">
-              <a class="logo" style={{ textDecoration: 'none' }}>
+            <div class="">
+              <a class="" style={{ textDecoration: 'none' }}>
                 <img
                   alt="The Pizza Home"
                   title="The Pizza Company"

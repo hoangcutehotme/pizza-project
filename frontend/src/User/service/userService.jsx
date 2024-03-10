@@ -1,10 +1,11 @@
 import axios from "axios";
+//
 const url = "http://localhost:3000";
 
 //Auth
 
 const loginAPI = async (formData) => {
-    return axios.post(`${url}/api/auth/login`, formData);
+  return axios.post(`${url}/api/auth/login`, formData);
 }
 
 const forgotPass = (formData) => {
@@ -12,14 +13,14 @@ const forgotPass = (formData) => {
 }
 
 const verifyEmail = (email, token) => {
-  return axios.post(`${url}/api/auth/verify-token/${email}`, {token: token});
+  return axios.post(`${url}/api/auth/verify-token/${email}`, { token: token });
 }
 
 const resetPass = (email, formData) => {
   return axios.post(`${url}/api/auth/reset-password/${email}`, formData)
 }
 
-const signupUser = (formData)  => {
+const signupUser = (formData) => {
   return axios.post(`${url}/api/user`, formData);
 }
 //UpdateUser
@@ -56,51 +57,50 @@ const updateContact = (formData, idContact) => {
 }
 
 const deleteContact = async (idContact, idUser) => {
-    const token = localStorage.getItem("token");
-    const api = `${url}/api/user/del-contact/${idUser}/${idContact}`
-    return axios.delete(api, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    });
+  const token = localStorage.getItem("token");
+  const api = `${url}/api/user/del-contact/${idUser}/${idContact}`
+  return axios.delete(api, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
 
 }
 
 const addContact = async (formData) => {
-    const token = localStorage.getItem("token");
-    const decodedToken = JSON.parse(atob(token.split(".")[1]));
-    return axios.put(`${url}/api/user/add-contact/${decodedToken.id}`, formData, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    });
+  const token = localStorage.getItem("token");
+  const decodedToken = JSON.parse(atob(token.split(".")[1]));
+  return axios.put(`${url}/api/user/add-contact/${decodedToken.id}`, formData, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
 };
 
 const updateDefaultContact = async (id) => {
-    const token = localStorage.getItem("token");
-    const decodedToken = JSON.parse(atob(token.split(".")[1]));
-    return axios.post(`${url}/api/user/set-default-contact/${decodedToken.id}/${id}`, {}, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
+  const token = localStorage.getItem("token");
+  const decodedToken = JSON.parse(atob(token.split(".")[1]));
+  return axios.post(`${url}/api/user/set-default-contact/${decodedToken.id}/${id}`, {}, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
 }
 
 // Order
 
 const getOrderByUserId = () => {
   const token = localStorage.getItem("token");
-    const decodedToken = JSON.parse(atob(token.split(".")[1]));
-    return axios.get(`${url}/api/order/user/${decodedToken.id}?sort=-dateOrdered&limit=10&page=1`, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
+  const decodedToken = JSON.parse(atob(token.split(".")[1]));
+  return axios.get(`${url}/api/order/user/${decodedToken.id}?sort=-dateOrdered&limit=10&page=1`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
 }
 
 export {
   loginAPI, forgotPass, verifyEmail, resetPass, signupUser,
   updateUser, changePass, updateContact, deleteContact, addContact, updateDefaultContact,
   getOrderByUserId
-} 
-  
+}

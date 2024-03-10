@@ -11,12 +11,12 @@ const images = ["https://thepizzacompany.vn/images/thumbs/000/0003966_BANNER%20S
   "https://thepizzacompany.vn/images/thumbs/000/0003966_BANNER%20SLIDER%201200X480-100.jpeg",
   "https://thepizzacompany.vn/images/thumbs/000/0003966_BANNER%20SLIDER%201200X480-100.jpeg"]
 
-const LandingPage = () => {
+const LandingPage = ({ setdetail, addToCart, setitem }) => {
   return (
     <>
       <SimpleSlider arrImages={images} />
       <IntroduceStore1 />
-      <ListProduct />
+      <ListProduct setdetail={setdetail} addToCart={addToCart} setitem={setitem} />
       <IntroduceStore2 />
       <SliderComment />
       <ButtonUpWindow />

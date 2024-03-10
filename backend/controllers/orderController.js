@@ -16,10 +16,10 @@ class orderController {
     for (const item of cart) {
       const product = await Product.findById(item.product);
       if (!product) {
-        return appError("Invalid product id", 404);
+        return next(new appError("Invalid product id", 404));
       }
       if (product.price !== item.price) {
-        return appError("Product price does not match", 500);
+        return next(new appError("Product price does not match", 500));
       }
     }
 
@@ -31,7 +31,7 @@ class orderController {
     const grandTotal = productTotal + shipCost;
 
     if (grandTotal !== totalPrice) {
-      return appError("Total price does not match", 500);
+      return next(appError("Total price does not match", 500));
     }
 
     const newOrder = await Order.create({

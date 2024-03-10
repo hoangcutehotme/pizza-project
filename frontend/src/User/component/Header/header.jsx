@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRightFromBracket, faCartShopping, faSearch } from '@fortawesome/free-solid-svg-icons'
@@ -7,10 +7,10 @@ import logo from "../../assets/imgs/logoPizza.png"
 import "../../assets/styles/1024.css"
 import "./header.css"
 import "../../assets/styles/Custom.css"
-// import CartItem from "../Items/cartItem";
 import Cart from "./cart";
 import { useAuth, useLogout } from "../../service/authContext";
 import { useUser } from "../../service/userContext";
+
 const Header = ({ cartItems, removeToCart }) => {
   console.log(cartItems)
   
@@ -27,10 +27,9 @@ const Header = ({ cartItems, removeToCart }) => {
     logout();
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-    // setUser({})
     navigate("/")
   }
-  const { cart, setCart, userName, setUserName } = useUser();
+  const { userName, setUserName } = useUser();
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -42,13 +41,6 @@ const Header = ({ cartItems, removeToCart }) => {
     }
   }, [])
 
-  const handleOrder = () => {
-    if (isLoggedIn) {
-      navigate("user/order");
-    } else {
-      navigate("/login")
-    }
-  };
 
   return (
     <header id="_main-header" class="" style={{ paddingBottom: "20px" }}>
@@ -163,7 +155,7 @@ const Header = ({ cartItems, removeToCart }) => {
                   data-flyoutcarturl="/EmporiumTheme/FlyoutShoppingCart"
 
                 >
-                  <Cart cart={cart} setCart={setCart} cartItems={cartItems} removeToCart={removeToCart} />
+                  <Cart cartItems={cartItems} removeToCart={removeToCart} />
                 </div>
               </div>
             </div>

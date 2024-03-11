@@ -70,7 +70,7 @@ const deleteContact = async (idContact, idUser) => {
 const Order = async (itemorder) => {
   const token = localStorage.getItem("token");
   const api = `${url}/api/order`;
-  return axios.post(api, { itemorder }, {
+  return axios.post(api, itemorder, {
     headers: {
       Authorization: `Bearer ${token}`
     }

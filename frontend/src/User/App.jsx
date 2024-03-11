@@ -18,7 +18,7 @@ import ChangePassVerify from './page/changePassVerify';
 import OrderPage from './page/orderPage';
 import { AuthProvider } from './service/authContext';
 import { UserProvider } from './service/userContext';
-import AdminHomePage from './page/Admin/AdminHomePage';
+
 function App() {
 
   const [detail, setdetail] = useState(false)

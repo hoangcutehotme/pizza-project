@@ -1,11 +1,11 @@
 
-import axiosInstance from '../../../../service/axiosInstance';
+import axiosInstance from '../../service/axiosInstance';
 import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import { toast } from 'react-toastify';
-import LoadingModal from '../../../../component/Loading/Loading';
+import LoadingModal from '../../component/Loading/Loading';
 
 function ModelDetailProduct({ show, handleClose, product }) {
     const notify = (er, message) => toast[er](message, {
@@ -21,8 +21,7 @@ function ModelDetailProduct({ show, handleClose, product }) {
 
     const [isLoading, setIsLoading] = useState(false);
     const [formData, setFormData] = useState({});
-
-    const [image, setImage] = useState('');
+    const [imageSelect, setImage] = useState('');
 
     useEffect(() => {
         if (show) {
@@ -41,8 +40,10 @@ function ModelDetailProduct({ show, handleClose, product }) {
     const handleEditProduct = async () => {
         const { name, description, price, images, catName } = formData;
 
+        console.log("form data", formData);
+        console.log("image", product.images[0]);
         // Check if any required fields are empty
-        if (!name || !description || !price || !image) {
+        if (!name || !description || !price || !images) {
             notify("error", "Kiểm tra thông tin món ăn");
             return;
         }
@@ -53,19 +54,24 @@ function ModelDetailProduct({ show, handleClose, product }) {
 
         try {
             // Prepare the data to be sent in the PUT request
-            const data = new URLSearchParams();
+            const data = new FormData();
             data.append("name", name);
             data.append("description", description);
             data.append("price", price);
-            data.append("images", image);
             data.append("catName", catName);
+            if (imageSelect !== '') {
+                data.append("images", images);
+                console.log("image put", images);
+                data.append("dels", product.images);
+            }
+
+
+
+            console.log("put data", data);
 
             // Send the PUT request to update the product
-            const res = await axiosInstance.put(`/api/product/${product.id}`, data, {
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                }
-            });
+            const res = await axiosInstance.put(`/api/product/${product.id}`, data);
+
             notify("success", "Chỉnh sửa thành công");
             handleClose();
         } catch (error) {
@@ -86,7 +92,6 @@ function ModelDetailProduct({ show, handleClose, product }) {
         const reader = new FileReader();
         reader.onloadend = () => {
             const imageUrl = URL.createObjectURL(file);
-            // console.log("print image url", reader.result);
             setImage(imageUrl);
             setFormData({ ...formData, images: file });
         };
@@ -104,7 +109,7 @@ function ModelDetailProduct({ show, handleClose, product }) {
                         <Form.Group>
                             {formData.images ? (
                                 <div className='form-img-new-product'>
-                                    <img src={image} alt="Selected" style={{ width: '200px', marginTop: '10px', marginBottom: '10px' }} />
+                                    <img src={imageSelect} alt="Selected" style={{ width: '200px', marginTop: '10px', marginBottom: '10px' }} />
                                 </div>
                             ) : (
                                 <div className='form-img-new-product'>

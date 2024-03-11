@@ -124,7 +124,7 @@
     text-align: center;
 } */
 
-.list-product-cart .product-item .content-cart {
+.list-product-cart .product-item .content {
     padding-left: 10px;
     width: calc(100% - 80px);
 }

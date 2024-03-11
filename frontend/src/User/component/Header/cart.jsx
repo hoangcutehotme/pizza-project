@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import CartItem from "../Items/cartItem";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../service/authContext";
-import nocart from "../../assets/imgs/no_cart.png"
-const Cart = ({ cart, setCart, cartItems, removeToCart }) => {
+const Cart = ({ cartItems, removeToCart }) => {
     const totalPrice = cartItems.reduce((total, product) => total + (product.price * product.quantity), 0);
     const navigate = useNavigate()
-    const [total, setTotal] = useState(0);
     const { isLoggedIn } = useAuth();
     const handleOrder = () => {
         if (isLoggedIn) {
@@ -16,38 +14,6 @@ const Cart = ({ cart, setCart, cartItems, removeToCart }) => {
         }
     };
 
-    const handleDeleteItem = (id) => {
-        console.log("delete")
-        const updatedProducts = cart.filter((product) => product._id !== id);
-        setCart(updatedProducts);
-        // const updatedCart = {
-        //     ...cart,
-        //     products: updatedProducts
-        // };
-        // localStorage.setItem('cart', JSON.stringify(updatedCart));
-        let tempTotal = 0;
-        updatedProducts.forEach(product => {
-            const productTotal = product.amount * product.price;
-            tempTotal += productTotal;
-        });
-
-        setTotal(tempTotal);
-        // const count = updatedCart.products.length;
-        // setProductsCount(count)
-        // setIsModalOpen(true)
-    };
-
-    useEffect(() => {
-        if (cart) {
-            let tempTotal = 0;
-            cartItems.forEach(product => {
-                const productTotal = product.amount * product.price;
-                tempTotal += productTotal;
-            });
-
-            setTotal(tempTotal);
-        }
-    }, [cart])
     return (
         <div class="mini-shopping-cart">
             {cartItems.length > 0 ? (

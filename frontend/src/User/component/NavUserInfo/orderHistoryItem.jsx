@@ -3,6 +3,9 @@ import moment from 'moment-timezone';
 import { getProductById } from "../../service/userService";
 
 const OrderHistoryItem = ({order}) => {
+    function formatCurrency(price) {
+        return price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+    }
     const formatteOrderTime = moment.utc(order.dateOrdered).format('DD/MM/YYYY HH:mm');
     const [productNames, setProductNames] = useState([])
     useEffect(() => {
@@ -38,12 +41,12 @@ const OrderHistoryItem = ({order}) => {
             <td style={{ textAlign: 'center' }}>
                 <ul style={{ padding: '0' }}>
                 {order.cart.map((product) => (
-                    <li>{product.price}</li>
+                    <li>{formatCurrency(product.price)}</li>
                 ))}
                 </ul>
             </td>
-            <td style={{ textAlign: 'center' }}>{order.shipCost}</td>
-            <td style={{ textAlign: 'center' }}>{order.totalPrice}</td>
+            <td style={{ textAlign: 'center' }}>{formatCurrency(order.shipCost)}</td>
+            <td style={{ textAlign: 'center' }}>{formatCurrency(order.totalPrice)}</td>
             <td style={{ textAlign: 'center' }}>{formatteOrderTime}</td>
             <td style={{ textAlign: 'center' }}>{order.status}</td>
         </tr>

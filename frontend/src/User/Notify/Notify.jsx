@@ -11,7 +11,6 @@ function Notify({ error, message, setOpenNotify, handleClose }) {
         }
     }
     return (
-
         <div class="modal is-active show fade modal-noti modal-alert" style={{zIndex:'1000000'}}>
             <div class="modal-dialog modal-noti" role="document" style={{zIndex:'1000000'}}>
                 <div class="modal-content" style={{zIndex:'1000000'}}>

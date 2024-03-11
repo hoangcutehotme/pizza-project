@@ -15,9 +15,11 @@ const CartItem = ({ product, removeToCart }) => {
                 <div class="image">
                     <a href="/pizza-tom-cocktail-4" title="Hiển thị chi tiết cho Pizza Tôm Cocktail ">
                         <img alt={`Ảnh của ${product.name}`} src={product.images} title={`Hiển thị chi tiết cho ${product.name}`} />
+                        {/* >>>>>>> 6dcf86328c2119a0d6c750ab9c0054d68b8fa060 */}
                     </a>
                 </div>
-                <div class="content-cart">
+                <div class="content" style={{ display: "flex", flexDirection: "column" }}>
+
                     <div class="title">
                         <div class="title-shopping-cart">{product.name}</div>
                         <div class="item-child-detail">
@@ -29,6 +31,14 @@ const CartItem = ({ product, removeToCart }) => {
                     </div>
 
                     <div class="bottom">
+                        {/* <<<<<<< HEAD
+                        <div style={{ color: 'rgb(132, 135, 136)', fontWeight:'400', fontSize:'16px' }}>Số lượng: {product.amount}</div>
+                        <div class="price" style={{ color: '#000' }}> <span>{product.price.toLocaleString('vi-VN')}đ</span></div>
+                    </div>
+
+                </div>
+                <div class="delete _flyout-cart-delete" onClick={() => handleDeleteItem(product._id)}  style={{cursor:'pointer'}}>
+                    <em class='delete-icon'><FontAwesomeIcon icon={faTrashCan}/></em>
                         <div style={{ color: 'rgb(132, 135, 136)' }}>Số lượng: {product.quantity}</div>
                         <div class="price" style={{ color: '#000' }}> <span>{formatCurrency(product.price * product.quantity)} </span></div>
                     </div>

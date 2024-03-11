@@ -104,23 +104,21 @@ const OrderPage = ({ cartItems, removeToCart, decreaseQuantity, increaseQuantity
         }));
         const itemorder = {
             "cart": cart,
-            "contact": "65e93115142a32519843e1b9",
-            "totalPrice": totalPrice,
+            "contact": selectedContact._id,
+            "totalPrice": totalPrice + 11000,
             "shipCost": 11000
         };
 
-        console.log(itemorder);
         setLoadingAPI(true);
         try {
-            let res = await Order(itemorder);
+            await Order(itemorder);
             setMessage("Đặt hàng thành công");
+            setCartItems([]);
             setLoadingAPI(false);
             setOpenNotify(true);
         } catch (error) {
             setMessage("Không thể đặt hằng");
-            setTimeout(() => {
-                setLoadingAPI(false);
-            }, 2000);
+            setLoadingAPI(false);
             setNavFunction(null);
             setOpenNotify(true)
             console.log(error)

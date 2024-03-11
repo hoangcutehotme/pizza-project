@@ -31,14 +31,6 @@ const CartItem = ({ product, removeToCart }) => {
                     </div>
 
                     <div class="bottom">
-                        {/* <<<<<<< HEAD
-                        <div style={{ color: 'rgb(132, 135, 136)', fontWeight:'400', fontSize:'16px' }}>Số lượng: {product.amount}</div>
-                        <div class="price" style={{ color: '#000' }}> <span>{product.price.toLocaleString('vi-VN')}đ</span></div>
-                    </div>
-
-                </div>
-                <div class="delete _flyout-cart-delete" onClick={() => handleDeleteItem(product._id)}  style={{cursor:'pointer'}}>
-                    <em class='delete-icon'><FontAwesomeIcon icon={faTrashCan}/></em>
                         <div style={{ color: 'rgb(132, 135, 136)' }}>Số lượng: {product.quantity}</div>
                         <div class="price" style={{ color: '#000' }}> <span>{formatCurrency(product.price * product.quantity)} </span></div>
                     </div>

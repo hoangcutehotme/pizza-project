@@ -2,11 +2,9 @@ import React, { useState, useEffect } from "react";
 import OrderPageItem from "../component/Items/orderItem";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight, faLocationDot } from "@fortawesome/free-solid-svg-icons";
-import { useUser } from "../service/userContext";
 import PickAddress from "../component/Modal/pickAddress";
 import Notify from "../Notify/Notify";
 import { useNavigate, useLocation } from "react-router-dom";
-import { resetPass } from "../service/userService";
 import Loading from '../component/Loading/Loading'
 import { Order } from "../service/userService";
 const OrderPage = ({ cartItems, removeToCart, decreaseQuantity, increaseQuantity, setCartItems, deleteToCart }) => {
@@ -15,58 +13,6 @@ const OrderPage = ({ cartItems, removeToCart, decreaseQuantity, increaseQuantity
     const [message, setMessage] = useState("")
     const [navFunction, setNavFunction] = useState(null);
     const [loadingAPI, setLoadingAPI] = useState(false)
-    const [detail, setdetail] = useState(false)
-    // const [total, setTotal] = useState(0);
-    // const handleDeleteItem = (id) => {
-    //     console.log("delete")
-    //     const updatedProducts = cart.filter((product) => product._id !== id);
-    //     setCart(updatedProducts);
-    //     // const updatedCart = {
-    //     //     ...cart,
-    //     //     products: updatedProducts
-    //     // };
-    //     // localStorage.setItem('cart', JSON.stringify(updatedCart));
-    //     let tempTotal = 0;
-    //     updatedProducts.forEach(product => {
-    //         const productTotal = product.amount * product.price;
-    //         tempTotal += productTotal;
-    //     });
-
-    //     setTotal(tempTotal);
-    //     // const count = updatedCart.products.length;
-    //     // setProductsCount(count)
-    //     // setIsModalOpen(true)
-    // };
-
-    // const updateTotalPrice = (id, quantity) => {
-    //     const updatedProducts = cart.map(product => {
-    //         if (product._id === id) {
-    //             product.amount = quantity;
-    //         }
-    //         return product;
-    //     });
-
-    //     setCart(updatedProducts);
-    //     let tempTotal = 0;
-    //     updatedProducts.forEach(product => {
-    //         const productTotal = product.amount * product.price;
-    //         tempTotal += productTotal;
-    //     });
-    //     setTotal(tempTotal);
-    // };
-
-    // useEffect(() => {
-    //     if (cart) {
-    //         let tempTotal = 0;
-    //         cart.forEach(product => {
-    //             console.log(product)
-    //             const productTotal = product.amount * product.price;
-    //             tempTotal += productTotal;
-    //         });
-
-    //         setTotal(tempTotal);
-    //     }
-    // }, [cart])
     const [user, setUser] = useState()
     const [selectedContact, setSelectedContact] = useState({})
     const [contacts, setContacts] = useState([])

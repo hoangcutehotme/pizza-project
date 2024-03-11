@@ -1,10 +1,10 @@
-import axiosInstance from '../../../../service/axiosInstance';
+import axiosInstance from '../../service/axiosInstance';
 import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import { toast } from 'react-toastify';
-import LoadingModal from '../../../../component/Loading/Loading';
+import LoadingModal from '../../component/Loading/Loading';
 
 function ModelAddProduct({ show, handleClose }) {
 
@@ -29,7 +29,7 @@ function ModelAddProduct({ show, handleClose }) {
         images: null,
         catName: 'Pizza',
     });
-    
+
 
     const [image, setImage] = useState(null);
 
@@ -136,7 +136,7 @@ function ModelAddProduct({ show, handleClose }) {
                 </Modal.Body>
 
                 <Modal.Footer>
-                    <Button variant="primary" type="submit" onClick={()=>handleAddProduct()}
+                    <Button variant="primary" type="submit" onClick={() => handleAddProduct()}
                     >
                         Thêm
                     </Button>

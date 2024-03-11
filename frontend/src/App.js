@@ -18,7 +18,7 @@ function App() {
         else if (userData.role === 'Admin') {
           // return <Navigate to="/admin/"/>;
           return (<Admin />)
-        } 
+        }
       }
     } else {
       return (<User />);

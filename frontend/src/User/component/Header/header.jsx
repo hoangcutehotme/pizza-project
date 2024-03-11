@@ -11,9 +11,9 @@ import Cart from "./cart";
 import { useAuth, useLogout } from "../../service/authContext";
 import { useUser } from "../../service/userContext";
 
-const Header = ({ cartItems, removeToCart }) => {
+const Header = ({ cartItems, removeToCart, deleteToCart }) => {
   console.log(cartItems)
-  
+
   const navigate = useNavigate()
 
   const handleNav = (nav) => {
@@ -155,7 +155,7 @@ const Header = ({ cartItems, removeToCart }) => {
                   data-flyoutcarturl="/EmporiumTheme/FlyoutShoppingCart"
 
                 >
-                  <Cart cartItems={cartItems} removeToCart={removeToCart} />
+                  <Cart cartItems={cartItems} removeToCart={deleteToCart} />
                 </div>
               </div>
             </div>

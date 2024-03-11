@@ -18,7 +18,7 @@ import ChangePassVerify from './page/changePassVerify';
 import OrderPage from './page/orderPage';
 import { AuthProvider } from './service/authContext';
 import { UserProvider } from './service/userContext';
-import AdminHomePage from './page/Admin/AdminHomePage';
+
 function App() {
 
   const [detail, setdetail] = useState(false)
@@ -84,6 +84,15 @@ function App() {
     }
   };
 
+  const deleteToCart = (item) => {
+    console.log(item);
+    const existingItem = cartItems.find((cartItem) => cartItem.id === item.id);
+    if (existingItem) {
+      setCartItems(cartItems.filter((cartItem) => cartItem.id !== item.id));
+    }
+  };
+
+
   const decreaseQuantity = (item) => {
     const existingItem = cartItems.find((cartItem) => cartItem.id === item.id);
     if (existingItem) {
@@ -95,7 +104,7 @@ function App() {
               : cartItem
           )
         );
-      } 
+      }
     }
   };
 
@@ -109,7 +118,7 @@ function App() {
             : cartItem
         )
       );
-    } 
+    }
   };
 
 
@@ -118,29 +127,29 @@ function App() {
       <UserProvider>
         <div className="master-wrapper-page html-account-page" id="master-wrapper-custom-id" style={{ marginTop: '168px' }}>
           {/* <Router> */}
-            {detail ? (<Detailproduct setdetail={setdetail} addToCart={addToCart} item={item} />) : (<></>)}
-            <Header cartItems={cartItems} removeToCart={removeToCart} />
-            <Routes>
-              {/* <Route path="/" /> */}
-              {/* <Route path="/pizza" element={<Pizza setdetail={setdetail} addToCart={addToCart} setitem={setitem} />} /> */}
-              {/* <Route path='/landingPage' element={<LandingPage />} /> */}
-              {/* <Route path='/cart' element={<Cart cartItems={cartItems} addToCart={addToCart} removeToCart={removeToCart} />} /> */}
-              <Route path="/" element={<LandingPage setdetail={setdetail} addToCart={addToCart} setitem={setitem}/>}/>
-              <Route path="/pizza" element={<Pizza setdetail={setdetail} addToCart={addToCart} setitem={setitem} />} />
+          {detail ? (<Detailproduct setdetail={setdetail} addToCart={addToCart} item={item} />) : (<></>)}
+          <Header cartItems={cartItems} removeToCart={removeToCart} deleteToCart={deleteToCart} />
+          <Routes>
+            {/* <Route path="/" /> */}
+            {/* <Route path="/pizza" element={<Pizza setdetail={setdetail} addToCart={addToCart} setitem={setitem} />} /> */}
+            {/* <Route path='/landingPage' element={<LandingPage />} /> */}
+            {/* <Route path='/cart' element={<Cart cartItems={cartItems} addToCart={addToCart} removeToCart={removeToCart} />} /> */}
+            <Route path="/" element={<LandingPage setdetail={setdetail} addToCart={addToCart} setitem={setitem} />} />
+            <Route path="/pizza" element={<Pizza setdetail={setdetail} addToCart={addToCart} setitem={setitem} />} />
 
-              <Route path='/cart' element={<Cart cartItems={cartItems} addToCart={addToCart} removeToCart={removeToCart} />} />
+            <Route path='/cart' element={<Cart cartItems={cartItems} addToCart={addToCart} removeToCart={removeToCart} />} />
 
 
-              <Route path="/user/Info" element={<UserInfo />} />
-              <Route path="/user/order" element={<OrderPage cartItems={cartItems} removeToCart={removeToCart} decreaseQuantity={decreaseQuantity} increaseQuantity={increaseQuantity}/>} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<Register />} />
-              <Route path="/forgotPass" element={<ForgotPass />} />
-              <Route path="/verify" element={<Verify />} />
-              <Route path="/changePassVerify" element={<ChangePassVerify />} />
-              {/* <Route path="/admin" element={<AdminHomePage />} /> */}
-            </Routes>
-            <Footer />
+            <Route path="/user/Info" element={<UserInfo />} />
+            <Route path="/user/order" element={<OrderPage deleteToCart={deleteToCart} setCartItems={setCartItems} cartItems={cartItems} removeToCart={removeToCart} decreaseQuantity={decreaseQuantity} increaseQuantity={increaseQuantity} />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Register />} />
+            <Route path="/forgotPass" element={<ForgotPass />} />
+            <Route path="/verify" element={<Verify />} />
+            <Route path="/changePassVerify" element={<ChangePassVerify />} />
+            {/* <Route path="/admin" element={<AdminHomePage />} /> */}
+          </Routes>
+          <Footer />
           {/* </Router> */}
         </div>
       </UserProvider>

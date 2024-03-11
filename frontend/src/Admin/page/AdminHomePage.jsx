@@ -1,13 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './AdminHomePage.css'
-import logo from "../../assets/imgs/logoPizza.png"
+import logo from "../assets/imgs/logoPizza.png"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
-import { useState } from 'react'
-import Category from './page/Product/TableProduct'
-import UserList from './page/ListUser/UserList'
-import ContainerFluidBreakpointExample from './page/updateProductScreen'
-import TableProduct from './page/Product/TableProduct'
+import TableProduct from './Product/TableProduct'
+import TestView from './text'
+import { useNavigate } from "react-router-dom";
+import { useLogout } from "../service/authContext";
 
 const AdminHomePage = () => {
 
@@ -17,6 +16,17 @@ const AdminHomePage = () => {
     const handleMenuItemClick = (area) => {
         setContentArea(area); // Update the content area state
     };
+    const navigate = useNavigate()
+
+
+    const logout = useLogout();
+
+    const handleLogout = () => {
+        logout();
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        navigate("/")
+    }
 
     return (
         <div>
@@ -35,7 +45,7 @@ const AdminHomePage = () => {
                             <FontAwesomeIcon icon={faUser} />
                         </button>
                         <ul className="dropdown-menu dropdown-menu-lg-end dropdown-menu-end">
-                            <li><a className="dropdown-item right" href="#">Đăng xuất</a></li>
+                            <li><a className="dropdown-item right" onClick={handleLogout} >Đăng xuất</a></li>
                             <li><a className="dropdown-item right" href="#">Thông tin</a></li>
                         </ul>
 
@@ -77,19 +87,11 @@ const AdminHomePage = () => {
                             <TableProduct />
                         )}
                         {contentArea === 'customers' && (
-                            <ContainerFluidBreakpointExample />
+                            <TestView />
                         )}
                     </div>
                 </div>
             </div>
-
-
-
-
-
-
-
-
 
         </div >
     )

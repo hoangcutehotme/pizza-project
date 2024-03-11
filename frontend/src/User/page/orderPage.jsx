@@ -4,10 +4,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight, faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { useUser } from "../service/userContext";
 import PickAddress from "../component/Modal/pickAddress";
-import { useNavigate } from "react-router-dom";
-const OrderPage = ({cartItems, removeToCart, decreaseQuantity, increaseQuantity}) => {
-    const navigate = useNavigate()
+import Notify from "../Notify/Notify";
+import { useNavigate, useLocation } from "react-router-dom";
+import { resetPass } from "../service/userService";
+import Loading from '../component/Loading/Loading'
+import { Order } from "../service/userService";
+const OrderPage = ({ cartItems, removeToCart, decreaseQuantity, increaseQuantity, setCartItems, deleteToCart }) => {
     const totalPrice = cartItems.reduce((total, product) => total + (product.price * product.quantity), 0);
+    const [openNotify, setOpenNotify] = useState(false);
+    const [message, setMessage] = useState("")
+    const [navFunction, setNavFunction] = useState(null);
+    const [loadingAPI, setLoadingAPI] = useState(false)
+    const [detail, setdetail] = useState(false)
     // const [total, setTotal] = useState(0);
     // const handleDeleteItem = (id) => {
     //     console.log("delete")
@@ -85,8 +93,45 @@ const OrderPage = ({cartItems, removeToCart, decreaseQuantity, increaseQuantity}
     const closeModalAddress = () => {
         setShowModalAddress(false);
     };
+    const navigate = useNavigate();
+    const location = useLocation();
+    const OrderItem = async () => {
+        const cart = cartItems.map(product => ({
+            quantity: product.quantity,
+            price: product.price,
+            product: product._id,
+            noti: product.noti
+        }));
+        const itemorder = {
+            "cart": cart,
+            "contact": "65e93115142a32519843e1b9",
+            "totalPrice": totalPrice,
+            "shipCost": 11000
+        };
+
+        console.log(itemorder);
+        setLoadingAPI(true);
+        try {
+            let res = await Order(itemorder);
+            setMessage("Đặt hàng thành công");
+            setLoadingAPI(false);
+            setOpenNotify(true);
+        } catch (error) {
+            setMessage("Không thể đặt hằng");
+            setTimeout(() => {
+                setLoadingAPI(false);
+            }, 2000);
+            setNavFunction(null);
+            setOpenNotify(true)
+            console.log(error)
+        }
+    }
+    const handleNav = () => {
+        navigate("/pizza")
+    }
 
     return (
+
         <div class="master-column-wrapper custom-master-column-wrapper-min-height" id="_master-column-wrapper-id">
             <div class="center-1">
                 <div class="page shopping-cart-page">
@@ -129,6 +174,7 @@ const OrderPage = ({cartItems, removeToCart, decreaseQuantity, increaseQuantity}
                                             <OrderPageItem
                                                 product={product}
                                                 handleDeleteItem={removeToCart}
+                                                deleteToCart={deleteToCart}
                                                 // updateTotalPrice={updateTotalPrice}
                                                 decreaseQuantity={decreaseQuantity}
                                                 increaseQuantity={increaseQuantity}
@@ -143,7 +189,7 @@ const OrderPage = ({cartItems, removeToCart, decreaseQuantity, increaseQuantity}
                                                 <h3 class="o13Lc4 hERTPn fwPZIN">Phí vận chuyển</h3>
                                                 <div class="o13Lc4 X9R_0O fwPZIN">30.000₫</div>
                                                 <h3 class="o13Lc4 hERTPn cNgneA">Tổng thanh toán</h3>
-                                                <div class="o13Lc4 fYeyE4 X9R_0O cNgneA">₫{(totalPrice+30000).toLocaleString('vi-VN')}</div>
+                                                <div class="o13Lc4 fYeyE4 X9R_0O cNgneA">₫{(totalPrice + 30000).toLocaleString('vi-VN')}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -155,7 +201,7 @@ const OrderPage = ({cartItems, removeToCart, decreaseQuantity, increaseQuantity}
                                                     Tiếp tục mua hàng
                                                 </span>
                                             </a>
-                                            <a class="btn-next" id="btn-next-in-cart">
+                                            <a class="btn-next" id="btn-next-in-cart" onClick={() => OrderItem()}>
                                                 <span>Thanh toán</span>
                                                 <em class="mdi mdi-arrow-right"><FontAwesomeIcon icon={faArrowRight} /></em>
                                             </a>
@@ -170,6 +216,8 @@ const OrderPage = ({cartItems, removeToCart, decreaseQuantity, increaseQuantity}
             {showModalAddress && (
                 <PickAddress show={showModalAddress} handleClose={closeModalAddress} user={user} selectedContact={selectedContact} setSelectedContact={setSelectedContact} contacts={contacts} setContacts={setContacts} defaultContact={defaultContact} setDefaultContact={setDefaultContact} />
             )}
+            {openNotify && (<Notify message={message} setOpenNotify={setOpenNotify} handleClose={navFunction} />)}
+            {loadingAPI && (<Loading />)}
         </div>
     )
 }

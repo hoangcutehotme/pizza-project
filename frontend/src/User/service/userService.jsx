@@ -67,6 +67,18 @@ const deleteContact = async (idContact, idUser) => {
 
 }
 
+const Order = async (itemorder) => {
+  const token = localStorage.getItem("token");
+  const api = `${url}/api/order`;
+  return axios.post(api, { itemorder }, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
+
+}
+
+
 const addContact = async (formData) => {
   const token = localStorage.getItem("token");
   const decodedToken = JSON.parse(atob(token.split(".")[1]));
@@ -102,5 +114,5 @@ const getOrderByUserId = () => {
 export {
   loginAPI, forgotPass, verifyEmail, resetPass, signupUser,
   updateUser, changePass, updateContact, deleteContact, addContact, updateDefaultContact,
-  getOrderByUserId
+  getOrderByUserId, Order,
 }

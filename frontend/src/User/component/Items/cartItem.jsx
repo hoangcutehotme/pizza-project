@@ -15,9 +15,11 @@ const CartItem = ({ product, removeToCart }) => {
                 <div class="image">
                     <a href="/pizza-tom-cocktail-4" title="Hiển thị chi tiết cho Pizza Tôm Cocktail ">
                         <img alt={`Ảnh của ${product.name}`} src={product.images} title={`Hiển thị chi tiết cho ${product.name}`} />
+                        {/* >>>>>>> 6dcf86328c2119a0d6c750ab9c0054d68b8fa060 */}
                     </a>
                 </div>
-                <div class="content-cart">
+                <div class="content" style={{ display: "flex", flexDirection: "column" }}>
+
                     <div class="title">
                         <div class="title-shopping-cart">{product.name}</div>
                         <div class="item-child-detail">

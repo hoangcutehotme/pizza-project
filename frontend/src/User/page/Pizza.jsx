@@ -11,6 +11,7 @@ import style from '../component/Itemproduct/Itemproduct.css'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import axiosInstancenotoken from '../service/axiosInstance'
+import Loading from '../component/Loading/Loading'
 const images = [
     "https://thepizzacompany.vn/images/thumbs/000/0003966_BANNER%20SLIDER%201200X480-100.jpeg",
     "https://thepizzacompany.vn/images/thumbs/000/0003966_BANNER%20SLIDER%201200X480-100.jpeg",
@@ -23,6 +24,7 @@ function Pizza({ addToCart, setdetail, setitem }) {
         useRef(null),
         useRef(null)
     ]);
+    const [loadingAPI, setLoadingAPI] = useState(true)
     const [activeIndex, setActiveIndex] = useState(0);
     const [menu, setMenu] = useState([]);
     useEffect(() => {
@@ -45,6 +47,7 @@ function Pizza({ addToCart, setdetail, setitem }) {
     async function fetchProducts(catName) {
         try {
             const response = await axiosInstancenotoken.get(`/api/product/cat/?catName=${catName}`);
+            setLoadingAPI(false)
             return response.data.data;
         } catch (error) {
             console.error('Đã xảy ra lỗi khi lấy danh sách sản phẩm:', error);
@@ -96,12 +99,10 @@ function Pizza({ addToCart, setdetail, setitem }) {
         <div>
             <div style={{ width: "100%" }}>
                 <SimpleSlider arrImages={images} />
-            </div>
-            {/* <<<<<<< HEAD */}
-            <div ref={sectionRefs.current[0]} >
-                {/* ======= */}
-                <div className="container">
 
+            </div>
+            <div ref={sectionRefs.current[0]} >
+                {loadingAPI ? (<><Loading /></>) : (<div className="container">
                     {/* >>>>>>> 6dcf86328c2119a0d6c750ab9c0054d68b8fa060 */}
                     <div>
                         <Title title={"Menus"} />
@@ -132,7 +133,8 @@ function Pizza({ addToCart, setdetail, setitem }) {
                             </div>
                         </div>
                     ))}
-                </div>
+                </div>)}
+
             </div>
         </div>
     );

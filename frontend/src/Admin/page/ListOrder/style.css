@@ -1,0 +1,4 @@
+.label-order {
+    display: flex;
+    justify-content: space-between;
+}

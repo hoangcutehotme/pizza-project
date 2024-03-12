@@ -6,7 +6,7 @@ import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import { toast } from 'react-toastify';
 import LoadingModal from '../../component/Loading/Loading';
-
+import { editProduct } from '../../service/productService';
 function ModelDetailProduct({ show, handleClose, product }) {
     const notify = (er, message) => toast[er](message, {
         position: "top-right",
@@ -25,7 +25,7 @@ function ModelDetailProduct({ show, handleClose, product }) {
 
     useEffect(() => {
         if (show) {
-            console.log("Product ", product);
+            // console.log("Product ", product);
             setFormData({
                 name: product.name,
                 description: product.description,
@@ -70,7 +70,8 @@ function ModelDetailProduct({ show, handleClose, product }) {
             console.log("put data", data);
 
             // Send the PUT request to update the product
-            const res = await axiosInstance.put(`/api/product/${product.id}`, data);
+            const res = await editProduct(product.id ,  data);
+            // const res = await axiosInstance.put(`/api/product/${product.id}`, data);
 
             notify("success", "Chỉnh sửa thành công");
             handleClose();

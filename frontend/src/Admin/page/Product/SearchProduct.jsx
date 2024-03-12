@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import axiosInstance from '../../service/axiosInstance';
 
 const SearchProduct = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -10,8 +11,8 @@ const SearchProduct = () => {
     const searchProduct = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`/api/product/search?search=${searchTerm}`);
-        setSearchResults(response.data); // Assuming the response contains an array of products
+        const response = await axiosInstance.get(`/api/product/search?search=${searchTerm}`);
+        setSearchResults(response.data.data.data); // Assuming the response contains an array of products
       } catch (error) {
         console.error('Error searching for products:', error);
       } finally {

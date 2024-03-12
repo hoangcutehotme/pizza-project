@@ -1,6 +1,7 @@
 import axios from "axios";
+import axiosInstance from "./axiosInstance";
 //
-const url = "http://localhost:3001";
+const url = "http://localhost:3000";
 
 //Auth
 
@@ -88,19 +89,12 @@ const updateDefaultContact = async (id) => {
 }
 
 // Order
-
-const getOrderByUserId = () => {
-  const token = localStorage.getItem("token");
-  const decodedToken = JSON.parse(atob(token.split(".")[1]));
-  return axios.get(`${url}/api/order/user/${decodedToken.id}?sort=-dateOrdered&limit=10&page=1`, {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  });
+const getAllUser = async (page) => {
+  return axiosInstance.get(`/api/user?page=${page}`);
 }
 
 export {
   loginAPI, forgotPass, verifyEmail, resetPass, signupUser,
-  updateUser, changePass, updateContact, deleteContact, addContact, updateDefaultContact,
-  getOrderByUserId
+  updateUser, changePass, updateContact, deleteContact, addContact,
+  updateDefaultContact, getAllUser,
 }

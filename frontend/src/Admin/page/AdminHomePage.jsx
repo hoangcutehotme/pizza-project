@@ -7,6 +7,8 @@ import TableProduct from './Product/TableProduct'
 import TestView from './text'
 import { useNavigate } from "react-router-dom";
 import { useLogout } from "../service/authContext";
+import UserList from './ListUser/UserList'
+import ListOrder from './ListOrder/ListOrder'
 
 const AdminHomePage = () => {
 
@@ -16,8 +18,8 @@ const AdminHomePage = () => {
     const handleMenuItemClick = (area) => {
         setContentArea(area); // Update the content area state
     };
-    const navigate = useNavigate()
 
+    const navigate = useNavigate();
 
     const logout = useLogout();
 
@@ -60,22 +62,25 @@ const AdminHomePage = () => {
                 <div className="row flex-nowrap">
                     <div className="col-auto col-md-3 col-xl-2 px-sm-2 px-0 " style={{ height: '100vh', backgroundColor: 'whitesmoke' }}>
                         <div className="">
-                            <a href="/" className="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-black text-decoration-none" onClick={() => handleMenuItemClick('home')}>
-                                <h3 className="">Menu</h3>
-                            </a>
+
                             <ul className="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
                                 <li className="nav-item">
-                                    <a href="#" className="nav-link align-middle px-0 item" onClick={() => handleMenuItemClick('update')}>
+                                    <a className="nav-link align-middle px-0 item" onClick={() => handleMenuItemClick('update')}>
                                         <span className="ms-1 d-none d-sm-inline text-black ">Cập nhật sản phẩm</span>
                                     </a>
                                 </li>
 
                                 <li className="nav-item">
-                                    <a href="#" className="nav-link align-middle px-0 item" onClick={() => handleMenuItemClick('customers')}>
+                                    <a className="nav-link align-middle px-0 item" onClick={() => handleMenuItemClick('customers')}>
                                         <span className="ms-1 d-none d-sm-inline text-black ">Danh sách khách hàng</span>
                                     </a>
                                 </li>
 
+                                <li className="nav-item">
+                                    <a className="nav-link align-middle px-0 item" onClick={() => handleMenuItemClick('orders')}>
+                                        <span className="ms-1 d-none d-sm-inline text-black ">Đơn hàng</span>
+                                    </a>
+                                </li>
 
                             </ul>
 
@@ -87,7 +92,10 @@ const AdminHomePage = () => {
                             <TableProduct />
                         )}
                         {contentArea === 'customers' && (
-                            <TestView />
+                            <UserList />
+                        )}
+                        {contentArea === 'orders' && (
+                            <ListOrder />
                         )}
                     </div>
                 </div>

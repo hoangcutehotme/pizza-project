@@ -1,15 +1,50 @@
+import axios from 'axios';
 import axiosInstance from './axiosInstance';
+const url = "http://localhost:3000";
 
 export function fetchAllProduct(page) {
-    return axiosInstance.get(`/api/product?page=${page}`);
+    const token = localStorage.getItem("token");
+    return axios.get(`${url}/api/product?page=${page}`,
+
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                ContentType: 'multipart/form-data',
+            }
+        })
+
+        ;
 }
 
+
 export function addNewProduct({ formData }) {
-    return axiosInstance.post('/api/product', formData);
+    const token = localStorage.getItem("token");
+    return axios.post(`${url}/api/product`, formData,
+
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                ContentType: 'multipart/form-data',
+            }
+        })
+
+        ;
+
 }
 
 export function editProduct({ id, data }) {
-    return axiosInstance.put(`/api/product/${id}`, data);
+    const token = localStorage.getItem("token");
+    return axios.put(`${url}/api/product/${id}`, data,
+
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                ContentType: 'multipart/form-data',
+            }
+        })
+
+        ;
+    // return axiosInstance.put(`/api/product/${id}`, data);
 }
 
 export function deleteProduct(id) {

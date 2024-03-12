@@ -30,7 +30,6 @@ const TableProduct = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     // pagination
-    // const [loading, setLoading] = useState(true);
     const [listProducts, setListProducts] = useState([]);
     const [indexPage, setIndexPage] = useState(0);
     const pageCount = 4;

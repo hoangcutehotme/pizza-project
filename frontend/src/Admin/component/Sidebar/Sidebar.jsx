@@ -70,7 +70,7 @@ const Sidebar = ({ children }) => {
                     ))
                 }
 
-                <div className="link" style={{ cursor: 'pointer' }}>
+                <div className="link" style={{ cursor: 'pointer' }} onClick={handleLogout}>
                     <div className="icon"><FontAwesomeIcon icon={faArrowRightFromBracket} /></div>
                     <div style={{ display: isOpen ? "inline" : "none" }} className="link_text">Đăng xuất</div>
                 </div>

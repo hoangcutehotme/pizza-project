@@ -7,6 +7,7 @@ import LoadingModel from '../../component/Loading/Loading'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import ModelDetailOrder from './ModelDetailOrder';
+import { debounce } from 'lodash';
 const ListOrder = () => {
 
     const [listOrder, setListOrder] = useState([]);
@@ -21,22 +22,32 @@ const ListOrder = () => {
     const pageCount = 3;
 
     useEffect(() => {
-        getListOrders();
-    }, []);
+        // console.log("hehe");
+        getListOrders(indexPage + 1);
+    }, [indexPage, startDate, endDate]);
+
+    const delayedFetchOrders = debounce(async () => {
+        await getListOrders(indexPage + 1);
+    }, 500); // Adjust the debounce delay as needed
+
 
     const handlePageClick = (event) => {
         setIndexPage(event.selected);
         getListOrders(+event.selected + 1);
     };
 
-    const handleEndDateChange = (date) => {
+    const handleEndDateChange = async (date) => {
         setEndDate(date);
+        await getListOrders(indexPage + 1);
     };
-    const handleStartDateChange = (date) => {
-        console.log("Date ", date);
-        getListOrders(indexPage + 1);
+    const handleStartDateChange = async (date) => {
+
         setStartDate(date);
+        console.log("Start ", startDate, "End date", endDate);
+        await getListOrders(indexPage + 1);
+
     };
+
 
     const handleClose = () => {
         setIsShowOrder(false);
@@ -44,8 +55,6 @@ const ListOrder = () => {
 
     const handleShowDetailOrder = (order) => {
         setOrderDetail(order);
-
-        console.log("cart", order.cart)
         setIsShowOrder(true);
     }
 
@@ -77,8 +86,6 @@ const ListOrder = () => {
                 end: formatDate(endDate)
 
             }
-
-            console.log("Param", param);
 
             let res = await getAllOrder(param);
 
@@ -140,7 +147,7 @@ const ListOrder = () => {
                                         <td>{formatDateISO(order.dateOrdered)}</td>
                                         <td>{order.shipCost.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</td>
                                         <td>{order.totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</td>
-                                        <td><button className='btn btn-warning mx-3' onClick={() => handleShowDetailOrder(order)}>Xem</button></td>
+                                        <td><button className='btn btn-warning mx-3' onClick={() => handleShowDetailOrder(order._id)}>Xem</button></td>
                                     </tr>
                                 ))
                             )
@@ -180,7 +187,7 @@ const ListOrder = () => {
 
 
             </Container>
-            <ModelDetailOrder show={isShowOrder} handleClose={handleClose} order={orderDetail} />
+            <ModelDetailOrder show={isShowOrder} handleClose={handleClose} id={orderDetail} />
             {isLoading && (<LoadingModel />)}
         </>
     )

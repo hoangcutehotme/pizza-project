@@ -1,5 +1,4 @@
 import axios from 'axios';
-import axiosInstance from './axiosInstance';
 const url = "http://localhost:3000";
 
 export function fetchAllProduct(page) {
@@ -11,9 +10,7 @@ export function fetchAllProduct(page) {
                 Authorization: `Bearer ${token}`,
                 ContentType: 'multipart/form-data',
             }
-        })
-
-        ;
+        });
 }
 
 
@@ -48,5 +45,26 @@ export function editProduct({ id, data }) {
 }
 
 export function deleteProduct(id) {
-    return axiosInstance.delete(`/api/product/${id}`);
+    const token = localStorage.getItem("token");
+    return axios.delete(`${url}/api/product/${id}`,
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                ContentType: 'multipart/form-data',
+            }
+        }
+    );
 }
+
+export function getSearchProduct(search) {
+    const token = localStorage.getItem("token");
+    return axios.get(`${url}/api/product/search?search=${search}`,
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                ContentType: 'multipart/form-data',
+            }
+        }
+    );
+}
+

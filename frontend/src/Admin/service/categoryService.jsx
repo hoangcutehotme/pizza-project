@@ -1,5 +1,14 @@
-import axiosInstance from './axiosInstance';
+import axios from 'axios';
+
+const url = "http://localhost:3000";
 
 export function fetchAllCategory() {
-    return axiosInstance.get('/api/category');
+    const token = localStorage.getItem("token");
+    return axios.get(`${url}/api/category`,
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                ContentType: 'multipart/form-data',
+            }
+        });
 }

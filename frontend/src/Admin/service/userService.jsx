@@ -1,5 +1,4 @@
 import axios from "axios";
-import axiosInstance from "./axiosInstance";
 //
 const url = "http://localhost:3000";
 
@@ -90,8 +89,18 @@ const updateDefaultContact = async (id) => {
 
 // Order
 const getAllUser = async (page) => {
-  return axiosInstance.get(`/api/user?page=${page}`);
+  const token = localStorage.getItem("token");
+  return axios.get(`${url}/api/user?page=${page}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        ContentType: 'multipart/form-data',
+      }
+    }
+  );
 }
+
+
 
 export {
   loginAPI, forgotPass, verifyEmail, resetPass, signupUser,

@@ -5,27 +5,33 @@ import Modal from 'react-bootstrap/Modal';
 import LoadingModal from '../../component/Loading/Loading';
 import Table from 'react-bootstrap/esm/Table';
 import './style.css'
-function ModelDetailOrder({ show, handleClose, order }) {
+import { getOrderById } from '../../service/orderService';
+function ModelDetailOrder({ show, handleClose, id }) {
 
     const [isLoading, setIsLoading] = useState(false);
-    const [products, setProducts] = useState([]);
+    const [orderDetail, setOrderDetail] = useState(null);
+
+    const fetchOrderDetail = async (id) => {
+        setIsLoading(true); // Show loading indicator
+        try {
+            const res = await getOrderById(id);
+            if (res && res.data) {
+                setOrderDetail(res.data.data);
+            }
+        } catch (error) {
+            console.error('Error fetching product details:', error);
+        } finally {
+            setIsLoading(false); // Hide loading indicator
+        }
+    };
 
     useEffect(() => {
-        // console.log(order);
-        if (show && order) { // Check if order exists before fetching product details
-            const fetchProductDetails = async () => {
-                const productRequests = order.cart.map(item => axiosInstance.get(`/api/product/${item.product}`));
-                try {
-                    const responses = await Promise.all(productRequests);
-                    const productDetails = responses.map(response => response.data);
-                    setProducts(productDetails);
-                } catch (error) {
-                    console.error('Error fetching product details:', error);
-                }
-            };
-            fetchProductDetails();
+        if (show && id) {
+            fetchOrderDetail(id);
         }
-    }, [show, order]);
+    }, [show, id]);
+
+
 
     return (
         <>
@@ -34,8 +40,41 @@ function ModelDetailOrder({ show, handleClose, order }) {
                     <Modal.Title><b>Chi tiết đơn hàng</b></Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <div>
-                        <Table bordered hover responsive className='mt-3'>
+                    <div className='order-detail'>
+
+                        <div>
+                            <h5><b>Thông tin khách hàng</b>
+
+                            </h5>
+                            {orderDetail && orderDetail.user && orderDetail.contact && (
+
+                                <div>
+                                    <div className='info-user-container'>
+                                        <div className='info-item'>
+                                            <span className='info-label'>Tên : </span>
+                                            <span className='info-value'>{orderDetail.user.lastName + " " + orderDetail.user.firstName}</span>
+                                        </div>
+                                        <div className='info-item'>
+                                            <span className='info-label'>Email : </span>
+                                            <span className='info-value'>{orderDetail.user.email}</span>
+                                        </div>
+                                        <div className='info-item'>
+                                            <span className='info-label'>SĐT : </span>
+                                            <span className='info-value'>{orderDetail.contact.phoneNumber}</span>
+                                        </div>
+
+                                        <div className='info-item'>
+                                            <span className='info-label'>Địa chỉ : </span>
+                                            <span className='info-value'>{orderDetail.contact.address}</span>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            )}
+
+                        </div>
+                        <Table bordered hover responsive className='mt-5 mb-5'>
                             <thead>
                                 <tr>
                                     <th style={{ width: '50px' }}>STT</th>
@@ -46,37 +85,43 @@ function ModelDetailOrder({ show, handleClose, order }) {
                                 </tr>
                             </thead>
                             <tbody>
-                                {products.map((product, index) => (
-                                    <tr key={index}>
-                                        <td>{index + 1}</td>
-                                        <td><img src={product.images[0]} alt={product.name} style={{ width: '100px', height: '100px' }} /></td>
-                                        <td>{product.name}</td>
-                                        <td>{order.cart[index]?.quantity || ''}</td>
-                                        <td>{product.price || ''}</td>
+                                {orderDetail && orderDetail.cart && orderDetail.cart.length > 0 &&
 
-                                    </tr>
-                                ))}
+                                    orderDetail.cart.map((item, index) => (
+                                        <tr key={index}>
+                                            <td>{index + 1}</td>
+                                            <td><img src={item.product.images[0]} alt={item.product.name} style={{ width: '100px', height: '100px' }} /></td>
+                                            <td>{item.product.name}</td>
+                                            <td>{item.quantity || ''}</td>
+                                            <td>{item.price || ''}</td>
+
+                                        </tr>
+                                    ))}
                             </tbody>
 
                         </Table>
-                        <div className='label-order'>
-                            <span>Tiền hàng</span>
-                            <span>{((order?.totalPrice - order?.shipCost) || '').toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</span>
+
+                        <div>
+                            <div className='container-price'>
+                                <div className='label-order'>
+                                    <span className='label-name'>Tiền hàng</span>
+                                    <span className='price'>{((orderDetail?.totalPrice - orderDetail?.shipCost) || '').toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</span>
+                                </div>
+                                <div className='label-order'>
+                                    <span className='label-name'>Tiền ship</span>
+                                    <span className='price'>{((orderDetail?.shipCost) || '').toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</span>
+                                </div>
+                                <div className='label-order'>
+                                    <span className='label-name'>Tổng tiền</span>
+                                    <span className='price'>
+                                        {((orderDetail?.totalPrice) || '').toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</span>
+                                </div>
+                            </div>
                         </div>
-                        <div className='label-order'>
-                            <span >Tiền ship</span>
-                            <span>{((order?.shipCost) || '').toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</span>
-                        </div>
-                        <div className='label-order'>
-                            <span>Tổng tiền</span>
-                            <span>
-                                {((order?.totalPrice) || '').toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</span>
-                        </div>
+
+
                     </div>
                 </Modal.Body>
-                {/* <Modal.Footer>
-                    <Button variant="primary" type="submit" onClick={handleEditProduct}>Chỉnh sửa</Button>
-                </Modal.Footer> */}
             </Modal>
             {isLoading && (<LoadingModal />)}
         </>

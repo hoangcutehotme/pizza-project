@@ -1,4 +1,46 @@
-.label-order {
+.order-detail {
     display: flex;
+    flex-direction: column;
+}
+
+.container-price {
+    display: flex;
+    justify-content: flex-end;
+    float: right;
+    flex-direction: column;
+}
+
+.label-order {
+    display: inline-flex;
     justify-content: space-between;
+}
+
+.label-order .label-name {
+    min-width: 100px;
+    font-weight: 700;
+}
+
+.label-order .price {
+    font-weight: 500;
+}
+
+.info-user-container {
+    display: flex;
+    justify-content: start;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+
+.info-item {
+    display: inline-flex;
+    justify-content: left;
+}
+
+.info-item .info-label {
+    min-width: 100px;
+    font-weight: 700;
+}
+
+.info-item .info-value {
+    font-weight: 500;
 }

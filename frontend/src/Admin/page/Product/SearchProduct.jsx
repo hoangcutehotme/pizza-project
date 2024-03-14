@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import axiosInstance from '../../service/axiosInstance';
+import { getSearchProduct } from '../../service/productService';
 
 const SearchProduct = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -11,8 +12,8 @@ const SearchProduct = () => {
     const searchProduct = async () => {
       try {
         setLoading(true);
-        const response = await axiosInstance.get(`/api/product/search?search=${searchTerm}`);
-        setSearchResults(response.data.data.data); // Assuming the response contains an array of products
+        const response = await getSearchProduct(searchTerm);
+        setSearchResults(response.data.data.data); 
       } catch (error) {
         console.error('Error searching for products:', error);
       } finally {
@@ -35,7 +36,7 @@ const SearchProduct = () => {
     <div>
       <input
         type="text"
-        placeholder="Search products..."
+        placeholder="Tìm kiếm món ăn..."
         value={searchTerm}
         onChange={handleInputChange}
       />

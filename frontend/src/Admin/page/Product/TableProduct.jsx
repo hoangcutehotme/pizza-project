@@ -86,14 +86,14 @@ const TableProduct = () => {
     const handDeleteProduct = async (id) => {
         setIsLoading(true);
         try {
-            await deleteProduct(id); 
+            await deleteProduct(id);
             notify("success", "Xoá sản phẩm thành công");
         } catch (error) {
             console.error('Error deleting product:', error);
             notify("error", "Xoá sản phẩm không thành công");
         } finally {
             setIsLoading(false);
-            handleClose(); 
+            handleClose();
         }
     }
 
@@ -117,11 +117,12 @@ const TableProduct = () => {
                                 <th>Giá</th>
                                 <th>Danh mục</th>
                                 <th>Trạng thái</th>
+                                <th>Còn hàng</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            {listProducts && listProducts.length > 0 ? (
+                            {listProducts && listProducts.length > 0 && (
                                 // Render table rows if listProducts is not empty
                                 listProducts.map((item, index) => (
                                     <tr key={`product-${indexPage * 10 + index}`} >
@@ -132,20 +133,15 @@ const TableProduct = () => {
                                                 <img src={item.images[0]} alt={item.images[0]} width={'35%'} />
                                             }
                                         </td> */}
+
                                         <td>{item.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</td>
                                         <td>{item.category.catName}</td>
                                         <td>{item.isAvailable ? 'Đang bán' : 'Hết bán'}</td>
+                                        <td>{item.isOutofOrder ? 'Hết hàng' : "Còn hàng"}</td>
                                         <td>
                                             <button className='btn btn-warning mx-3' onClick={() => handleShowDetail(item)}>Chi tiết</button>
                                             <button className="btn btn-danger" onClick={() => handleShowConfirm(item.id)}>Xoá</button>
                                         </td>
-                                    </tr>
-                                ))
-                            ) : (
-                                // Render empty rows if listProducts is empty
-                                Array.from({ length: 10 }, (_, index) => (
-                                    <tr key={`empty-row-${index}`}>
-                                        <td colSpan="6" height={'50px'}></td>
                                     </tr>
                                 ))
                             )}

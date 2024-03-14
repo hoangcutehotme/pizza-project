@@ -10,7 +10,11 @@ router.get(
   authController.restrict("User"),
   orderController.getOrdersByUserId
 );
-router.get("/:id", authController.restrict("User"), orderController.viewOrder);
+router.get(
+  "/:id",
+  authController.restrict("User", "Admin"),
+  orderController.viewOrder
+);
 router.get(
   "/",
   authController.restrict("Admin"),

@@ -29,14 +29,12 @@ const Sidebar = ({ children }) => {
             icon: <FontAwesomeIcon icon={faShoppingCart} />
         },
 
-
     ]
     const navigate = useNavigate();
 
     const logout = useLogout();
 
     const handleLogout = () => {
-        console.log("click");
         logout();
         localStorage.removeItem("token");
         localStorage.removeItem("user");

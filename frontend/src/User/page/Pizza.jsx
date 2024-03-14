@@ -12,10 +12,18 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import axiosInstancenotoken from '../service/axiosInstance'
 import Loading from '../component/Loading/Loading'
-const images = [
-    "https://thepizzacompany.vn/images/thumbs/000/0003966_BANNER%20SLIDER%201200X480-100.jpeg",
-    "https://thepizzacompany.vn/images/thumbs/000/0003966_BANNER%20SLIDER%201200X480-100.jpeg",
-    "https://thepizzacompany.vn/images/thumbs/000/0003966_BANNER%20SLIDER%201200X480-100.jpeg"]
+import pizzaBanner1 from '../assets/imgs/pizza-banner-1.png';
+import pizzaBanner2 from '../assets/imgs/pizza-banner-2.png';
+import pizzaBanner3 from '../assets/imgs/pizza-banner-3.png';
+import pizzaBanner4 from '../assets/imgs/pizza-banner-4.jpg';
+
+const images = [pizzaBanner1, pizzaBanner2, pizzaBanner3, pizzaBanner4];
+// const images = [
+//     "https://thepizzacompany.vn/images/thumbs/000/0003966_BANNER%20SLIDER%201200X480-100.jpeg",
+//     "https://thepizzacompany.vn/images/thumbs/000/0003966_BANNER%20SLIDER%201200X480-100.jpeg",
+//     "https://thepizzacompany.vn/images/thumbs/000/0003966_BANNER%20SLIDER%201200X480-100.jpeg"]
+
+
 function Pizza({ addToCart, setdetail, setitem }) {
     const sectionRefs = useRef([
         useRef(null),

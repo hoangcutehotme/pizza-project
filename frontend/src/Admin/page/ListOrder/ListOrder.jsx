@@ -70,10 +70,22 @@ const ListOrder = () => {
 
     function formatDateISO(dateString) {
         const date = new Date(dateString);
-        const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
-        const hours = date.getHours().toString().padStart(2, '0');
-        const minutes = date.getMinutes().toString().padStart(2, '0');
-        return `${hours}:${minutes} -  ${date.toLocaleDateString('en-GB', options)}`;
+        const options = { day: 'numeric', month: 'numeric', year: 'numeric' };
+
+        // Format the time portion
+        const hours = date.getUTCHours().toString().padStart(2, '0');
+        const minutes = date.getUTCMinutes().toString().padStart(2, '0');
+        const time = `${hours}:${minutes}`;
+
+        // Format the date portion
+        const day = date.getUTCDate().toString();
+        const month = (date.getUTCMonth() + 1).toString(); // Months are zero-based
+        const year = date.getUTCFullYear().toString();
+
+        const formattedDate = `${day}/${month}/${year}`;
+
+        return `${time} - ${formattedDate}`;
+       
     }
 
     const getListOrders = async (page) => {
@@ -84,7 +96,6 @@ const ListOrder = () => {
                 page: page,
                 start: formatDate(startDate),
                 end: formatDate(endDate)
-
             }
 
             let res = await getAllOrder(param);

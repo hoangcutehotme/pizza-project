@@ -3,7 +3,7 @@ import '../../assets/styles/orderPage.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
-const OrderPageItem = ({ product, handleDeleteItem, decreaseQuantity, increaseQuantity, deleteToCart }) => {
+const OrderPageItem = ({ product, handleDeleteItem, decreaseQuantity, increaseQuantity, deleteToCart, UpToCart, setdetailup, setitem }) => {
     const [totalPrice, setTotalPrice] = useState(product.quantity * product.price);
     // const handleDecrease = () => {
     //     if (product.amount > 1) {
@@ -17,6 +17,10 @@ const OrderPageItem = ({ product, handleDeleteItem, decreaseQuantity, increaseQu
     //         updateTotalPrice(product._id, product.amount + 1);
     //     }
     // };
+    const Upitem = (item) => {
+        setdetailup(true)
+        setitem(product);
+    }
 
     useEffect(() => {
         setTotalPrice(product.quantity * product.price);
@@ -76,7 +80,7 @@ const OrderPageItem = ({ product, handleDeleteItem, decreaseQuantity, increaseQu
                             <span class="product-subtotal" style={{ fontWeight: '700', fontSize: '18px' }}>{totalPrice.toLocaleString('vi-VN')}đ</span>
                         </div>
                         <a class="delete" href="#" style={{ width: 'fit-content' }} onClick={() => deleteToCart(product)}><em class="mdi mdi-trash-can"><FontAwesomeIcon icon={faTrashCan} /></em></a>
-                        <a class="delete" href="#" style={{ width: 'fit-content' }}><em class="mdi mdi-trash-can"><FontAwesomeIcon icon={faPen} /></em></a>
+                        <a class="delete" href="#" style={{ width: 'fit-content' }} onClick={() => Upitem(true)}><em class="mdi mdi-trash-can"><FontAwesomeIcon icon={faPen} /></em></a>
                     </div>
                 </div>
             </div>

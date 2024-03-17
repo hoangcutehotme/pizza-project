@@ -9,7 +9,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { resetPass } from "../service/userService";
 import Loading from '../component/Loading/Loading'
 import { Order } from "../service/userService";
-const OrderPage = ({ cartItems, removeToCart, decreaseQuantity, increaseQuantity, setCartItems, deleteToCart }) => {
+const OrderPage = ({ cartItems, removeToCart, decreaseQuantity, increaseQuantity, setCartItems, deleteToCart, UpToCart, setdetailup, setitem }) => {
     const totalPrice = cartItems.reduce((total, product) => total + (product.price * product.quantity), 0);
     const [openNotify, setOpenNotify] = useState(false);
     const [message, setMessage] = useState("")
@@ -114,6 +114,7 @@ const OrderPage = ({ cartItems, removeToCart, decreaseQuantity, increaseQuantity
             await Order(itemorder);
             setMessage("Đặt hàng thành công");
             setCartItems([]);
+            setNavFunction(handleNav);
             setLoadingAPI(false);
             setOpenNotify(true);
         } catch (error) {
@@ -176,6 +177,9 @@ const OrderPage = ({ cartItems, removeToCart, decreaseQuantity, increaseQuantity
                                                 // updateTotalPrice={updateTotalPrice}
                                                 decreaseQuantity={decreaseQuantity}
                                                 increaseQuantity={increaseQuantity}
+                                                UpToCart={UpToCart}
+                                                setdetailup={setdetailup}
+                                                setitem={setitem}
                                             />
                                         ))}
                                     </div>

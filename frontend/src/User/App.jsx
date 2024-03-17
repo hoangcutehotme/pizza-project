@@ -9,6 +9,7 @@ import Cart from './component/Cart/Cart';
 
 import LandingPage from './page/LandingPage/LandingPage';
 import Detailproduct from './component/Detailproduct/Detailproduct';
+import UpdateProduct from './component/Detailproduct/UpdateProduct';
 
 import Login from './page/login';
 import Register from './page/register';
@@ -21,9 +22,10 @@ import { UserProvider } from './service/userContext';
 
 function App() {
 
-  const [detail, setdetail] = useState(false)
+  const [detail, setdetail] = useState(false);
+  const [detailup, setdetailup] = useState(false);
   const [cartItems, setCartItems] = useState([]);
-  const [item, setitem] = useState([])
+  const [item, setitem] = useState([]);
 
   useEffect(() => {
     const storedCartItems = JSON.parse(localStorage.getItem('cartItems'));
@@ -54,7 +56,26 @@ function App() {
       setCartItems(
         cartItems.map((cartItem) =>
           cartItem.id === item.id
-            ? { ...cartItem, quantity: cartItem.quantity + 1 }
+            ? { ...cartItem, quantity: cartItem.quantity + 1, noti: item.noti }
+            : cartItem
+        )
+      );
+      localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    } else {
+      setCartItems([...cartItems, { ...item, quantity: 1 }]);
+      localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    }
+    setdetail(false)
+
+  };
+  const UpToCart = (item) => {
+    console.log(item);
+    const existingItem = cartItems.find((cartItem) => cartItem.id === item.id);
+    if (existingItem) {
+      setCartItems(
+        cartItems.map((cartItem) =>
+          cartItem.id === item.id
+            ? { ...cartItem, noti: item.noti }
             : cartItem
         )
       );
@@ -127,7 +148,8 @@ function App() {
       <UserProvider>
         <div className="master-wrapper-page html-account-page" id="master-wrapper-custom-id" style={{ marginTop: '168px' }}>
           {/* <Router> */}
-          {detail ? (<Detailproduct setdetail={setdetail} addToCart={addToCart} item={item} />) : (<></>)}
+          {detail ? (<Detailproduct setdetail={setdetail} addToCart={addToCart} item={item} setitem={setitem} />) : (<></>)}
+          {detailup ? (<UpdateProduct setdetailup={setdetailup} UpToCart={UpToCart} item={item} />) : (<></>)}
           <Header cartItems={cartItems} removeToCart={removeToCart} deleteToCart={deleteToCart} />
           <Routes>
             {/* <Route path="/" /> */}
@@ -137,11 +159,11 @@ function App() {
             <Route path="/" element={<LandingPage setdetail={setdetail} addToCart={addToCart} setitem={setitem} />} />
             <Route path="/pizza" element={<Pizza setdetail={setdetail} addToCart={addToCart} setitem={setitem} />} />
 
-            <Route path='/cart' element={<Cart cartItems={cartItems} addToCart={addToCart} removeToCart={removeToCart} />} />
+            <Route path='/cart' element={<Cart cartItems={cartItems} addToCart={addToCart} removeToCart={removeToCart} UpToCart={UpToCart} />} />
 
 
             <Route path="/user/Info" element={<UserInfo />} />
-            <Route path="/user/order" element={<OrderPage deleteToCart={deleteToCart} setCartItems={setCartItems} cartItems={cartItems} removeToCart={removeToCart} decreaseQuantity={decreaseQuantity} increaseQuantity={increaseQuantity} />} />
+            <Route path="/user/order" element={<OrderPage deleteToCart={deleteToCart} setCartItems={setCartItems} cartItems={cartItems} removeToCart={removeToCart} decreaseQuantity={decreaseQuantity} increaseQuantity={increaseQuantity} setdetailup={setdetailup} setitem={setitem} />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Register />} />
             <Route path="/forgotPass" element={<ForgotPass />} />

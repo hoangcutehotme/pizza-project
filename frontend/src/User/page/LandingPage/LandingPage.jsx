@@ -5,12 +5,12 @@ import ListProduct from '../../component/ListProduct/ListProduct';
 import IntroduceStore2 from './IntroduceStore2';
 import SliderComment from '../../component/Slider/SliderComment';
 import ButtonUpWindow from '../../component/ButtonUpWindow/ButtonUpWindow';
+import pizzaBanner1 from '../../assets/imgs/pizza-banner-1.png';
+import pizzaBanner2 from '../../assets/imgs/pizza-banner-2.png';
+import pizzaBanner3 from '../../assets/imgs/pizza-banner-3.png';
+import pizzaBanner4 from '../../assets/imgs/pizza-banner-4.jpg';
 
-const images = ["https://thepizzacompany.vn/images/thumbs/000/0003966_BANNER%20SLIDER%201200X480-100.jpeg",
-  "https://thepizzacompany.vn/images/thumbs/000/0003966_BANNER%20SLIDER%201200X480-100.jpeg",
-  "https://thepizzacompany.vn/images/thumbs/000/0003966_BANNER%20SLIDER%201200X480-100.jpeg",
-  "https://thepizzacompany.vn/images/thumbs/000/0003966_BANNER%20SLIDER%201200X480-100.jpeg"]
-
+const images = [pizzaBanner1, pizzaBanner2, pizzaBanner3, pizzaBanner4];
 const LandingPage = ({ setdetail, addToCart, setitem }) => {
   return (
     <>

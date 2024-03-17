@@ -1,24 +1,28 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import TestView from './page/text';
-import AdminHomePage from './page/AdminHomePage';
+// import AdminHomePage from './page/AdminHomePage';
 import { ToastContainer } from 'react-toastify';
 import { AuthProvider } from '../Admin/service/authContext';
+import Sidebar from './component/Sidebar/Sidebar';
+import TableProduct from './page/Product/TableProduct';
+import UserList from './page/ListUser/UserList';
+import ListOrder from './page/ListOrder/ListOrder';
 
 const App = () => {
 
     return (
         <AuthProvider>
-            <div className="app">
-                <main className="master-wrapper-page html-account-page">
-                    <Routes>
-                        <Route path='/' element={<AdminHomePage />} />
-                        <Route path='/product' element={<AdminHomePage />} />
-                        {/* <Route path='/' element={<TestView />} /> */}
-                    </Routes>
-                </main>
-                <ToastContainer />
-                {/* {isLoading && (<LoadingModel />)} */}
-            </div>
+            <Sidebar>
+                <Routes>
+                    <Route path='/' element={<TableProduct />} />
+                    <Route path='/user' element={<UserList />} />
+                    <Route path='/order' element={<ListOrder />} />
+                </Routes>
+            </Sidebar>
+
+
+            <ToastContainer />
+            {/* {isLoading && (<LoadingModel />)} */}
+
         </AuthProvider>
 
     )

@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import './style.css'
 import ReactPaginate from 'react-paginate';
 import Container from 'react-bootstrap/Container';
-import { fetchAllProduct, deleteProduct } from '../../service/productService'
+import { fetchAllProduct, deleteProduct, getSearchProduct } from '../../service/productService'
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import ModelAddProduct from './ModelAddProduct';
@@ -11,8 +11,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import ModelDetailProduct from './ModelDetailProduct';
 import ModelConfirm from './ModelConfirm';
 import { toast } from 'react-toastify';
-import SearchProduct from './SearchProduct';
 import LoadingModel from '../../component/Loading/Loading'
+import debounce from 'lodash/debounce';
+import { faCircle } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const TableProduct = () => {
 
@@ -28,18 +30,17 @@ const TableProduct = () => {
     });
 
     const [isLoading, setIsLoading] = useState(false);
-
     // pagination
-    // const [loading, setLoading] = useState(true);
     const [listProducts, setListProducts] = useState([]);
     const [indexPage, setIndexPage] = useState(0);
-    const pageCount = 4;
+    const [pageCount, setPageCount] = useState(3);
+    // const pageCount = 4;
     const [isShowAddProduct, setIsShowAddProduct] = useState(false);
     const [isShowDetailProduct, setIsShowDetailProduct] = useState(false);
     const [isShowConfirm, setIsShowConfirm] = useState(false);
     const [productDetail, setProductDetail] = useState({});
     const [idDelete, setIdDelete] = useState(null);
-
+    const [searchTerm, setSearchTerm] = useState('');
 
     const handlePageClick = (event) => {
         getProducts(+event.selected + 1);
@@ -51,13 +52,19 @@ const TableProduct = () => {
         setIsShowDetailProduct(false);
         setIsShowConfirm(false);
         setIdDelete(null);
-        console.log("reload");
         getProducts(indexPage + 1);
     }
 
     useEffect(() => {
-        getProducts(1);
-    }, [])
+
+        if (searchTerm.trim() !== '') {
+            console.log("zel");
+            debounceSearch(searchTerm);
+        } else {
+            getProducts(1);
+        }
+
+    }, [searchTerm])
 
     const getProducts = async (page) => {
         try {
@@ -83,18 +90,39 @@ const TableProduct = () => {
         setIsShowConfirm(true);
         setIdDelete(id);
     }
+    // search 
+    const debounceSearch = useCallback(debounce((nextValue) => searchProduct(nextValue), 700), [])
+
+    const searchProduct = async (searchTerm) => {
+        try {
+            const response = await getSearchProduct(searchTerm);
+
+            if (response && response.data && response.data.data) {
+                setListProducts(response.data.data.data);
+            }
+
+        } catch (error) {
+            console.error('Error searching for products:', error);
+        } finally {
+        }
+    };
+
+    const handleInputChange = (event) => {
+        setSearchTerm(event.target.value);
+        debounceSearch(event.target.value);
+    };
 
     const handDeleteProduct = async (id) => {
         setIsLoading(true);
         try {
-            await deleteProduct(id); 
+            await deleteProduct(id);
             notify("success", "Xoá sản phẩm thành công");
         } catch (error) {
             console.error('Error deleting product:', error);
             notify("error", "Xoá sản phẩm không thành công");
         } finally {
             setIsLoading(false);
-            handleClose(); 
+            handleClose();
         }
     }
 
@@ -103,10 +131,21 @@ const TableProduct = () => {
             <Container fluid>
                 <div style={{ backgroundColor: 'white' }}>
                     <h3>Danh sách món ăn</h3>
-                    <SearchProduct />
-                    <div style={{ display: 'flex', justifyContent: 'right', alignItems: 'center', margin: '20px' }} >
-                        <Button as="input" type="button" value="Thêm sản phẩm" onClick={() => setIsShowAddProduct(true)} />
+                    {/* Search */}
+                    <div >
+                        <input
+                            type="text"
+                            placeholder="Tìm kiếm món ăn..."
+                            value={searchTerm}
+                            onChange={handleInputChange}
+                        />
+                        <div style={{ display: 'flex', justifyContent: 'right', alignItems: 'center', margin: '20px' }} >
+                            <Button as="input" type="button" value="Thêm sản phẩm" onClick={() => setIsShowAddProduct(true)} />
+                        </div>
                     </div>
+
+
+
 
 
                     <Table bordered hover responsive>
@@ -117,12 +156,14 @@ const TableProduct = () => {
                                 {/* <th>Hình ảnh</th> */}
                                 <th>Giá</th>
                                 <th>Danh mục</th>
+                                <th>Còn hàng</th>
                                 <th>Trạng thái</th>
+
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            {listProducts && listProducts.length > 0 ? (
+                            {listProducts && listProducts.length > 0 && (
                                 // Render table rows if listProducts is not empty
                                 listProducts.map((item, index) => (
                                     <tr key={`product-${indexPage * 10 + index}`} >
@@ -133,20 +174,30 @@ const TableProduct = () => {
                                                 <img src={item.images[0]} alt={item.images[0]} width={'35%'} />
                                             }
                                         </td> */}
+
                                         <td>{item.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</td>
                                         <td>{item.category.catName}</td>
-                                        <td>{item.isAvailable ? 'Đang bán' : 'Hết bán'}</td>
+                                        <td>{item.isOutofOrder ? (
+                                            <span style={{ color: 'red', fontWeight: 600 }}>Hết hàng</span>
+                                        ) : (
+                                            <span style={{ color: 'green', fontWeight: 600 }}>Còn hàng</span>
+                                        )}</td>
                                         <td>
-                                            <button className='btn btn-warning mx-3' onClick={() => handleShowDetail(item)}>Chi tiết</button>
-                                            <button className="btn btn-danger" onClick={() => handleShowConfirm(item.id)}>Xoá</button>
+                                            {item.isAvailable ? (
+                                                <span style={{ color: 'green', fontWeight: 600 }}>
+                                                    <FontAwesomeIcon icon={faCircle} size='2xs' />  Hoạt động
+                                                </span>
+                                            ) : (
+                                                <span style={{ color: 'red', fontWeight: 600 }}>
+                                                    <FontAwesomeIcon icon={faCircle} size='2xs' /> Ngừng bán
+                                                </span>
+                                            )}
                                         </td>
-                                    </tr>
-                                ))
-                            ) : (
-                                // Render empty rows if listProducts is empty
-                                Array.from({ length: 10 }, (_, index) => (
-                                    <tr key={`empty-row-${index}`}>
-                                        <td colSpan="6" height={'50px'}></td>
+
+                                        <td>
+                                            <button className='btn btn-warning my-1 mx-2 button-text' onClick={() => handleShowDetail(item)}>Chi tiết</button>
+                                            <button className="btn btn-danger my-1 mx-2 button-text" onClick={() => handleShowConfirm(item.id)}>Xoá</button>
+                                        </td>
                                     </tr>
                                 ))
                             )}

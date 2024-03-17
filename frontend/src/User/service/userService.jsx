@@ -111,8 +111,16 @@ const getOrderByUserId = () => {
   });
 }
 
+//Product
+
+const getProductById = (id) => {
+  return axios.get(`${url}/api/product/${id}`);
+}
+
+
 export {
   loginAPI, forgotPass, verifyEmail, resetPass, signupUser,
   updateUser, changePass, updateContact, deleteContact, addContact, updateDefaultContact,
+  getProductById,
   getOrderByUserId, Order,
 }

@@ -5,8 +5,11 @@ import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import { toast } from 'react-toastify';
 import LoadingModal from '../../component/Loading/Loading';
+import { fetchAllCategory } from '../../service/categoryService';
 
 function ModelAddProduct({ show, handleClose }) {
+
+
 
     const notify = (er, message) => toast[er](message, {
         position: "top-right",
@@ -19,6 +22,12 @@ function ModelAddProduct({ show, handleClose }) {
         theme: "light",
     });
 
+    useEffect(() => {
+        if (show) {
+            getListCategory();
+        }
+    }, [show]);
+
 
     const [isLoading, setIsLoading] = useState(false);
 
@@ -30,6 +39,23 @@ function ModelAddProduct({ show, handleClose }) {
         catName: 'Pizza',
     });
 
+    const getListCategory = async () => {
+        setIsLoading(true);
+        try {
+            const res = await fetchAllCategory();
+
+            if (res && res.data) {
+                setListCategory(res.data);
+            }
+
+        } catch (e) {
+            console.error('Error category:', e);
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
+    const [listCategory, setListCategory] = useState([]);
 
     const [image, setImage] = useState(null);
 
@@ -43,7 +69,7 @@ function ModelAddProduct({ show, handleClose }) {
         };
 
         if (
-            formData.name === null || formData.description === null || formData.price === null || formData.images === null
+            formData.name === null || formData.price === null || formData.images === null
         ) {
 
             notify("error", "Kiểm tra thông tin món ăn");
@@ -52,6 +78,7 @@ function ModelAddProduct({ show, handleClose }) {
             try {
                 let res = await axiosInstance.post('/api/product', data);
                 notify("success", "Thêm thành công");
+                handleModalHide();
                 handleClose();
             } catch (error) {
                 notify("error", "Thêm không thành công");
@@ -79,10 +106,25 @@ function ModelAddProduct({ show, handleClose }) {
         reader.readAsDataURL(file);
     };
 
+    const handleModalHide = () => {
+        // Reset the form data and image state when the modal is closed
+        setFormData({
+            name: null,
+            description: null,
+            price: null,
+            images: null,
+            catName: 'Pizza',
+        });
+        setImage(null);
+    };
+
     return (
         <>
             <Modal show={show}
-                onHide={handleClose}
+                onHide={() => {
+                    handleClose();
+                    handleModalHide();
+                }}
                 size="lg"
                 aria-labelledby="contained-modal-title-vcenter"
                 centered>
@@ -119,17 +161,20 @@ function ModelAddProduct({ show, handleClose }) {
                             <Form.Control type="text" name="description" value={formData.description} onChange={handleChange} />
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label className='label-form-add-product'>Giá tiền</Form.Label>
+                            <Form.Label className='label-form-add-product'>Giá tiền (VNĐ)</Form.Label>
                             <Form.Control type="number" name="price" value={formData.price} onChange={handleChange} />
                         </Form.Group>
 
-
                         <Form.Group>
                             <Form.Label className='label-form-add-product'>Danh mục</Form.Label>
-                            <Form.Select name="category" value={formData.category} onChange={handleChange}>
-                                <option value="Pizza">Pizza</option>
-                                <option value="Thức uống">Đồ uống</option>
-                            </Form.Select>
+                            {listCategory && listCategory.length > 0 && (
+                                <Form.Control as="select" name="catName" value={formData.catName || ''} onChange={handleChange}>
+                                    {listCategory.map((item, index) => (
+                                        <option key={index} value={item.catName}>{item.catName}</option>
+                                    ))}
+                                </Form.Control>
+                            )}
+
                         </Form.Group>
 
                     </Form>

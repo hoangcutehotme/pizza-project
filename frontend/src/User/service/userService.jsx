@@ -101,14 +101,24 @@ const updateDefaultContact = async (id) => {
 
 // Order
 
-const getOrderByUserId = () => {
+const getOrderByUserId = (startDate, endDate) => {
+  console.log(startDate, endDate)
   const token = localStorage.getItem("token");
   const decodedToken = JSON.parse(atob(token.split(".")[1]));
-  return axios.get(`${url}/api/order/user/${decodedToken.id}?sort=-dateOrdered&limit=10&page=1`, {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  });
+  if(startDate && endDate) {
+    return axios.get(`${url}/api/order/user/${decodedToken.id}?sort=-dateOrdered&limit=10&page=1&start=${startDate}&end=${endDate}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    
+  } else {
+    return axios.get(`${url}/api/order/user/${decodedToken.id}?sort=-dateOrdered&limit=10&page=1`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+  }
 }
 
 //Product

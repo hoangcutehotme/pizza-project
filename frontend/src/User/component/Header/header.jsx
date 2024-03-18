@@ -60,7 +60,7 @@ const Header = ({ cartItems, removeToCart, deleteToCart }) => {
               </a>
             </div>
           </div>
-          <div class="mid-wrap">
+          {/* <div class="mid-wrap">
             <div class="form-group" style={{ width: '300px' }}>
               <div class="form-select div-autocomplete" id="select-address" style={{ borderColor: 'grey' }}>
                 <label>
@@ -89,7 +89,7 @@ const Header = ({ cartItems, removeToCart, deleteToCart }) => {
                 </span>
               </div>
             </div>
-          </div>
+          </div> */}
           <div class="right-wrap">
             <div class="account">
               <div href="/customer/info" class="icon">

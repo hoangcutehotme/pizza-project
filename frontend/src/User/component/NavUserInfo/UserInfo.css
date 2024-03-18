@@ -80,6 +80,7 @@ a {
 
 .user-sidebar .head-body ul li.active, .user-sidebar .head-body ul li:hover {
     position: relative;
+    background-color: #fff  !important;
 }
 
 .user-sidebar .head-body ul li.active:before, .user-sidebar .head-body ul li:hover:before {
@@ -426,3 +427,7 @@ tr {
     flex: 0 0 60%;
     padding-left: 150px;
 } */
+
+.detail_order-button:hover {
+    color: #006a31;
+}

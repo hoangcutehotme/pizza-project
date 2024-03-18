@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import moment from 'moment-timezone';
 import { getProductById } from "../../service/userService";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
 
-const OrderHistoryItem = ({order}) => {
+const OrderHistoryItem = ({order, index, handleShowDetailOrder}) => {
     function formatCurrency(price) {
         return price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
     }
@@ -13,7 +15,6 @@ const OrderHistoryItem = ({order}) => {
             const names = [];
             for (const product of order.cart) {
                 let res = await getProductById(product.product);
-                console.log(res.data.name);
                 names.push(res.data.name);
             }
             setProductNames(names)
@@ -24,31 +25,22 @@ const OrderHistoryItem = ({order}) => {
     },[])
     return (
         <tr class='order-history-product'>
-            <td>
+            <td style={{ textAlign: 'center' }}>
                 <ul style={{ padding: '10px' }}>
-                {productNames.map((productName) => (
-                    <li>{productName}</li>
-                ))}
+                    {index}
                 </ul>
             </td>
             <td style={{ textAlign: 'center' }}>
                 <ul style={{ padding: '0' }}>
-                {order.cart.map((product) => (
-                    <li>{product.quantity}</li>
-                ))}
-                </ul>
-            </td>
-            <td style={{ textAlign: 'center' }}>
-                <ul style={{ padding: '0' }}>
-                {order.cart.map((product) => (
-                    <li>{formatCurrency(product.price)}</li>
-                ))}
+                    {order._id}
                 </ul>
             </td>
             <td style={{ textAlign: 'center' }}>{formatCurrency(order.shipCost)}</td>
             <td style={{ textAlign: 'center' }}>{formatCurrency(order.totalPrice)}</td>
             <td style={{ textAlign: 'center' }}>{formatteOrderTime}</td>
-            <td style={{ textAlign: 'center' }}>{order.status}</td>
+            <td style={{ textAlign: 'center' }}>
+                <FontAwesomeIcon icon={faEye} style={{cursor:'pointer'}} className="detail_order-button" onClick={() => handleShowDetailOrder(order._id)}/>
+            </td>
         </tr>
     )
 }

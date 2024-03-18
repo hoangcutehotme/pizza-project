@@ -18,6 +18,7 @@ const OrderPage = ({ cartItems, removeToCart, decreaseQuantity, increaseQuantity
     const [contacts, setContacts] = useState([])
     const [defaultContact, setDefaultContact] = useState("")
     const [userName, setUserName] = useState("")
+    const shipFee = 30000;
     useEffect(() => {
         const user = localStorage.getItem("user");
         const userData = JSON.parse(user);
@@ -40,7 +41,6 @@ const OrderPage = ({ cartItems, removeToCart, decreaseQuantity, increaseQuantity
         setShowModalAddress(false);
     };
     const navigate = useNavigate();
-    const location = useLocation();
     const OrderItem = async () => {
         const cart = cartItems.map(product => ({
             quantity: product.quantity,
@@ -51,16 +51,17 @@ const OrderPage = ({ cartItems, removeToCart, decreaseQuantity, increaseQuantity
         const itemorder = {
             "cart": cart,
             "contact": selectedContact._id,
-            "totalPrice": totalPrice + 11000,
-            "shipCost": 11000
+            "totalPrice": totalPrice + shipFee,
+            "shipCost": shipFee
         };
 
         setLoadingAPI(true);
         try {
+            console.log(itemorder)
+            console.log("hahahah")
             await Order(itemorder);
             setMessage("Đặt hàng thành công");
             setCartItems([]);
-            setNavFunction(handleNav);
             setLoadingAPI(false);
             setOpenNotify(true);
         } catch (error) {
@@ -135,9 +136,9 @@ const OrderPage = ({ cartItems, removeToCart, decreaseQuantity, increaseQuantity
                                                 <h3 class="o13Lc4 hERTPn cFXdGN">Tổng tiền hàng</h3>
                                                 <div class="o13Lc4 X9R_0O cFXdGN">{totalPrice.toLocaleString('vi-VN')}₫</div>
                                                 <h3 class="o13Lc4 hERTPn fwPZIN">Phí vận chuyển</h3>
-                                                <div class="o13Lc4 X9R_0O fwPZIN">11.000₫</div>
+                                                <div class="o13Lc4 X9R_0O fwPZIN">{shipFee.toLocaleString('vi-VN')}₫</div>
                                                 <h3 class="o13Lc4 hERTPn cNgneA">Tổng thanh toán</h3>
-                                                <div class="o13Lc4 fYeyE4 X9R_0O cNgneA">₫{(totalPrice + 11000).toLocaleString('vi-VN')}</div>
+                                                <div class="o13Lc4 fYeyE4 X9R_0O cNgneA">₫{(totalPrice + shipFee).toLocaleString('vi-VN')}</div>
                                             </div>
                                         </div>
                                     </div>

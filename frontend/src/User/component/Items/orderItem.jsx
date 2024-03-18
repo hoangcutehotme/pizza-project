@@ -5,18 +5,6 @@ import { faPen, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 const OrderPageItem = ({ product, handleDeleteItem, decreaseQuantity, increaseQuantity, deleteToCart, UpToCart, setdetailup, setitem }) => {
     const [totalPrice, setTotalPrice] = useState(product.quantity * product.price);
-    // const handleDecrease = () => {
-    //     if (product.amount > 1) {
-    //         console.log("hahahah")
-    //         updateTotalPrice(product._id, product.amount - 1);
-    //     }
-    // };
-
-    // const handleIncrease = () => {
-    //     if (product.amount < 20) {
-    //         updateTotalPrice(product._id, product.amount + 1);
-    //     }
-    // };
     const Upitem = (item) => {
         setdetailup(true)
         setitem(product);

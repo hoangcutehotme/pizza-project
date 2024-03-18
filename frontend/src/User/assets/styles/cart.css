@@ -279,3 +279,8 @@ header .main-button-cart .list-product-cart .product-item .delete a {
     font-weight: 600;
     line-height: 1;
 }
+
+.list-product-cart .product-item .content {
+    padding-left: 10px;
+    width: calc(100% - 80px);
+}

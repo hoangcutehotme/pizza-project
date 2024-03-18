@@ -131,9 +131,9 @@ const OrderPage = ({ cartItems, removeToCart, decreaseQuantity, increaseQuantity
                                                 <h3 class="o13Lc4 hERTPn cFXdGN">Tổng tiền hàng</h3>
                                                 <div class="o13Lc4 X9R_0O cFXdGN">{totalPrice.toLocaleString('vi-VN')}₫</div>
                                                 <h3 class="o13Lc4 hERTPn fwPZIN">Phí vận chuyển</h3>
-                                                <div class="o13Lc4 X9R_0O fwPZIN">30.000₫</div>
+                                                <div class="o13Lc4 X9R_0O fwPZIN">11.000₫</div>
                                                 <h3 class="o13Lc4 hERTPn cNgneA">Tổng thanh toán</h3>
-                                                <div class="o13Lc4 fYeyE4 X9R_0O cNgneA">₫{(totalPrice + 30000).toLocaleString('vi-VN')}</div>
+                                                <div class="o13Lc4 fYeyE4 X9R_0O cNgneA">₫{(totalPrice + 11000).toLocaleString('vi-VN')}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -160,7 +160,7 @@ const OrderPage = ({ cartItems, removeToCart, decreaseQuantity, increaseQuantity
             {showModalAddress && (
                 <PickAddress show={showModalAddress} handleClose={closeModalAddress} user={user} selectedContact={selectedContact} setSelectedContact={setSelectedContact} contacts={contacts} setContacts={setContacts} defaultContact={defaultContact} setDefaultContact={setDefaultContact} />
             )}
-            {openNotify && (<Notify message={message} setOpenNotify={setOpenNotify} handleClose={navFunction} />)}
+            {openNotify && (<Notify message={message} setOpenNotify={setOpenNotify} handleClose={handleNav} />)}
             {loadingAPI && (<Loading />)}
         </div>
     )

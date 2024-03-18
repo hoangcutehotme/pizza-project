@@ -29,3 +29,25 @@
     font-weight: 600;
     padding: 10px 0 0;
 }
+
+.custom-button {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+
+.radio-buttons {
+    display: flex;
+    align-items: center;
+    /* Optional: Align items vertically in the center */
+}
+
+.radio-buttons .form-check {
+    margin-right: 20px;
+    /* Adjust as needed */
+}
+
+.button-text {
+    /* font-size: 15px; */
+    font-weight: 500;
+}

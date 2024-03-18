@@ -59,11 +59,6 @@ router.patch(
   authController.restrict("User"),
   contactController.updateContact
 );
-// router.get(
-//   "/:userId/store/:storeId",
-//   authController.restrict("User"),
-//   userController.getInfoCart
-// );
 router.patch(
   "/:id/photo",
   authController.restrict("User"),

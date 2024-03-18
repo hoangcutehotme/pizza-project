@@ -1,6 +1,6 @@
 import axios from "axios";
 //
-const url = "http://localhost:3001";
+const url = "http://localhost:3000";
 
 //Auth
 
@@ -88,19 +88,22 @@ const updateDefaultContact = async (id) => {
 }
 
 // Order
-
-const getOrderByUserId = () => {
+const getAllUser = async (page) => {
   const token = localStorage.getItem("token");
-  const decodedToken = JSON.parse(atob(token.split(".")[1]));
-  return axios.get(`${url}/api/order/user/${decodedToken.id}?sort=-dateOrdered&limit=10&page=1`, {
-    headers: {
-      Authorization: `Bearer ${token}`
+  return axios.get(`${url}/api/user?page=${page}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        ContentType: 'multipart/form-data',
+      }
     }
-  });
+  );
 }
+
+
 
 export {
   loginAPI, forgotPass, verifyEmail, resetPass, signupUser,
-  updateUser, changePass, updateContact, deleteContact, addContact, updateDefaultContact,
-  getOrderByUserId
+  updateUser, changePass, updateContact, deleteContact, addContact,
+  updateDefaultContact, getAllUser,
 }

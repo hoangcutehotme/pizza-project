@@ -15,7 +15,6 @@ const CartItem = ({ product, removeToCart }) => {
                 <div class="image">
                     <a href="/pizza-tom-cocktail-4" title="Hiển thị chi tiết cho Pizza Tôm Cocktail ">
                         <img alt={`Ảnh của ${product.name}`} src={product.images} title={`Hiển thị chi tiết cho ${product.name}`} />
-                        {/* >>>>>>> 6dcf86328c2119a0d6c750ab9c0054d68b8fa060 */}
                     </a>
                 </div>
                 <div class="content" style={{ display: "flex", flexDirection: "column" }}>
@@ -32,7 +31,7 @@ const CartItem = ({ product, removeToCart }) => {
 
                     <div class="bottom">
                         <div style={{ color: 'rgb(132, 135, 136)' }}>Số lượng: {product.quantity}</div>
-                        <div class="price" style={{ color: '#000' }}> <span>{formatCurrency(product.price * product.quantity)} </span></div>
+                        <div style={{ color: '#000' }}> <span>{formatCurrency(product.price * product.quantity)} </span></div>
                     </div>
 
                 </div>

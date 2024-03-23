@@ -46,7 +46,7 @@ function Detailproduct({ setdetailup, item, UpToCart }) {
                             <textarea name="" id="" cols="30" rows="10" placeholder="Nhập ghi chú của bạn tại đây" value={note} onChange={(e) => handelchange(e)}></textarea>
                         </div>
                         <div className="dr_button" onClick={() => add()}>
-                            <span>Save</span>
+                            <span>Lưu</span>
                         </div>
                     </div>
                     <div className="button_close" onClick={() => setdetailup(false)}>

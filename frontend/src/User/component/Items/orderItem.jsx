@@ -26,7 +26,7 @@ const OrderPageItem = ({ product, handleDeleteItem, decreaseQuantity, increaseQu
         setTotalPrice(product.quantity * product.price);
     }, [product.quantity, product.price]);
     return (
-        <div class="item-wrapper">
+        <div class="item-wrapper" >
             <div class="row ml-0 mr-0">
                 <div class="col-lg-6 item-left">
                     <div class="row ml-0 mr-0">

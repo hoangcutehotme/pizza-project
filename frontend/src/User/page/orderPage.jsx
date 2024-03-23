@@ -128,6 +128,8 @@ const OrderPage = ({ cartItems, removeToCart, decreaseQuantity, increaseQuantity
                                                 setitem={setitem}
                                             />
                                         ))}
+
+
                                     </div>
                                     <div class="price-total" style={{ marginTop: '0px' }}>
                                         <div class="d-none d-sm-block">

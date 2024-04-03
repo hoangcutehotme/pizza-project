@@ -5,6 +5,7 @@ import avatar3 from '../../assets/imgs/ava3.png'
 import Slider from "react-slick";
 import CommentComponent from '../CommentComponent/CommentComponent';
 import './SliderCommentStyle.css'
+import './style.js'
 
 const comments = [
     {
@@ -37,8 +38,34 @@ const SliderComment = () => {
         slidesToScroll: 1,
         autoplay: true,
         autoplaySpeed: 5000,
-        centerMode: true,
-        centerPadding: "10px",
+
+        responsive: [
+            {
+                breakpoint: 1200,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 2,
+                    infinite: true,
+                }
+            },
+            {
+                breakpoint: 1000,
+                settings: {
+                    centerMode: true,
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                }
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    centerMode: true,
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+
+                }
+            }
+        ]
     };
     return (
         <div className='container'>
@@ -50,7 +77,7 @@ const SliderComment = () => {
                     <Slider {...settings}>
                         {comments.map((comment) => {
                             return (
-                                <CommentComponent imgSrc={comment.imgSrc} name={comment.name} rating={comment.rating} comment={comment.comment} />
+                                <CommentComponent key={comment.name} imgSrc={comment.imgSrc} name={comment.name} rating={comment.rating} comment={comment.comment} />
                             )
                         })}
 

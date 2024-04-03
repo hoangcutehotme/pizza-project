@@ -32,9 +32,9 @@ function ModelAddProduct({ show, handleClose }) {
     const [isLoading, setIsLoading] = useState(false);
 
     const [formData, setFormData] = useState({
-        name: null,
-        description: null,
-        price: null,
+        name: "",
+        description: "",
+        price: "",
         images: null,
         catName: 'Pizza',
     });
@@ -96,6 +96,7 @@ function ModelAddProduct({ show, handleClose }) {
     };
 
     const handleImageChange = (event) => {
+        console.log(event);
         const file = event.target.files[0];
         const reader = new FileReader();
         reader.onloadend = () => {
@@ -145,7 +146,6 @@ function ModelAddProduct({ show, handleClose }) {
                                 <div className='form-img-new-product'>
 
                                     <img src={image} alt="Selected" style={{ width: '200px', marginTop: '10px', marginBottom: '10px' }} />
-
 
                                 </div>
                             )}

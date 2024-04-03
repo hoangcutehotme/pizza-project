@@ -15,43 +15,43 @@ const Cart = ({ cartItems, removeToCart }) => {
     };
 
     return (
-        <div class="mini-shopping-cart">
+        <div className="mini-shopping-cart">
             {cartItems.length > 0 ? (
                 <div
-                    class="flyout-cart-scroll-area"
+                    className="flyout-cart-scroll-area"
                     style={{ maxHeight: '711px' }}
                 >
-                    <div class="items ps-container">
-                        <div class="list-product-cart">
+                    <div className="items ps-container">
+                        <div className="list-product-cart">
                             {cartItems?.map((product) => (
                                 <CartItem product={product} removeToCart={removeToCart} />
                             ))}
                         </div>
                         <div
-                            class="ps-scrollbar-x-rail"
+                            className="ps-scrollbar-x-rail"
                             style={{ left: '0px', bottom: '3px' }}
                         >
                             <div
-                                class="ps-scrollbar-x"
+                                className="ps-scrollbar-x"
                                 style={{ left: '0px', width: '0px' }}
                             ></div>
                         </div>
                         <div
-                            class="ps-scrollbar-y-rail"
+                            className="ps-scrollbar-y-rail"
                             style={{ top: '0px', right: '3px' }}
                         >
                             <div
-                                class="ps-scrollbar-y"
+                                className="ps-scrollbar-y"
                                 style={{ top: '0px', height: '0px' }}
                             ></div>
                         </div>
                     </div>
-                    <div class="flyout-lower">
-                        <div class="count" style={{ fontWeight: 'bold' }}>
+                    <div className="flyout-lower">
+                        <div className="count" style={{ fontWeight: 'bold' }}>
                             Tổng Tiền
                         </div>
                         <div
-                            class="totals"
+                            className="totals"
                             style={{
 
                                 color: '#d30e15',
@@ -64,7 +64,7 @@ const Cart = ({ cartItems, removeToCart }) => {
                             {totalPrice.toLocaleString('vi-VN')}đ
                         </div>
 
-                        <div class="buttons" onClick={handleOrder}>
+                        <div className="buttons" onClick={handleOrder}>
                             <input
                                 type="button"
                                 value={isLoggedIn ? 'Đặt hàng' : 'Đăng nhập để đặt hàng'}
@@ -75,10 +75,10 @@ const Cart = ({ cartItems, removeToCart }) => {
                 </div>
             ) : (
                 <div
-                    class="flyout-cart-scroll-area"
+                    className="flyout-cart-scroll-area"
                     style={{ maxHeight: '711px' }}
                 >
-                    <div class='cart_no'>Rất tiếc!!! Bạn không có sản phẩm ở đây.</div>
+                    <div className='cart_no'>Rất tiếc!!! Bạn không có sản phẩm ở đây.</div>
                 </div>
             )}
         </div>

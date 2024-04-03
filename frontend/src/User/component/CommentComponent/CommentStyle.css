@@ -4,6 +4,8 @@
     height: auto;
     padding: 20px 10px;
     flex-direction: column;
+    align-content: center;
+    margin: 0 auto;
     display: block;
     padding: 20px 10px;
 }

@@ -33,8 +33,8 @@ const IntroduceStore1 = () => {
                 <Specialties>
                     {
                         introduce.map(x => (
-                            <SpecialtyColumn>
-                                <SpecialtyContainer>
+                            <SpecialtyColumn key={x.description}>
+                                <SpecialtyContainer >
                                     <FontAwesomeIcon icon={x.imgSrc} size="5x" color='#18AC4E' />
                                     <SpecialtyTitle>{x.title}</SpecialtyTitle>
                                     <SpecialtyDesc>{x.description}</SpecialtyDesc>

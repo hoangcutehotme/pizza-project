@@ -145,10 +145,10 @@ const AdminHomePage = () => {
                                 </a>
                             </li>
                         </ul>
-                        <ul class="nav nav-pills flex-column mb-auto">
-                            <li class="nav-item">
-                                <a href="#" class="nav-link active" aria-current="page">
-                                    <svg class="bi me-2" width="16" height="16"><use ></use></svg>
+                        <ul className="nav nav-pills flex-column mb-auto">
+                            <li className="nav-item">
+                                <a href="#" className="nav-link active" aria-current="page">
+                                    <svg className="bi me-2" width="16" height="16"><use ></use></svg>
                                     Home
                                 </a>
                             </li>
@@ -158,20 +158,20 @@ const AdminHomePage = () => {
                                 </a>
                             </li>
                             <li>
-                                <a href="#" class="nav-link link-dark">
-                                    <svg class="bi me-2" width="16" height="16"><use ></use></svg>
+                                <a href="#" className="nav-link link-dark">
+                                    <svg className="bi me-2" width="16" height="16"><use ></use></svg>
                                     Orders
                                 </a>
                             </li>
                             <li>
-                                <a href="#" class="nav-link link-dark">
-                                    <svg class="bi me-2" width="16" height="16"><use ></use></svg>
+                                <a href="#" className="nav-link link-dark">
+                                    <svg className="bi me-2" width="16" height="16"><use ></use></svg>
                                     Products
                                 </a>
                             </li>
                             <li>
-                                <a href="#" class="nav-link link-dark">
-                                    <svg class="bi me-2" width="16" height="16"><use ></use></svg>
+                                <a href="#" className="nav-link link-dark">
+                                    <svg className="bi me-2" width="16" height="16"><use ></use></svg>
                                     Customers
                                 </a>
                             </li>

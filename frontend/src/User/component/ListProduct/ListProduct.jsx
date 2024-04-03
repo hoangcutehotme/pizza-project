@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import pizza1 from '../../assets/imgs/pizza1.png'
-import pizza2 from '../../assets/imgs/pizza2.png'
-import pizza3 from '../../assets/imgs/pizza3.png'
-import pizza4 from '../../assets/imgs/pizza4.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import './style.css'
 import Itemproduct from '../Itemproduct/Itemproduct'
-import { fetchAllProduct, fetchBestPizza } from '../../service/productService'
+import { fetchBestPizza } from '../../service/productService'
 
 
 const ListProduct = ({ addToCart, setdetail, setitem }) => {
@@ -44,7 +40,7 @@ const ListProduct = ({ addToCart, setdetail, setitem }) => {
                     </a>
                 </div>
             </div>
-            <div className='view-temproduct' >
+            <div className='view-best-product' >
                 {bestProduct.map(pizza => {
                     return (
                         <Itemproduct key={pizza.name} setdetail={setdetail} addToCart={addToCart} setitem={setitem} product={pizza} />

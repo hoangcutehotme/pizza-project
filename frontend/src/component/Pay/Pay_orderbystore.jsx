@@ -2,8 +2,8 @@ import React from 'react'
 
 function Pay_orderbystore() {
     return (
-        <div class="container">
-            <div class="pay_title">
+        <div className="container">
+            <div className="pay_title">
                 Đặt đến lấy
             </div>
         </div>

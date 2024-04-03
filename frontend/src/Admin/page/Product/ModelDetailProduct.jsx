@@ -110,7 +110,6 @@ function ModelDetailProduct({ show, handleClose, product }) {
             data.append("catName", catName);
 
 
-            console.log("imageSelect ", selectedAvailable, " images ", selectedOutOfOrder);
             if (imageSelect !== images) {
                 data.append("images", images);
                 data.append("dels", product.images);

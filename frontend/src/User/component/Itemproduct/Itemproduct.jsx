@@ -10,19 +10,19 @@ function Itemproduct({ product, setdetail, setitem }) {
     }
 
     return (
-        <div class="container1">
-            <div class="Img">
+        <div className="container1">
+            <div className="Img">
                 <img src={product.images} alt={product.image} />
             </div>
-            <div class="Product_item">
-                <div class="Name_item">
+            <div className="Product_item">
+                <div className="Name_item">
                     <span>{product.name}</span>
                 </div>
-                <div class="describe_item">
+                <div className="describe_item">
                     {product.description}
                 </div>
-                <div class="Price_item">
-                    <div class="price">
+                <div className="Price_item">
+                    <div className="price">
                         <h6>
                             Giá chỉ từ
                         </h6>

@@ -3,7 +3,7 @@ import style from './Footer.css'
 
 function Item_Footer() {
     return (
-        <div class="Item_Footer">
+        <div className="Item_Footer">
             than lich
         </div>
     )

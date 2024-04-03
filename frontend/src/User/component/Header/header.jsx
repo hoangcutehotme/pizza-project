@@ -43,12 +43,12 @@ const Header = ({ cartItems, removeToCart, deleteToCart }) => {
 
 
   return (
-    <header id="_main-header" class="" style={{ paddingBottom: "20px" }}>
-      <div class="container">
-        <div class="top-wrap">
-          <div class="left-wrap">
-            <div class="">
-              <a class="" style={{ textDecoration: 'none' }}>
+    <header id="_main-header" className="" style={{ paddingBottom: "20px" }}>
+      <div className="container">
+        <div className="top-wrap">
+          <div className="left-wrap">
+            <div className="">
+              <a className="" style={{ textDecoration: 'none' }}>
                 <img
                   alt="The Pizza Home"
                   title="The Pizza Company"
@@ -60,9 +60,9 @@ const Header = ({ cartItems, removeToCart, deleteToCart }) => {
               </a>
             </div>
           </div>
-          {/* <div class="mid-wrap">
-            <div class="form-group" style={{ width: '300px' }}>
-              <div class="form-select div-autocomplete" id="select-address" style={{ borderColor: 'grey' }}>
+          {/* <div className="mid-wrap">
+            <div className="form-group" style={{ width: '300px' }}>
+              <div className="form-select div-autocomplete" id="select-address" style={{ borderColor: 'grey' }}>
                 <label>
                   <em>
                     <FontAwesomeIcon icon={faSearch} />
@@ -71,70 +71,70 @@ const Header = ({ cartItems, removeToCart, deleteToCart }) => {
                 <span
                   tabindex="-1"
                   role="presentation"
-                  class="k-widget k-autocomplete input-autocomplete k-autocomplete-clearable k-state-default"
+                  className="k-widget k-autocomplete input-autocomplete k-autocomplete-clearable k-state-default"
                 ><input
                     id="autocomplete-address"
-                    class="input-autocomplete k-input"
+                    className="input-autocomplete k-input"
                     placeholder="Tìm kiếm món ăn"
                     autocomplete="off"
                   />
                   <span
                     unselectable="on"
-                    class="k-icon k-clear-value k-i-close"
+                    className="k-icon k-clear-value k-i-close"
                     title="clear"
                     role="button"
                     tabindex="-1"
                   ></span>
-                  <span class="k-icon k-i-loading" style={{ display: "none" }}></span>
+                  <span className="k-icon k-i-loading" style={{ display: "none" }}></span>
                 </span>
               </div>
             </div>
           </div> */}
-          <div class="right-wrap">
-            <div class="account">
-              <div href="/customer/info" class="icon">
+          <div className="right-wrap">
+            <div className="account">
+              <div href="/customer/info" className="icon">
                 <em> <FontAwesomeIcon icon={faCircleUser} /></em>
               </div>
               {isLoggedIn ? (
                 <div>
-                  <a href="/user/Info" class="opener" id="a-custom-id" style={{ color: 'black' }}>{userName}</a>
-                  <div class="profile-menu-box">
+                  <a href="/user/Info" className="opener" id="a-custom-id" style={{ color: 'black' }}>{userName}</a>
+                  <div className="profile-menu-box">
                     <a className="menu-link" style={{ cursor: 'pointer' }} onClick={() => handleNav("user/Info")}><FontAwesomeIcon icon={faCircleUser} style={{ marginRight: '10px' }} /> Tài khoản</a>
                     <a className="menu-link" style={{ cursor: 'pointer' }} onClick={handleLogout}><FontAwesomeIcon icon={faArrowRightFromBracket} style={{ marginRight: '10px' }} />Đăng xuất</a>
                   </div>
                 </div>
               ) : (
-                <div class="login-and-register">
-                  <a onClick={() => handleNav("login")} class="register" style={{ textDecoration: 'none' }}>Đăng nhập</a>
+                <div className="login-and-register">
+                  <a onClick={() => handleNav("login")} className="register" style={{ textDecoration: 'none' }}>Đăng nhập</a>
                   <span>/</span>
-                  <a onClick={() => handleNav("signup")} class="login" style={{ textDecoration: 'none' }}
+                  <a onClick={() => handleNav("signup")} className="login" style={{ textDecoration: 'none' }}
                   >Tạo tài khoản</a>
                 </div>
               )}
             </div>
           </div>
         </div>
-        <div class="bottom-wrap">
-          <div class="left-wrap">
+        <div className="bottom-wrap">
+          <div className="left-wrap">
             <ul
-              class="main-menu mega-menu"
+              className="main-menu mega-menu"
               data-isrtlenabled="false"
               data-enableclickfordropdown="false"
             >
               <li className="">
-                <a href="/" class="" key="Trang chủ"
+                <a href="/" className="" key="Trang chủ"
                 ><span> Trang chủ </span></a>
               </li>
-              <li class=" ">
-                <a href="/pizza" class=""
+              <li className=" ">
+                <a href="/pizza" className=""
                 ><span> Pizza </span></a>
               </li>
             </ul>
           </div>
-          <div class="right-wrap">
-            <div class="mobile-flyout-wrapper">
-              <div class="cart custom-cart" id="topcartlink">
-                <div class="icon">
+          <div className="right-wrap">
+            <div className="mobile-flyout-wrapper">
+              <div className="cart custom-cart" id="topcartlink">
+                <div className="icon">
                   <a>
                     <em><FontAwesomeIcon icon={faCartShopping} style={{ fontSize: '18px' }} /></em>
                   </a>
@@ -144,13 +144,13 @@ const Header = ({ cartItems, removeToCart, deleteToCart }) => {
                   <a style={{ textDecoration: 'none', color: '#006a31' }}> Giỏ hàng </a>
                 </p>
 
-                <div class="amount">
-                  <span class="cart-qty" id="_TotalProducts"> {cartItems.length} </span>
+                <div className="amount">
+                  <span className="cart-qty" id="_TotalProducts"> {cartItems.length} </span>
                 </div>
 
                 <div
                   id="flyout-cart"
-                  class="flyout-cart"
+                  className="flyout-cart"
                   data-removeitemfromcarturl="/EmporiumTheme/RemoveItemFromCart"
                   data-flyoutcarturl="/EmporiumTheme/FlyoutShoppingCart"
 

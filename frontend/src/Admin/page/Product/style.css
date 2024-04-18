@@ -1,0 +1,53 @@
+.form-img-new-product {
+    display: flex;
+    justify-content: center;
+
+}
+
+.form-img-new-product .box {
+    border: 1px solid #777;
+    border-radius: 10px;
+    width: 200px;
+    min-height: 200px;
+    /* justify-content: center; */
+    align-items: center;
+    align-content: center;
+    text-align: center;
+
+}
+
+.form-img-new-product .box {
+    border-radius: 10px;
+    width: 200px;
+    min-height: 200px;
+
+}
+
+.label-form-add-product {
+    font: 1em sans-serif;
+    font-size: medium;
+    font-weight: 600;
+    padding: 10px 0 0;
+}
+
+.custom-button {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+
+.radio-buttons {
+    display: flex;
+    align-items: center;
+    /* Optional: Align items vertically in the center */
+}
+
+.radio-buttons .form-check {
+    margin-right: 20px;
+    /* Adjust as needed */
+}
+
+.button-text {
+    /* font-size: 15px; */
+    font-weight: 500;
+}

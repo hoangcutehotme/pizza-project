@@ -40,7 +40,6 @@ process.on("uncaughtException", (err) => {
 });
 const app = express();
 app.set("view engine", "pug");
-
 app.use(
   session({
     secret: process.env.SECRET,
